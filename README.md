@@ -309,43 +309,43 @@ In order to save disk space it is good to cleanup the InfluxDB database when you
 
 1.  Remove Nasuni Edge Appliance IP or FQDN from Telegraf:
     
-    ```python
+    ```shell
     sudo vi /etc/telegraf/telegraf.conf
     ```
     
 2.  Start/Restart the service:
     
-    ```python
+    ```shell
     systemctl restart telegraf
     ```
     
 3.  Confirm the service is running. Look for “Active: active (running)”:
     
-    ```python
+    ```shell
     systemctl status telegraf
     ```
     
 4.  Open the InfluxDB shell:
     
-    ```python
+    ```shell
     influx
     ```
     
 5.  Identify the correct database for Nasuni:
     
-    ```python
+    ```shell
     show databases
     ```
     
 6.  Access the database:
     
-    ```python
+    ```shell
     use <database_name>
     ```
     
 7.  Display
     
-    ```python
+    ```shell
     show series
     ```
     
@@ -353,19 +353,19 @@ In order to save disk space it is good to cleanup the InfluxDB database when you
     
 9.  Delete all series for the agent\_host:
     
-    ```python
+    ```shell
     drop series where "agent_host" = <IP or FQDN>
     ```
     
 10.  verify if the command was successful:
     
-    ```python
+    ```shell
     show series
     ```
     
 11.  Exit:
     
-    ```python
+    ```shell
     exit
     ```
     
