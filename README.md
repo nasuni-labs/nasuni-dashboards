@@ -349,7 +349,7 @@ In order to save disk space it is good to cleanup the InfluxDB database when you
     show series
     ```
     
-8.  Identify the agent\_host you like to delete>
+8.  Identify the agent\_host to delete.
     
 9.  Delete all series for the agent\_host:
     
@@ -382,12 +382,3 @@ Support Statement
 *   GitHub project to-do's, bugs, and feature requests, should be submitted as “Issues” in GitHub under its repositories.
     
 
-Dashboard Template(s) (Draft)
-=============================
-
-[![](attachments/thumbnails/2785050625/2837414087)](attachments/2785050625/2837414087.json)
-
-Telegraf Config (Draft) 
-========================
-
-[![](attachments/thumbnails/2785050625/2837446826)](attachments/2785050625/2837446826.conf)
