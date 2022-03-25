@@ -89,43 +89,43 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
 1.  Update all packages:
     
-    ```python
+    ```shell
     sudo yum update
     ```
     
 2.  Install wget (if not present):
     
-    ```python
+    ```shell
     sudo yum install wget
     ```
     
 3.  Use wget to download InfluxDB:
     
-    ```python
+    ```shell
     wget https://dl.influxdata.com/influxdb/releases/influxdb-1.7.9.x86_64.rpm
     ```
     
 4.  Install InfluxDB:
     
-    ```python
+    ```shell
     sudo yum localinstall influxdb-1.7.9.x86_64.rpm
     ```
     
 5.  Start and enable the InfluxDB service:
     
-    ```python
+    ```shell
     sudo systemctl start influxdb && sudo systemctl enable influxdb
     ```
     
 6.  Configure the firewall for InfluxDB:
     
-    ```python
+    ```shell
     sudo firewall-cmd --add-port=8086/tcp --permanent
     ```
     
 7.  Reload the firewall configuration:
     
-    ```python
+    ```shell
     sudo firewall-cmd --reload
     ```
     
@@ -133,19 +133,19 @@ To install InfluxDB, ssh to the VM and run the following commands:
     
     1.  Open the InfluxDB shell:
         
-        ```python
+        ```shell
         influx
         ```
         
     2.  Create the database for use by Grafana.
         
-        ```python
+        ```shell
         create database nasuni
         ```
         
     3.  Confirm that the database was created:
         
-        ```python
+        ```shell
         show databases
         ```
         
@@ -157,19 +157,19 @@ Install & Configure Telegraf
 
 1.  Use wget to download Telegraf:
     
-    ```python
+    ```shell
     wget https://dl.influxdata.com/telegraf/releases/telegraf-1.13.0-1.x86_64.rpm
     ```
     
 2.  Install Telegraf:
     
-    ```python
+    ```shell
     sudo yum localinstall telegraf-1.13.0-1.x86_64.rpm
     ```
     
 3.  Install SNMP dependencies for Telegraf:
     
-    ```python
+    ```shell
     sudo yum -y install net-snmp net-snmp-utils
     ```
     
@@ -192,7 +192,7 @@ Install & Configure Telegraf
     
 6.  Create a new file for the Nasuni MIB:
     
-    ```python
+    ```shell
     sudo vi NASUNI-FILER-MIB.txt
     ```
     
@@ -211,7 +211,7 @@ Install & Configure Telegraf
     
 2.  Customize telegraf.conf for your environment.
     
-    ```python
+    ```shell
     sudo vi /etc/telegraf/telegraf.conf
     ```
     
@@ -233,13 +233,13 @@ Install & Configure Telegraf
         
 4.  Start/Restart the service:
     
-    ```python
+    ```shell
     systemctl restart telegraf
     ```
     
 5.  Confirm the service is running. Look for “Active: active (running)”:
     
-    ```python
+    ```shell
     systemctl status telegraf
     ```
     
