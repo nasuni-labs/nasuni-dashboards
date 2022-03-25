@@ -354,7 +354,7 @@ In order to save disk space it is good to cleanup the InfluxDB database when you
 9.  Delete all series for the agent\_host:
     
     ```python
-    drop series wehre "agent_host" = <IP or FQDN>
+    drop series where "agent_host" = <IP or FQDN>
     ```
     
 10.  verify if the command was successful:
