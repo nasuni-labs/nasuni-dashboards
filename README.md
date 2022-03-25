@@ -38,9 +38,9 @@ Grafana
 Single Node Installation
 -------------------------
 
-*   Rocky Linux 8.5
+*   OS: Rocky Linux 8.5
     
-*   4 vCPU, 16GB RAM, and 100GB boot disk
+*   Sizing: 4 vCPU, 16GB RAM, and 100GB boot disk
     
 
 Installation
