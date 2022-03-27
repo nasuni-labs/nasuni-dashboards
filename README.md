@@ -190,7 +190,7 @@ Install & Configure Telegraf
     
 5.  Navigate to the mibs directory:
     
-    ```python
+    ```shell
     cd /usr/share/snmp/mibs
     ```
     
@@ -206,7 +206,7 @@ Install & Configure Telegraf
     
     1.  Press Esc key, type “:x” and hit Enter
         
-9.  Repeat steps 7-13 for the remaining MIBs listed in the NMC (the other MIBs may already be present. No need to recopy them if this is the case).
+9.  Repeat steps 6-8 for the remaining MIBs listed in the NMC SNMP Settings page (the other MIBs should already be present. No need to recopy them if this is the case).
     
 
 ### Setup Telegraf Configuration
