@@ -13,7 +13,7 @@ Components
 *   Grafana is a multi-platform open-source analytics and interactive visualization web application for displaying data.
     
 
-![](attachments/2785050625/2833285359.png)
+![TIGStackComponents](/images/TIGStackComponents.png)
 
 Sizing Guidelines
 ==================
