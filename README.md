@@ -218,7 +218,7 @@ Install & Configure Telegraf
     sudo mv /etc/telegraf/telegraf.conf /etc/telegraf/telegraf.conf.bak
     ```
 
-2.  Save the included telegraf.conf to /etc/telegraf/telegraf.conf
+2.  Download [telegraf.conf](telgegraf.conf) from Nasuni Labs and copy it to /etc/telegraf/telegraf.conf
     
 3.  Customize telegraf.conf for your environment.
     
