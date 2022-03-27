@@ -302,7 +302,7 @@ Install & Configure Grafana
     ```
     
 
-### Configure Grafana Dashboard
+### Configure Grafana Data Source
 
 1.  Use a web browser to connect to Grafana (http://fqdn:3000).
     
@@ -314,6 +314,16 @@ Install & Configure Grafana
     Database: nasuni
     
 ![Add Data Source](/images/AddGrafanaDataSource.png)
+
+4.  Click "Save & Test" to complete add the InfluxDB data source.
+
+### Configure Grafana Dashboard
+
+1.  Download the [PerformanceDashboard.json](PerformanceDashboard.json) dashboard template from Nasuni Labs
+
+2.  From the Grafana left navigation, click the Dashboard icon (four squares), then click the "Browse" link. On the Browse page, click "Import" and upload the JSON file downloaded in step 1.
+
+
 
 **Removing Stale Nasuni Edge Appliances**
 -----------------------------------------
