@@ -389,9 +389,9 @@ In order to save disk space it is good to cleanup the InfluxDB database when you
     ```shell
     show series
     ```
-    
-11.  Exit:
 
+11. Exit
+    
     ```shell
     exit
     ```
