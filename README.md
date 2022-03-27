@@ -117,13 +117,13 @@ To install InfluxDB, ssh to the VM and run the following commands:
     sudo systemctl start influxdb && sudo systemctl enable influxdb
     ```
     
-6.  Configure the firewall for InfluxDB:
+6.  Configure the firewall for InfluxDB (only required if firewall is enabled):
     
     ```shell
     sudo firewall-cmd --add-port=8086/tcp --permanent
     ```
     
-7.  Reload the firewall configuration:
+7.  Reload the firewall configuration (only required if firewall is enabled:
     
     ```shell
     sudo firewall-cmd --reload
@@ -150,6 +150,12 @@ To install InfluxDB, ssh to the VM and run the following commands:
         ```
         
     4.  Confirm that “nasuni” is listed.
+
+    5.  Exit InfluxDB shell:
+
+        ```shell
+        exit
+        ```
         
 
 Install & Configure Telegraf
