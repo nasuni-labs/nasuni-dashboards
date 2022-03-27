@@ -384,7 +384,7 @@ In order to save disk space it is good to cleanup the InfluxDB database when you
     drop series where "agent_host" = <IP or FQDN>
     ```
     
-10.  verify if the command was successful:
+10. Verify if the command was successful:
     
     ```shell
     show series
