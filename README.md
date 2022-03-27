@@ -319,7 +319,7 @@ Install & Configure Grafana
 
 1.  Download the [PerformanceDashboard.json](PerformanceDashboard.json) dashboard template from Nasuni Labs
 
-2.  From the Grafana left navigation, click the Dashboard icon (four squares), then click the "Browse" link. On the Browse page, click "Import" and upload the JSON file downloaded in step 1.
+2.  From the Grafana left navigation, click the plus icon, then click the "Import" link. On the Import page, click "Import" and upload the JSON file downloaded in step 1.
 
 3.  Navigate the newly-imported dashboard to view the performance information for your Edge Appliances. The dashboard should display the following information:
 ![Performance Dashboard Screenshot](/images/PerformanceDashboardScreenshot.png)
