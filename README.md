@@ -213,9 +213,14 @@ Install & Configure Telegraf
 
 ### Setup Telegraf Configuration
 
-1.  Save the included telegraf.conf to /etc/telegraf/telegraf.conf
+1.  Backup the default telegraf configuration file
+    ```shell
+    sudo mv /etc/telegraf/telegraf.conf /etc/telegraf/teldgraf.conf.bak
+    ```
+
+2.  Save the included telegraf.conf to /etc/telegraf/telegraf.conf
     
-2.  Customize telegraf.conf for your environment.
+3.  Customize telegraf.conf for your environment.
     
     ```shell
     sudo vi /etc/telegraf/telegraf.conf
@@ -233,17 +238,17 @@ Install & Configure Telegraf
             
     4.  Update INPUTS country with the desired company name and region.
         
-3.  Save and close the file.
+4.  Save and close the file.
     
     1.  Press Esc key, type “:x” and hit Enter.
         
-4.  Start/Restart the service:
+5.  Start/Restart the service:
     
     ```shell
     systemctl restart telegraf
     ```
     
-5.  Confirm the service is running. Look for “Active: active (running)”:
+6.  Confirm the service is running. Look for “Active: active (running)”:
     
     ```shell
     systemctl status telegraf
