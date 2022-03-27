@@ -310,7 +310,7 @@ Install & Configure Grafana
     
 3.  Under the Configuration (gear) icon, add InfluxDB as a data source using the details from your install and test the connection. For the default single node installation use the following information:
 
-    URL: http://localhost:8086
+    URL: http://localhost:8086 <br/>
     Database: nasuni
     
 ![Add Data Source](/images/AddGrafanaDataSource.png)
