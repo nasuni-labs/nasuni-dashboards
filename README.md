@@ -261,13 +261,13 @@ Install & Configure Grafana
 1.  Use wget to download Grafana:
     
     ```shell
-    wget https://dl.grafana.com/oss/release/grafana-6.5.3-1.x86_64.rpm
+    wget wget https://dl.grafana.com/oss/release/grafana-8.4.4-1.x86_64.rpm
     ```
     
 2.  Install Grafana:
     
     ```shell
-    sudo yum localinstall grafana-6.5.3-1.x86_64.rpm
+    sudo yum install grafana-8.4.4-1.x86_64.rpm
     ```
     
 3.  Start the Grafana service:
