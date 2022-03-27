@@ -215,7 +215,7 @@ Install & Configure Telegraf
 
 1.  Backup the default telegraf configuration file
     ```shell
-    sudo mv /etc/telegraf/telegraf.conf /etc/telegraf/teldgraf.conf.bak
+    sudo mv /etc/telegraf/telegraf.conf /etc/telegraf/telegraf.conf.bak
     ```
 
 2.  Save the included telegraf.conf to /etc/telegraf/telegraf.conf
