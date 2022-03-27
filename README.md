@@ -260,44 +260,44 @@ Install & Configure Grafana
 
 1.  Use wget to download Grafana:
     
-    ```python
+    ```shell
     wget https://dl.grafana.com/oss/release/grafana-6.5.3-1.x86_64.rpm
     ```
     
 2.  Install Grafana:
     
-    ```python
+    ```shell
     sudo yum localinstall grafana-6.5.3-1.x86_64.rpm
     ```
     
 3.  Start the Grafana service:
     
-    ```python
+    ```shell
     sudo service grafana-server start
     ```
     
 4.  Configure the firewall for Grafana:
     
-    ```python
+    ```shell
     firewall-cmd --permanent --zone=public --add-port=3000/tcp
     firewall-cmd --reload
     ```
     
 5.  Install the following Grafana plugin:
     
-    ```python
+    ```shell
     grafana-cli plugins install grafana-clock-panel
     ```
     
 6.  Restart the Grafana service:
     
-    ```python
+    ```shell
     sudo service grafana-server restart
     ```
     
 7.  Set Grafana to run on startup:
     
-    ```python
+    ```shell
     sudo systemctl enable grafana-server
     ```
     
