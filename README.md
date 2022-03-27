@@ -35,8 +35,8 @@ Grafana
 *   Minimum recommended CPU: 1
     
 
-Single Node Installation
--------------------------
+Single Node Installation VM Requirements
+----------------------------------------
 
 *   OS: Rocky Linux 8.5
     
