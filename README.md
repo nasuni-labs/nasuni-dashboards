@@ -286,7 +286,7 @@ Install & Configure Grafana
 5.  Install the following Grafana plugin:
     
     ```shell
-    grafana-cli plugins install grafana-clock-panel
+    sudo grafana-cli plugins install grafana-clock-panel
     ```
     
 6.  Restart the Grafana service:
