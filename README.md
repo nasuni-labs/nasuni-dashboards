@@ -310,8 +310,7 @@ Install & Configure Grafana
     
 3.  Under the Configuration (gear) icon, add InfluxDB as a data source using the details from your install and test the connection.
     
-
-![](attachments/2785050625/2795831312.png?width=442)
+![Add Data Source](/images/AddGrafanaDataSource.png)
 
 **Removing Stale Nasuni Edge Appliances**
 -----------------------------------------
