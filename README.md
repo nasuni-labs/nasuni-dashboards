@@ -276,7 +276,7 @@ Install & Configure Grafana
     sudo service grafana-server start
     ```
     
-4.  Configure the firewall for Grafana:
+4.  Configure the firewall for Grafana (only required if firewall is enabled):
     
     ```shell
     firewall-cmd --permanent --zone=public --add-port=3000/tcp
