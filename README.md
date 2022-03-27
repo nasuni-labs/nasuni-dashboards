@@ -85,8 +85,6 @@ Install & Configure Influx DB
 
 To install InfluxDB, ssh to the VM and run the following commands:
 
-(Note: these instructions install a specific version, you can also add the repo if preferred. Repo link: [https://portal.influxdata.com/downloads/)](https://portal.influxdata.com/downloads/)
-
 1.  Update all packages:
     
     ```shell
