@@ -51,9 +51,9 @@ Configure SNMP for Nasuni Appliances
 
 1.  Log in to the Nasuni Management Console.
     
-2.  Click Console Settings in the top bar.
+2.  Click "Console Settings" in the top bar.
     
-3.  Click SNMP Monitoring on the left-hand menu under Console Settings.
+3.  Click "SNMP Monitoring" on the left-hand menu under "Console Settings".
     
 4.  Make sure that Enable v1,v2c Support is set to On.
     
@@ -61,11 +61,11 @@ Configure SNMP for Nasuni Appliances
     
 6.  Set your preferred System Location & System Contact.
     
-7.  Click Save SNMP Settings.
+7.  Click "Save SNMP Settings".
     
-8.  Click Filers in the top bar.
+8.  Click "Filers" in the top bar.
     
-9.  Click SNMP Settings on the left-hand menu under Filer Settings.
+9.  Click "SNMP Settings" on the left-hand menu under "Filer Settings".
     
 10.  For each filer that should be monitored, select the filer(s) (Note: you can choose multiple filers if all values are shared).
     
@@ -77,7 +77,7 @@ Configure SNMP for Nasuni Appliances
     
 14.  Set your preferred System Location & System Contact.
     
-15.  Click Save SNMP Settings.
+15.  Click "Save SNMP Settings".
     
 
 Install & Configure Influx DB
