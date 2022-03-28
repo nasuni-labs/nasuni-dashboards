@@ -182,7 +182,7 @@ Install & Configure Telegraf
     ```
     
 
-### Add Nasuni MIB
+### Add Nasuni SNMP MIB to Telegraf
 
 1.  Go to NMC > Filers > SNMP Settings.
     
