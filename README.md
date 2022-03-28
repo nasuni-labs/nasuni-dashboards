@@ -228,7 +228,14 @@ Install & Configure Telegraf
         
     2.  Update INPUTS agents value with the FQDN of all filers to be monitored.
         
-        a.  Found under: “[inputs.snmp]”.
+        a.  Found under: “[inputs.snmp]”. For example:
+        ```shell
+           agents = [
+                "Edge1.yourdomain.com",
+                "Edge2.yourdomain.com",
+                "Edge3.yourdomain.com"    
+            ]
+        ```
             
     3.  Update INPUTS community with the community name defined in NMC SNMP settings.
         
