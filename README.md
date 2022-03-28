@@ -226,9 +226,9 @@ Install & Configure Telegraf
     
     1.  Update OUTPUTS section with the InfluxDB IP address & confirm the port.
         
-    2.  Update INPUTS agents with the FQDN of all filers to be monitored.
+    2.  Update INPUTS agents value with the FQDN of all filers to be monitored.
         
-        1.  Found under: “Retrieves SNMP values from remote agents”.
+        a.  Found under: “[inputs.snmp]”.
             
     3.  Update INPUTS community with the community name defined in NMC SNMP settings.
         
