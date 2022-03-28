@@ -246,7 +246,7 @@ Install & Configure Telegraf
     community = "Nasuni"
     ```
             
-    d.  In the [inputs.snmp.tags], update the "customer" and "country" with appropriate information for your environment. Use two letter country codes for the country value.
+    d.  In the [inputs.snmp.tags], update the "customer" and "country" with appropriate information for your environment. Use two letter country codes for the country value.</br>
     
        ```shell
         customer  = "MyCompanyName"
