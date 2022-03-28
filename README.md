@@ -159,6 +159,8 @@ To install InfluxDB, ssh to the VM and run the following commands:
 Install & Configure Telegraf
 ----------------------------
 
+### Install Telegraf
+
 1.  Use wget to download Telegraf:
     
     ```shell
@@ -209,7 +211,7 @@ Install & Configure Telegraf
 9.  Repeat steps 6-8 for the remaining MIBs listed in the NMC SNMP Settings page (the other MIBs should already be present. No need to recopy them if this is the case).
     
 
-### Setup Telegraf Configuration
+### Telegraf Configuration
 
 1.  Backup the default telegraf configuration file
     ```shell
@@ -270,6 +272,8 @@ Install & Configure Telegraf
 
 Install & Configure Grafana
 ---------------------------
+
+### Install Grafana
 
 1.  Use wget to download Grafana:
     
