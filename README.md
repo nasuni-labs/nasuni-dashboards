@@ -228,7 +228,7 @@ Install & Configure Telegraf
     sudo vi /etc/telegraf/telegraf.conf
     ```
     
-    a.  In the **[outputs.influxdb]** section update the **urls** value in the  to include the InfluxDB IP address & confirm the port. You can use the search function in vi to jump to the appropriate section of the file. Type "/" followed by the string you want to search for, and then press Return. The following example assumes the default port and InfluxDB running on the same host as Telegraf.</br>
+    a.  In the **[outputs.influxdb]** section update the **urls** value with the InfluxDB IP address & confirm the port. You can use the search function in vi to jump to the appropriate section of the file. Type "/" followed by the string you want to search for, and then press Return. The following example assumes the default port and InfluxDB running on the same host as Telegraf.</br>
     
     ```shell
     urls = ["http://127.0.0.1:8086"]
