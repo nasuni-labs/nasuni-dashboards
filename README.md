@@ -246,7 +246,12 @@ Install & Configure Telegraf
     community = "Nasuni"
     ```
             
-    d.  Update INPUTS country with the desired company name and region.
+    d.  In the [inputs.snmp.tags], update the "customer" and "country" with appropriate information for your environment. Country Codes should be two digits.
+    
+   ```shell
+    customer  = "MyCompanyName"
+    country = "US"
+    ```
         
 4.  Save and close the file.
     
