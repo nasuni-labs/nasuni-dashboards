@@ -184,33 +184,29 @@ Install & Configure Telegraf
 
 ### Add Nasuni SNMP MIB to Telegraf
 
-1.  Go to NMC > Filers > SNMP Settings.
+1.  On your computer, login to the NMC and navigate to **Filers > SNMP Settings**.
     
-2.  Click the NASUNI-FILER-MIB link to open the file.
+2.  Click the **NASUNI-FILER-MIB** link to open the file.
     
-3.  Select all & copy text.
+3.  Select all and copy text.
     
-4.  Return to TIG server.
-    
-5.  Navigate to the mibs directory:
+4.  Return to VM ssh session and navigate to the mibs directory:
     
     ```shell
     cd /usr/share/snmp/mibs
     ```
     
-6.  Create a new file for the Nasuni MIB:
+5.  Create a new file for the Nasuni MIB:
     
     ```shell
     sudo vi NASUNI-FILER-MIB.txt
     ```
     
-7.  Paste the text copied in step 3.
+6.  Paste the text copied in step 3.
     
-8.  Save and close the file.
-    
-    1.  Press Esc key, type “:x” and hit Enter
+7.  Save and close the file. Press Esc key, type “:x” and hit Enter
         
-9.  Repeat steps 6-8 for the remaining MIBs listed in the NMC SNMP Settings page (the other MIBs should already be present. No need to recopy them if this is the case).
+8.  Repeat steps 5-7 for the remaining MIBs listed in the NMC SNMP Settings page (the other MIBs should already be present. No need to recopy them if this is the case).
     
 
 ### Telegraf Configuration
@@ -220,9 +216,9 @@ Install & Configure Telegraf
     sudo mv /etc/telegraf/telegraf.conf /etc/telegraf/telegraf.conf.bak
     ```
 
-2.  Download [telegraf.conf](telgegraf.conf) from Nasuni Labs and copy it to /etc/telegraf/telegraf.conf
-    
-3.  Customize telegraf.conf for your environment.
+2.  On your computer, download [telegraf.conf](telegraf.conf) from Nasuni Labs, open it in a text editor, select all, and copy the contents to your clipboard.
+
+3.  Open vi and paste the contents from step 2, customizing the values for the sections below
     
     ```shell
     sudo vi /etc/telegraf/telegraf.conf
