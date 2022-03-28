@@ -224,19 +224,20 @@ Install & Configure Telegraf
     sudo vi /etc/telegraf/telegraf.conf
     ```
     
-    1.  Update OUTPUTS section with the InfluxDB IP address & confirm the port. You can use the search function in vi to jump to the appropriate section of the file. Type "/" followed by the string you want to search for, and then press Return. For example:
+    a.  Update OUTPUTS section with the InfluxDB IP address & confirm the port. You can use the search function in vi to jump to the appropriate section of the file. Type "/" followed by the string you want to search for, and then press Return. For example:
+    
     ```shell
     /[outputs.influxdb]
     ```
     
-        a. Found under: “[outputs.influxdb]” The following example assumes the default port and InfluxDB running on the same host as Telegraf.
+        i. Found under: “[outputs.influxdb]” The following example assumes the default port and InfluxDB running on the same host as Telegraf.
         ```shell
            urls = ["http://127.0.0.1:8086"]
         ```
         
-    2.  Update INPUTS agents value with the FQDN of all filers to be monitored.
+    b.  Update INPUTS agents value with the FQDN of all filers to be monitored.
         
-        a.  Found under: “[inputs.snmp]”. For example (note the last entry does not need a trailing comma):
+        i.  Found under: “[inputs.snmp]”. For example (note the last entry does not need a trailing comma):
         ```shell
            agents = [
                 "Edge1.yourdomain.com",
@@ -245,14 +246,14 @@ Install & Configure Telegraf
             ]
         ```
             
-    3.  Update INPUTS community with the community name defined in NMC SNMP settings.
+    c.  Update INPUTS community with the community name defined in NMC SNMP settings.
         
-        a.  Found under: “[inputs.snmp]" property name "community". For example:
+        i.  Found under: “[inputs.snmp]" property name "community". For example:
         ```shell
         community = "Nasuni"
         ```
             
-    4.  Update INPUTS country with the desired company name and region.
+    d.  Update INPUTS country with the desired company name and region.
         
 4.  Save and close the file.
     
