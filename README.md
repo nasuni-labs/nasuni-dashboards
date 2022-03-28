@@ -230,16 +230,19 @@ Install & Configure Telegraf
         
         a.  Found under: “[inputs.snmp]”. For example:
         ```shell
-           agents = [
-                "Edge1.yourdomain.com",
-                "Edge2.yourdomain.com",
-                "Edge3.yourdomain.com"    
-            ]
+       agents = [
+            "Edge1.yourdomain.com",
+            "Edge2.yourdomain.com",
+            "Edge3.yourdomain.com"    
+        ]
         ```
             
     3.  Update INPUTS community with the community name defined in NMC SNMP settings.
         
-        1.  Found under: “SNMP version; can be 1, 2, or 3”.
+        a.  Found under: “[inputs.snmp]" property name "community". For example:
+        ```shell
+        community = "Nasuni"
+        ```
             
     4.  Update INPUTS country with the desired company name and region.
         
