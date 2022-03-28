@@ -218,7 +218,7 @@ Install & Configure Telegraf
 
 2.  On your computer, download [telegraf.conf](telegraf.conf) from Nasuni Labs, open it in a text editor, select all, and copy the contents to your clipboard.
 
-3.  Open vi and paste the contents from step 2, customizing the values for the sections below
+3.  Return to VM ssh session, open vi, and paste the contents from step 2, customizing the values for the sections below:
     
     ```shell
     sudo vi /etc/telegraf/telegraf.conf
