@@ -248,7 +248,7 @@ Install & Configure Telegraf
             
     d.  In the [inputs.snmp.tags], update the "customer" and "country" with appropriate information for your environment. Use two letter country codes for the country value.</br>
     
-       ```shell
+        ```shell
         customer  = "MyCompanyName"
         country = "US"
         ```
