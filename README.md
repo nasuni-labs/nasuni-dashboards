@@ -225,23 +225,26 @@ Install & Configure Telegraf
     ```
     
     a.  Update OUTPUTS section with the InfluxDB IP address & confirm the port. You can use the search function in vi to jump to the appropriate section of the file. Type "/" followed by the string you want to search for, and then press Return. Found under: “[outputs.influxdb]” The following example assumes the default port and InfluxDB running on the same host as Telegraf.</br>
-        ```shell
-           urls = ["http://127.0.0.1:8086"]
-        ```
+    
+    ```shell
+    urls = ["http://127.0.0.1:8086"]
+    ```
         
     b.  Update INPUTS agents value with the FQDN of all filers to be monitored. Found under: “[inputs.snmp]”, property name "agents". For example (note the last entry does not need a trailing comma):</br>
-        ```shell
-           agents = [
-                "Edge1.yourdomain.com",
-                "Edge2.yourdomain.com",
-                "Edge3.yourdomain.com"    
-            ]
-        ```
+    
+    ```shell
+       agents = [
+            "Edge1.yourdomain.com",
+            "Edge2.yourdomain.com",
+            "Edge3.yourdomain.com"    
+        ]
+    ```
             
     c.  Update INPUTS community with the community name defined in NMC SNMP settings. Found under: “[inputs.snmp]",property name "community". For example:</br>
-        ```shell
-        community = "Nasuni"
-        ```
+    
+    ```shell
+    community = "Nasuni"
+    ```
             
     d.  Update INPUTS country with the desired company name and region.
         
