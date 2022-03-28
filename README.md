@@ -224,13 +224,13 @@ Install & Configure Telegraf
     sudo vi /etc/telegraf/telegraf.conf
     ```
     
-    a.  In the “[outputs.influxdb]” section update the "urls" value in the  to include the InfluxDB IP address & confirm the port. You can use the search function in vi to jump to the appropriate section of the file. Type "/" followed by the string you want to search for, and then press Return. The following example assumes the default port and InfluxDB running on the same host as Telegraf.</br>
+    a.  In the **[outputs.influxdb]** section update the **urls** value in the  to include the InfluxDB IP address & confirm the port. You can use the search function in vi to jump to the appropriate section of the file. Type "/" followed by the string you want to search for, and then press Return. The following example assumes the default port and InfluxDB running on the same host as Telegraf.</br>
     
     ```shell
     urls = ["http://127.0.0.1:8086"]
     ```
         
-    b.  In the “[inputs.snmp]” section update the "agents" value with the FQDN of all filers to be monitored. For example (note the last entry does not need a trailing comma):</br>
+    b.  In the **[inputs.snmp]** section, update the **agents** value with the FQDN of all filers to be monitored. For example (note the last entry does not need a trailing comma):</br>
     
     ```shell
        agents = [
@@ -240,13 +240,13 @@ Install & Configure Telegraf
         ]
     ```
             
-    c.  In the “[inputs.snmp]" section update the "community" if you are using SNMPv2. For example:</br>
+    c.  In the **[inputs.snmp]** section, update the **community** value if you are using SNMPv2. For example:</br>
     
     ```shell
     community = "Nasuni"
     ```
             
-    d.  In the [inputs.snmp.tags], update the "customer" and "country" with appropriate information for your environment. Use two letter country codes for the country value.</br>
+    d.  In the **[inputs.snmp.tags]** section, update the **customer** and **country** values with appropriate information for your environment. Use two letter country codes for the country value.</br>
     
     ```shell
     customer  = "MyCompanyName"
