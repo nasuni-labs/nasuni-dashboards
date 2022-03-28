@@ -225,6 +225,11 @@ Install & Configure Telegraf
     ```
     
     1.  Update OUTPUTS section with the InfluxDB IP address & confirm the port.
+    
+        a. Found under: “[outputs.influxdb]”" The following example assumes the default port and InfluxDB running on the same host as Telegraf.
+        ```shell
+           urls = ["http://127.0.0.1:8086"]
+        ```
         
     2.  Update INPUTS agents value with the FQDN of all filers to be monitored.
         
