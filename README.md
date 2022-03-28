@@ -51,9 +51,9 @@ Configure SNMP for Nasuni Appliances
 
 1.  Log in to the Nasuni Management Console.
     
-2.  Click "Console Settings" in the top bar.
+2.  Click *Console Settings* in the top bar.
     
-3.  Click "SNMP Monitoring" on the left-hand menu under "Console Settings".
+3.  Click *SNMP Monitoring* on the left-hand menu under *Console Settings*.
     
 4.  Make sure that Enable v1,v2c Support is set to On.
     
