@@ -83,6 +83,8 @@ Configure SNMP for Nasuni Appliances
 Install & Configure Influx DB
 -----------------------------
 
+### Install InfluxDB
+
 To install InfluxDB, ssh to the VM and run the following commands:
 
 1.  Update all packages:
@@ -127,33 +129,33 @@ To install InfluxDB, ssh to the VM and run the following commands:
     sudo firewall-cmd --reload
     ```
     
-8.  Create a new InfluxDB database:
+### Create the InfluxDB database:
     
-    1.  Open the InfluxDB shell:
-        
-        ```shell
-        influx
-        ```
-        
-    2.  Create the database for use by Grafana.
-        
-        ```shell
-        create database nasuni
-        ```
-        
-    3.  Confirm that the database was created:
-        
-        ```shell
-        show databases
-        ```
-        
-    4.  Confirm that “nasuni” is listed.
+1.  Open the InfluxDB shell:
 
-    5.  Exit InfluxDB shell:
+    ```shell
+    influx
+    ```
 
-        ```shell
-        exit
-        ```
+2.  Create the database for use by Grafana.
+
+    ```shell
+    create database nasuni
+    ```
+
+3.  Confirm that the database was created:
+
+    ```shell
+    show databases
+    ```
+
+4.  Confirm that “nasuni” is listed.
+
+5.  Exit InfluxDB shell:
+
+    ```shell
+    exit
+    ```
         
 
 Install & Configure Telegraf
