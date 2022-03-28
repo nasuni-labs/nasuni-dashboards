@@ -224,13 +224,13 @@ Install & Configure Telegraf
     sudo vi /etc/telegraf/telegraf.conf
     ```
     
-    a.  Update OUTPUTS section with the InfluxDB IP address & confirm the port. You can use the search function in vi to jump to the appropriate section of the file. Type "/" followed by the string you want to search for, and then press Return. Found under: “[outputs.influxdb]” The following example assumes the default port and InfluxDB running on the same host as Telegraf.</br>
+    a.  In the “[outputs.influxdb]” section update the "urls" value in the  to include the InfluxDB IP address & confirm the port. You can use the search function in vi to jump to the appropriate section of the file. Type "/" followed by the string you want to search for, and then press Return. The following example assumes the default port and InfluxDB running on the same host as Telegraf.</br>
     
     ```shell
     urls = ["http://127.0.0.1:8086"]
     ```
         
-    b.  Update INPUTS agents value with the FQDN of all filers to be monitored. Found under: “[inputs.snmp]”, property name "agents". For example (note the last entry does not need a trailing comma):</br>
+    b.  In the “[inputs.snmp]” section update the "agents" value with the FQDN of all filers to be monitored. For example (note the last entry does not need a trailing comma):</br>
     
     ```shell
        agents = [
@@ -240,7 +240,7 @@ Install & Configure Telegraf
         ]
     ```
             
-    c.  Update INPUTS community with the community name defined in NMC SNMP settings. Found under: “[inputs.snmp]",property name "community". For example:</br>
+    c.  In the “[inputs.snmp]" section update the "community" if you are using SNMPv2. For example:</br>
     
     ```shell
     community = "Nasuni"
