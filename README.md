@@ -225,9 +225,9 @@ Install & Configure Telegraf
     ```
     
     1.  Update OUTPUTS section with the InfluxDB IP address & confirm the port. You can use the search function in vi to jump to the appropriate section of the file. Type "/" followed by the string you want to search for, and then press Return. For example:
-```shell
-/[outputs.influxdb]
-```
+    ```shell
+    /[outputs.influxdb]
+    ```
     
         a. Found under: “[outputs.influxdb]” The following example assumes the default port and InfluxDB running on the same host as Telegraf.
         ```shell
