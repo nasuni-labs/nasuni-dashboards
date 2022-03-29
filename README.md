@@ -274,7 +274,7 @@ Install & Configure Telegraf
     sudo systemctl restart telegraf
     ```
     
-6.  Confirm the service is running. Look for “Active: active (running)”:
+6.  Confirm the service is running. Look for **Active: active (running)**:
     
     ```shell
     systemctl status telegraf
