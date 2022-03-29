@@ -218,8 +218,20 @@ Install & Configure Telegraf
 6.  Paste the text copied in step 3.
     
 7.  Save and close the file. Press the **Esc** key, type **:x** and hit **Enter**
+
+8.  Confirm that the other Nasuni-required MIBs are installed:
+
+```shell
+ls NASUNI-FILER-MIB.txt SNMPv2-MIB.txt HOST-RESOURCES-MIB.txt UCD-SNMP-MIB.txt UCD-DISKIO-MIB.txt IF-MIB.txt
+```
+
+The output should match the following and not return any lines that read "cannot access x: no such file or directory":
+
+```shell
+NASUNI-FILER-MIB.txt SNMPv2-MIB.txt HOST-RESOURCES-MIB.txt UCD-SNMP-MIB.txt UCD-DISKIO-MIB.txt IF-MIB.txt
+```
         
-8.  Repeat steps 5-7 for the remaining MIBs listed on the NMC SNMP Settings page (the other MIBs should already be present. No need to recopy them if this is the case).
+9.  If any MIBs were missing from the list, repeat steps 5-7 for each missing MIBs and confirm they are installed using the command in step 8.
     
 
 ### Telegraf Configuration
