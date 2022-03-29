@@ -49,35 +49,39 @@ Installation
 Configure SNMP for Nasuni Appliances
 ------------------------------------
 
+### Configure SNMP for the NMC
+
 1.  Log in to the Nasuni Management Console.
     
 2.  Click **Console Settings** in the top bar.
     
 3.  Click **SNMP Monitoring** on the left navigation menu under **Console Settings**.
     
-4.  Make sure that Enable v1,v2c Support is set to On.
+4.  Ensure that **Enable v1,v2c** Support is set to **On**.
     
-5.  Set Community Name to public (or what you plan to use).
+5.  Set **Community Name** to **public** (or what you plan to use).
     
-6.  Set your preferred System Location & System Contact.
+6.  Set your preferred **System Location** and **System Contact**.
     
 7.  Click **Save SNMP Settings**.
+
+### Configure SNMP for Edge Appliances
     
-8.  Click **Filers** in the top bar.
+1.  In the NMC, click **Filers** in the top bar.
     
-9.  Click **SNMP Settings** on the left navigation menu under **Filer Settings**.
+2.  Click **SNMP Settings** on the left navigation menu under **Filer Settings**.
     
-10.  For each filer that should be monitored, select the filer(s) (Note: you can choose multiple filers if all values are shared).
+3.  For each Edge Appliance that should be monitored, select the Edge Appliance(s) (Note: you can choose multiple Edge Appliances if all values are shared).
     
-11.  Click **Edit {x} Filer** button in the upper right.
+4.  Click the **Edit {x} Filer** button in the upper right.
     
-12.  Make sure that Enable v1, v2c Support is set to On.
+5.  Ensure that **Enable v1, v2c Support** is set to **On**.
     
-13.  Set Community Name (default is “public”).
+6.  Set **Community Name** to **public** (or what you plan to use).
     
-14.  Set your preferred System Location & System Contact.
+7.  Set your preferred **System Location** and **System Contact**.
     
-15.  Click **Save SNMP Settings**.
+8.  Click **Save SNMP Settings**.
     
 
 Install & Configure Influx DB
@@ -117,15 +121,10 @@ To install InfluxDB, ssh to the VM and run the following commands:
     sudo systemctl start influxdb && sudo systemctl enable influxdb
     ```
     
-6.  Configure the firewall for InfluxDB (only required if firewall is enabled):
+6.  Configure the firewall for InfluxDB (only required if the firewall is enabled) and reload the firewall configuration:
     
     ```shell
     sudo firewall-cmd --add-port=8086/tcp --permanent
-    ```
-    
-7.  Reload the firewall configuration (only required if firewall is enabled:
-    
-    ```shell
     sudo firewall-cmd --reload
     ```
     
@@ -184,7 +183,7 @@ Install & Configure Telegraf
 
 ### Add Nasuni SNMP MIB to Telegraf
 
-1.  On your computer, login to the NMC and navigate to **Filers > SNMP Settings**.
+1.  On your computer, log in to the NMC and navigate to **Filers > SNMP Settings**.
     
 2.  Click the **NASUNI-FILER-MIB** link to open the file.
     
@@ -204,9 +203,9 @@ Install & Configure Telegraf
     
 6.  Paste the text copied in step 3.
     
-7.  Save and close the file. Press Esc key, type “:x” and hit Enter
+7.  Save and close the file. Press the **Esc** key, type **:x** and hit **Enter**
         
-8.  Repeat steps 5-7 for the remaining MIBs listed in the NMC SNMP Settings page (the other MIBs should already be present. No need to recopy them if this is the case).
+8.  Repeat steps 5-7 for the remaining MIBs listed on the NMC SNMP Settings page (the other MIBs should already be present. No need to recopy them if this is the case).
     
 
 ### Telegraf Configuration
@@ -230,7 +229,7 @@ Install & Configure Telegraf
     urls = ["http://127.0.0.1:8086"]
     ```
         
-    b.  In the **[inputs.snmp]** section, update the **agents** value with the FQDN of all filers to be monitored. For example (note the last entry does not need a trailing comma):</br>
+    b.  In the **[inputs.snmp]** section, update the **agents** value with the FQDN of all filers to be monitored. For example (note that the last entry does not need a trailing comma):</br>
     
     ```shell
        agents = [
@@ -253,7 +252,7 @@ Install & Configure Telegraf
     country = "US"
     ```
         
-4.  Save and close the file. Press Esc key, type “:x” and hit Enter.
+4.  Save and close the file. Press the **Esc** key, type **:x** and hit **Enter**.
         
 5.  Start/Restart the service:
     
@@ -291,7 +290,7 @@ Install & Configure Grafana
     sudo service grafana-server start
     ```
     
-4.  Configure the firewall for Grafana (only required if firewall is enabled):
+4.  Configure the firewall for Grafana (only required if the firewall is enabled):
     
     ```shell
     firewall-cmd --permanent --zone=public --add-port=3000/tcp
@@ -323,14 +322,14 @@ Install & Configure Grafana
     
 2.  The default username is “admin”, and the default password is “admin”. Grafana will prompt you to change the default password after logging in.
     
-3.  Under the Configuration (gear) icon, add InfluxDB as a data source using the details from your install and test the connection. For the default single node installation use the following information:
+3.  Under the Configuration (gear) icon, add InfluxDB as a data source using the details from your install and test the connection. For the default single node installation, use the following information:
 
     URL: http://localhost:8086 <br/>
     Database: nasuni
     
 ![Add Data Source](/images/AddGrafanaDataSource.png)
 
-4.  Click "Save & Test" to complete add the InfluxDB data source.
+4.  Click "Save & Test" to complete adding the InfluxDB data source.
 
 ### Configure Grafana Dashboard
 
@@ -358,7 +357,7 @@ It is easy to add performance monitoring for newly-deployed Edge Appliances.
     sudo vi /etc/telegraf/telegraf.conf
     ```
     
-2.  In the **[inputs.snmp]** section, update the **agents** value to include the additional Edge Appliances monitor (the last entry does not need a trailing comma)
+2.  In the **[inputs.snmp]** section, update the **agents** value to include the additional Edge Appliances monitor (note that the last entry does not need a trailing comma)
 
 3.  Start/Restart the Telegraf service:
     
@@ -368,7 +367,7 @@ It is easy to add performance monitoring for newly-deployed Edge Appliances.
 
 ## Removing Stale Edge Appliances
 
-To save disk space it is good to cleanup the InfluxDB database when you decommission a Nasuni Edge Appliance.
+It is good to clean up the InfluxDB database when decommissioning a Nasuni Edge Appliance to save disk space and remove stale data from Grafana.
 
 1.  Remove Nasuni Edge Appliance IP or FQDN from Telegraf:
     
@@ -444,6 +443,6 @@ Support Statement
     
 *   Nasuni API and Protocol bugs or feature requests should be communicated to Nasuni Customer Success.
     
-*   GitHub project to-do's, bugs, and feature requests, should be submitted as “Issues” in GitHub under its repositories.
+*   GitHub project to-do's, bugs, and feature requests should be submitted as “Issues” in GitHub under its repositories.
     
 
