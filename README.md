@@ -348,10 +348,27 @@ Install & Configure Grafana
 Maintenance Tasks
 =================
 
-**Removing Stale Nasuni Edge Appliances**
------------------------------------------
+## Adding Edge Appliances
 
-In order to save disk space it is good to cleanup the InfluxDB database when you discard a Nasuni Edge Appliance.
+It is easy to add performance monitoring for newly-deployed Edge Appliances.
+
+1.  Add the Nasuni Edge Appliance IP or FQDN to Telegraf:
+    
+    ```shell
+    sudo vi /etc/telegraf/telegraf.conf
+    ```
+    
+2.  In the **[inputs.snmp]** section, update the **agents** value to include the additional Edge Appliances monitor (the last entry does not need a trailing comma)
+
+3.  Start/Restart the Telegraf service:
+    
+    ```shell
+    systemctl restart telegraf
+    ```
+
+## Removing Stale Edge Appliances
+
+To save disk space it is good to cleanup the InfluxDB database when you decommission a Nasuni Edge Appliance.
 
 1.  Remove Nasuni Edge Appliance IP or FQDN from Telegraf:
     
