@@ -121,7 +121,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
     sudo systemctl start influxdb && sudo systemctl enable influxdb
     ```
     
-6.  Add firewall rules if firewall service is running. Check the firewall service:
+6.  Add firewall rules if the firewall service is running. Check the firewall service:
 
     ```shell
     systemctl status firewalld
