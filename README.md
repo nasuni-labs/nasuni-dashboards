@@ -121,7 +121,21 @@ To install InfluxDB, ssh to the VM and run the following commands:
     sudo systemctl start influxdb && sudo systemctl enable influxdb
     ```
     
-6.  Configure the firewall for InfluxDB (only required if the firewall is enabled) and reload the firewall configuration:
+6.  Add firewall rules if firewall service is running. Check the firewall service:
+
+    ```shell
+    systemctl status firewalld
+    ```
+    
+    If the firewall is running, the output will be similar to the following:
+    ```shell
+    firewalld.service - firewalld - dynamic firewall daemon
+    Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor pr
+    Active: active (running) since Mon 2021-12-18 16:05:15 CET; 50min ago
+    Docs: man:firewalld(1)
+    ```
+    
+    Configure the firewall for InfluxDB (only required if the firewall was running) and reload the firewall configuration:
     
     ```shell
     sudo firewall-cmd --add-port=8086/tcp --permanent
