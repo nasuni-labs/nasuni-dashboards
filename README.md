@@ -199,7 +199,7 @@ Install & Configure Telegraf
 
 1.  On your computer, log in to the NMC and navigate to **Filers > SNMP Settings**.
     
-2.  Click the **NASUNI-FILER-MIB** link to open the file.
+2.  Click the **NASUNI-FILER-MIB** link to open the file using a text editor such as Notepad.
     
 3.  Select all and copy text.
     
