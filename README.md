@@ -348,16 +348,15 @@ Install & Configure Grafana
 
 1.  Use a web browser to connect to Grafana (http://fqdn:3000).
     
-2.  The default username is “admin”, and the default password is “admin”. Grafana will prompt you to change the default password after logging in.
+2.  The default username is **admin**, and the default password is **admin**. Grafana will prompt you to change the default password after logging in.
     
 3.  Under the Configuration (gear) icon, add InfluxDB as a data source using the details from your install and test the connection. For the default single node installation, use the following information:
-
-    URL: http://localhost:8086 <br/>
-    Database: nasuni
+    - URL: http://localhost:8086
+    - Database: nasuni
     
 ![Add Data Source](/images/AddGrafanaDataSource.png)
 
-4.  Click "Save & Test" to complete adding the InfluxDB data source.
+4.  Click **Save & Test** to complete adding the InfluxDB data source.
 
 ### Configure Grafana Dashboard
 
