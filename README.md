@@ -165,7 +165,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
     show databases
     ```
 
-4.  Confirm that “nasuni” is listed.
+4.  Confirm that **nasuni** is listed.
 
 5.  Exit InfluxDB shell:
 
