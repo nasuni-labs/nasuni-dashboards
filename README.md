@@ -229,7 +229,7 @@ Install & Configure Telegraf
     ls NASUNI-FILER-MIB.txt SNMPv2-MIB.txt HOST-RESOURCES-MIB.txt UCD-SNMP-MIB.txt UCD-DISKIO-MIB.txt IF-MIB.txt
     ```
 
-    The output should match the following and not return any lines that read "cannot access x: no such file or directory":
+    The output should match the following and not return any lines that read **cannot access x: no such file or directory**:
 
     ```shell
     NASUNI-FILER-MIB.txt SNMPv2-MIB.txt HOST-RESOURCES-MIB.txt UCD-SNMP-MIB.txt UCD-DISKIO-MIB.txt IF-MIB.txt
