@@ -269,7 +269,7 @@ Install & Configure Telegraf
         ]
     ```
             
-6.  In the **[inputs.snmp]** section, update protocol-specific values:</br></br>
+6.  In the **[inputs.snmp]** section, update protocol-specific values based on the protocol configured for your Edge Appliances and NMC.
     - SNMPv3
         ```shell
         sec_name = "SNMPv3Username"
