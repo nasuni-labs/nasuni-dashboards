@@ -229,12 +229,12 @@ Install & Configure Telegraf
 8.  Confirm that the other Nasuni-required MIBs are installed:
 
     ```shell
-    ls NASUNI-FILER-MIB.txt SNMPv2-MIB.txt HOST-RESOURCES-MIB.txt UCD-SNMP-MIB.txt UCD-DISKIO-MIB.txt IF-MIB.txt
+    ls HOST-RESOURCES-MIB.txt  IF-MIB.txt  NASUNI-FILER-MIB.txt  SNMPv2-MIB.txt  UCD-DISKIO-MIB.txt  UCD-SNMP-MIB.txt
     ```
 
     The output should match the following and not return any lines that read **cannot access x: no such file or directory**:
 
-    `NASUNI-FILER-MIB.txt SNMPv2-MIB.txt HOST-RESOURCES-MIB.txt UCD-SNMP-MIB.txt UCD-DISKIO-MIB.txt IF-MIB.txt`
+    `HOST-RESOURCES-MIB.txt  IF-MIB.txt  NASUNI-FILER-MIB.txt  SNMPv2-MIB.txt  UCD-DISKIO-MIB.txt  UCD-SNMP-MIB.txt`
         
 9.  If any MIBs were missing, repeat steps 5-7 for each missing MIBs and confirm installation using the command in step 8.
     
