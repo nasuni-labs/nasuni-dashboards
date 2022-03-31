@@ -275,11 +275,13 @@ Install & Configure Telegraf
         - auth_password = "SNMPv3Password"
     
     - SNMPv2: The included telegraf.conf assumes SNMPv3, so some values must be changed from the defaults and commented/uncommented (comment lines begin with **#**) to use SNMPv2:
-
-        ```
-        version = 2
-        community = "communityName" (uncomment set value for communityName)
-        ```
+        - version = 2
+        - community = "communityName" (uncomment this line and set the value for communityName)
+        - comment out (add **#** to the beginning) lines that start with the following:
+            - sec_name
+            - auth_protocol
+            - auth_password
+            - sec_level
 
 7.  In the **[inputs.snmp.tags]** section, update the **customer** and **country** values with appropriate information for your environment. Use two-letter country codes for the country value.</br>
     
