@@ -232,7 +232,7 @@ Install & Configure Telegraf
 
     `NASUNI-FILER-MIB.txt SNMPv2-MIB.txt HOST-RESOURCES-MIB.txt UCD-SNMP-MIB.txt UCD-DISKIO-MIB.txt IF-MIB.txt`
         
-9.  If any MIBs were missing from the list, repeat steps 5-7 for each missing MIBs and confirm they are installed using the command in step 8.
+9.  If any MIBs were missing, repeat steps 5-7 for each missing MIBs and confirm installation using the command in step 8.
     
 
 ### Telegraf Configuration
