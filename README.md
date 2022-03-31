@@ -132,12 +132,11 @@ To install InfluxDB, ssh to the VM and run the following commands:
     ```
     
     If the firewall is running, the output will be similar to the following:
-    ```shell
-    firewalld.service - firewalld - dynamic firewall daemon
-    Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor pr
-    Active: active (running) since Mon 2021-12-18 16:05:15 CET; 50min ago
-    Docs: man:firewalld(1)
-    ```
+    
+    `firewalld.service - firewalld - dynamic firewall daemon`
+    `Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor pr`
+    `Active: active (running) since Mon 2021-12-18 16:05:15 CET; 50min ago`
+    `Docs: man:firewalld(1)`
     
     Configure the firewall for InfluxDB (only required if the firewall was running) and reload the firewall configuration:
     
