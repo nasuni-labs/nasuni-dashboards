@@ -271,7 +271,7 @@ Install & Configure Telegraf
     - SNMPv2: The included telegraf.conf assumes SNMPv3, so some values must be changed from the defaults and commented/uncommented (comment lines begin with **#**) to use SNMPv2:
         - `version = 2`
         - `community = "communityName"` (uncomment this line and set the value for **communityName**)
-        - comment out (add **#** to the beginning) lines that start with the following:
+        - comment out (add **#** to the beginning) lines SNMPv3-related lines that start with the following:
             - `sec_name`
             - `auth_protocol`
             - `auth_password`
