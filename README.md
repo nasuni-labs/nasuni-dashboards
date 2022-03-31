@@ -368,7 +368,7 @@ Install & Configure Grafana
 
 2.  From the Grafana left navigation, click the plus icon, then click the **Import** link. On the Import page, click **Import** and upload the JSON file downloaded in step 1.
 
-3.  On the **Options** screen, select the **InfluxDB** data source name you have configured and click **Import**
+3.  On the **Options** screen that opens, select the **InfluxDB** data source name which should be **InfluxDB (default)** and click **Import**.
 
 3.  Navigate the newly-imported dashboard to view the performance information for your Edge Appliances. The dashboard should display the following information:
 
