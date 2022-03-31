@@ -57,9 +57,11 @@ Configure SNMP for Nasuni Appliances
     
 3.  Click **SNMP Monitoring** on the left navigation menu under **Console Settings**.
     
-4.  Ensure that **Enable v1,v2c** Support is set to **On**.
-    
-5.  Set **Community Name** to **public** (or what you plan to use).
+4.  Enable your desired SNMP protocol version(s):
+
+    a. SNMPv3 (most secure): Ensure that **Enable v3 Support** is set to **On** and configure a **Username** and **Password**.
+
+    b. SNMPv1/v2: Ensure that **Enable v1,v2c Support** is set to **On** and set the **Community Name** to **public** (or what you plan to use).
     
 6.  Set your preferred **System Location** and **System Contact**.
     
