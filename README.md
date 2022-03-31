@@ -251,10 +251,7 @@ Install & Configure Telegraf
     ```
     
 4.  In the **[outputs.influxdb]** section update the **urls** value with the InfluxDB IP address & confirm the port. You can use the search function in vi to jump to the appropriate section of the file. Type "/" followed by the string you want to search for, and then press Return. The following example assumes the default port and InfluxDB running on the same host as Telegraf.</br>
-    
-    ```shell
-    urls = ["http://127.0.0.1:8086"]
-    ```
+    - `urls = ["http://127.0.0.1:8086"]`
         
 5.  In the **[inputs.snmp]** section, update the **agents** value with the FQDN of all filers to be monitored. For example (note that the last entry does not need a trailing comma):</br>
     
@@ -281,11 +278,8 @@ Install & Configure Telegraf
             - `sec_level`
 
 7.  In the **[inputs.snmp.tags]** section, update the **customer** and **country** values with appropriate information for your environment. Use two-letter country codes for the country value.</br>
-    
-    ```shell
-    customer  = "MyCompanyName"
-    country = "US"
-    ```
+    - `customer  = "MyCompanyName"`
+    - `country = "US"`
         
 8.  Save and close the file. Press the **Esc** key, type **:x** and hit **Enter**.
         
