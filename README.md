@@ -192,7 +192,7 @@ Install & Configure Telegraf
 2.  Install Telegraf:
     
     ```shell
-    sudo yum localinstall telegraf-1.13.0-1.x86_64.rpm
+    sudo yum -y localinstall telegraf-1.13.0-1.x86_64.rpm
     ```
     
 3.  Install SNMP dependencies for Telegraf:
