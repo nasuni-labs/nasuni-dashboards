@@ -221,7 +221,7 @@ Install & Configure Telegraf
     
 6.  Paste the text copied in step 3.
     
-7.  Save and close the file. Press the **Esc** key, type **:x** and hit **Enter**
+7.  Save and close the file. Press the **Esc** key, type **:x**, and hit **Enter**
 
 8.  Confirm that the other Nasuni-required MIBs are installed:
 
