@@ -257,9 +257,9 @@ Install & Configure Telegraf
     
     ```shell
        agents = [
-            "Edge1.yourdomain.com",
-            "Edge2.yourdomain.com",
-            "Edge3.yourdomain.com"    
+            "edge1.yourdomain.com",
+            "edge2.yourdomain.com",
+            "edge3.yourdomain.com"    
         ]
     ```
             
