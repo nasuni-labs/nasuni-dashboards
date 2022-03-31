@@ -270,12 +270,6 @@ Install & Configure Telegraf
     ```
             
     C.  In the **[inputs.snmp]** section, update protocol-specific values:</br>
-    
-        1. SNMPv3
-
-        2. SNMPv2
-
-            a. **community** value if you are using SNMPv2. For example:</br>
 
     D.  In the **[inputs.snmp.tags]** section, update the **customer** and **country** values with appropriate information for your environment. Use two-letter country codes for the country value.</br>
     
