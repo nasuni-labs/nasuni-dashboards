@@ -73,7 +73,7 @@ Configure SNMP for Nasuni Appliances
     
 2.  Click **SNMP Settings** on the left navigation menu under **Filer Settings**.
     
-3.  For each Edge Appliance that should be monitored, select the Edge Appliance(s) (Note: you can choose multiple Edge Appliances if all values are shared).
+3.  For each Edge Appliance that should be monitored, select the Edge Appliance(s) (Note: Only select multiple Edge Appliances if all values are shared).
     
 4.  Click the **Edit {x} Filers** button in the upper right.
     
@@ -253,7 +253,7 @@ Install & Configure Telegraf
 4.  In the **[outputs.influxdb]** section update the **urls** value with the InfluxDB IP address & confirm the port. You can use the search function in vi to jump to the appropriate section of the file. Type "/" followed by the string you want to search for, and then press Return. The following example assumes the default port and InfluxDB running on the same host as Telegraf.</br>
     - `urls = ["http://127.0.0.1:8086"]`
         
-5.  In the **[inputs.snmp]** section, update the **agents** value with the FQDN of all filers to be monitored. For example (note that the last entry does not need a trailing comma):</br>
+5.  In the **[inputs.snmp]** section, update the **agents** value with the FQDN of all filers to be monitored. For example (Note: The last entry does not require a trailing comma):</br>
     
     ```shell
        agents = [
