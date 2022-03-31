@@ -271,17 +271,17 @@ Install & Configure Telegraf
             
 6.  In the **[inputs.snmp]** section, update protocol-specific values:</br></br>
     A. SNMPv3</br></br>
-        ```shell
-        sec_name = "username"</br>
-        auth_password = "password"
-        ```
-        </br></br>
+            ```shell
+            sec_name = "username"
+            auth_password = "password"
+            ```
+            </br></br>
     B. SNMPv2</br>
-        ```shell
-        version = 2</br>
-        community = "communityName"
-        ```
-        </br></br>
+            ```shell
+            version = 2
+            community = "communityName"
+            ```
+            </br></br>
 
 7.  In the **[inputs.snmp.tags]** section, update the **customer** and **country** values with appropriate information for your environment. Use two-letter country codes for the country value.</br>
     
