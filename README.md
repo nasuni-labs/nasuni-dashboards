@@ -253,13 +253,13 @@ Install & Configure Telegraf
     sudo vi /etc/telegraf/telegraf.conf
     ```
     
-    A.  In the **[outputs.influxdb]** section update the **urls** value with the InfluxDB IP address & confirm the port. You can use the search function in vi to jump to the appropriate section of the file. Type "/" followed by the string you want to search for, and then press Return. The following example assumes the default port and InfluxDB running on the same host as Telegraf.</br>
+4.  In the **[outputs.influxdb]** section update the **urls** value with the InfluxDB IP address & confirm the port. You can use the search function in vi to jump to the appropriate section of the file. Type "/" followed by the string you want to search for, and then press Return. The following example assumes the default port and InfluxDB running on the same host as Telegraf.</br>
     
     ```shell
     urls = ["http://127.0.0.1:8086"]
     ```
         
-    B.  In the **[inputs.snmp]** section, update the **agents** value with the FQDN of all filers to be monitored. For example (note that the last entry does not need a trailing comma):</br>
+5.  In the **[inputs.snmp]** section, update the **agents** value with the FQDN of all filers to be monitored. For example (note that the last entry does not need a trailing comma):</br>
     
     ```shell
        agents = [
@@ -269,27 +269,27 @@ Install & Configure Telegraf
         ]
     ```
             
-    C.  In the **[inputs.snmp]** section, update protocol-specific values:</br>
+6.  In the **[inputs.snmp]** section, update protocol-specific values:</br>
 
             1. some info
             2. some more info
 
-    D.  In the **[inputs.snmp.tags]** section, update the **customer** and **country** values with appropriate information for your environment. Use two-letter country codes for the country value.</br>
+7.  In the **[inputs.snmp.tags]** section, update the **customer** and **country** values with appropriate information for your environment. Use two-letter country codes for the country value.</br>
     
     ```shell
     customer  = "MyCompanyName"
     country = "US"
     ```
         
-4.  Save and close the file. Press the **Esc** key, type **:x** and hit **Enter**.
+8.  Save and close the file. Press the **Esc** key, type **:x** and hit **Enter**.
         
-5.  Start/Restart the service:
+9.  Start/Restart the service:
     
     ```shell
     sudo systemctl restart telegraf
     ```
     
-6.  Confirm the service is running. Look for **Active: active (running)**:
+10.  Confirm the service is running. Look for **Active: active (running)**:
     
     ```shell
     systemctl status telegraf
