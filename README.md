@@ -75,15 +75,17 @@ Configure SNMP for Nasuni Appliances
     
 3.  For each Edge Appliance that should be monitored, select the Edge Appliance(s) (Note: you can choose multiple Edge Appliances if all values are shared).
     
-4.  Click the **Edit {x} Filer** button in the upper right.
+4.  Click the **Edit {x} Filers** button in the upper right.
     
-5.  Ensure that **Enable v1, v2c Support** is set to **On**.
+5.  Enable your desired SNMP protocol version(s):
+
+    a. SNMPv3 (most secure): Ensure that **Enable v3 Support** is set to **On** and configure a **Username** and **Password**.
+
+    b. SNMPv1/v2: Ensure that **Enable v1,v2c Support** is set to **On** and set the **Community Name** to **public** (or what you plan to use).
     
-6.  Set **Community Name** to **public** (or what you plan to use).
+6.  Set your preferred **System Location** and **System Contact**.
     
-7.  Set your preferred **System Location** and **System Contact**.
-    
-8.  Click **Save SNMP Settings**.
+7.  Click **Save SNMP Settings**.
     
 
 Install & Configure Influx DB
