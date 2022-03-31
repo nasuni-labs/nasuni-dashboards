@@ -290,11 +290,10 @@ Install & Configure Telegraf
     ```
     
 10.  Confirm the service is running. Look for **Active: active (running)**:
-    
+
     ```shell
     systemctl status telegraf
     ```
-    
 
 Install & Configure Grafana
 ---------------------------
