@@ -95,7 +95,7 @@ Install & Configure Influx DB
 
 To install InfluxDB, ssh to the VM and run the following commands:
 
-1.  Update all packages:
+1.  Update all packages (*-y* argument skips confirmation, remove it for manual confirmation):
     
     ```shell
     sudo yum -y update
@@ -137,6 +137,10 @@ To install InfluxDB, ssh to the VM and run the following commands:
     `Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor pr`</br>
     `Active: active (running) since Mon 2021-12-18 16:05:15 CET; 50min ago`</br>
     `Docs: man:firewalld(1)`
+
+    If the firewall is not running:
+    
+    `Unit firewalld.service could not be found.`
     
     Configure the firewall for InfluxDB (only required if the firewall was running) and reload the firewall configuration:
     
