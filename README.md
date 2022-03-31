@@ -271,17 +271,17 @@ Install & Configure Telegraf
             
 6.  In the **[inputs.snmp]** section, update protocol-specific values based on the protocol configured for your Edge Appliances and NMC. 
     - SNMPv3
-        - sec_name = "SNMPv3Username" (match the **Username** supplied in the Nasuni SNMP UI)
-        - auth_password = "SNMPv3Password" (match the **Password** supplied in the Nasuni SNMP UI)
+        - `sec_name = "SNMPv3Username"` (match the **Username** supplied in the Nasuni SNMP UI)
+        - `auth_password = "SNMPv3Password"` (match the **Password** supplied in the Nasuni SNMP UI)
     
     - SNMPv2: The included telegraf.conf assumes SNMPv3, so some values must be changed from the defaults and commented/uncommented (comment lines begin with **#**) to use SNMPv2:
-        - version = 2
-        - community = "communityName" (uncomment this line and set the value for communityName)
+        - `version = 2`
+        - `community = "communityName"` (uncomment this line and set the value for communityName)
         - comment out (add **#** to the beginning) lines that start with the following:
-            - sec_name
-            - auth_protocol
-            - auth_password
-            - sec_level
+            - `sec_name`
+            - `auth_protocol`
+            - `auth_password`
+            - `sec_level`
 
 7.  In the **[inputs.snmp.tags]** section, update the **customer** and **country** values with appropriate information for your environment. Use two-letter country codes for the country value.</br>
     
