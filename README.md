@@ -272,10 +272,10 @@ Install & Configure Telegraf
 6.  In the **[inputs.snmp]** section, update protocol-specific values:</br></br>
     - SNMPv3
         ```shell
-        sec_name = "username"
-        auth_password = "password"
+        sec_name = "SNMPv3Username"
+        auth_password = "SNMPv3Password"
         ```
-    - SNMPv2</br>
+    - SNMPv2
         ```shell
         version = 2
         community = "communityName"
