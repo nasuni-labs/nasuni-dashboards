@@ -98,13 +98,13 @@ To install InfluxDB, ssh to the VM and run the following commands:
 1.  Update all packages:
     
     ```shell
-    sudo yum update
+    sudo yum -y update
     ```
     
 2.  Install wget (if not present):
     
     ```shell
-    sudo yum install wget
+    sudo yum -y install wget
     ```
     
 3.  Use wget to download InfluxDB:
