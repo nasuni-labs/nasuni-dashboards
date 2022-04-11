@@ -127,7 +127,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
 4.  Install InfluxDB:
     
     ```shell
-    sudo yum localinstall influxdb-1.7.9.x86_64.rpm
+    sudo yum -y localinstall influxdb-1.7.9.x86_64.rpm
     ```
     
 5.  Start and enable the InfluxDB service:
