@@ -47,7 +47,7 @@ Validated Component Versions
 ----------------------------------------
 Nasuni Dashboards has been validated with these component versions: 
 
-*   Telegraf: 1.13
+*   Telegraf: 1.22
 
 *   InfluxDB: 1.7.9
     
@@ -197,13 +197,13 @@ Install and Configure Telegraf
 1.  Use wget to download Telegraf:
     
     ```shell
-    wget https://dl.influxdata.com/telegraf/releases/telegraf-1.13.0-1.x86_64.rpm
+    wget https://dl.influxdata.com/telegraf/releases/telegraf-1.22.1-1.x86_64.rpm
     ```
     
 2.  Install Telegraf:
     
     ```shell
-    sudo yum -y localinstall telegraf-1.13.0-1.x86_64.rpm
+    sudo yum -y localinstall telegraf-1.22.1-1.x86_64.rpm
     ```
     
 3.  Install SNMP dependencies for Telegraf:
