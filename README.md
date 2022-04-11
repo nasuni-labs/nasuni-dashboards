@@ -41,6 +41,17 @@ VM Requirements for Single-Node Installation
 *   OS: Rocky Linux 8.5
     
 *   Sizing: 4 vCPU, 16GB RAM, and 100GB boot disk
+
+
+Validated Component Versions
+----------------------------------------
+Nasuni Dashboards has been validated with theses component versions: 
+
+*   Telegraf: 1.13
+
+*   InfluxDB: 1.7.9
+    
+*   Grafana: 8.4.4
     
 
 Installation
