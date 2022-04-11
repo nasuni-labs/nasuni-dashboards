@@ -45,7 +45,7 @@ VM Requirements for Single-Node Installation
 
 Validated Component Versions
 ----------------------------------------
-Nasuni Dashboards has been validated with theses component versions: 
+Nasuni Dashboards has been validated with these component versions: 
 
 *   Telegraf: 1.13
 
