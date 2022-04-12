@@ -49,7 +49,7 @@ Nasuni Dashboards has been validated with these component versions:
 
 *   Telegraf: 1.22
 
-*   InfluxDB: 1.7.9
+*   InfluxDB: 1.8.10
     
 *   Grafana: 8.4.4
     
@@ -121,13 +121,13 @@ To install InfluxDB, ssh to the VM and run the following commands:
 3.  Use wget to download InfluxDB:
     
     ```shell
-    wget https://dl.influxdata.com/influxdb/releases/influxdb-1.7.9.x86_64.rpm
+    wget https://dl.influxdata.com/influxdb/releases/influxdb-1.8.10.x86_64.rpm
     ```
     
 4.  Install InfluxDB:
     
     ```shell
-    sudo yum -y localinstall influxdb-1.7.9.x86_64.rpm
+    sudo yum -y localinstall influxdb-1.8.10.x86_64.rpm
     ```
     
 5.  Start and enable the InfluxDB service:
