@@ -60,24 +60,6 @@ Installation
 Configure SNMP for Nasuni Appliances
 ------------------------------------
 
-### Configure SNMP for the NMC
-
-1.  Log in to the Nasuni Management Console.
-    
-2.  Click **Console Settings** in the top bar.
-    
-3.  Click **SNMP Monitoring** on the left navigation menu under **Console Settings**.
-    
-4.  Enable your desired SNMP protocol versions:
-
-    a. SNMPv3 (most secure): Set **Enable v3 Support** to **On**. Enter a **Username** and **Password**.
-
-    b. SNMPv1/v2: Set **Enable v1,v2c Support** to **On**. Set the **Community Name** to **public** (or to what you plan to use).
-    
-6.  Enter your preferred **System Location** and **System Contact**.
-    
-7.  Click **Save SNMP Settings**.
-
 ### Configure SNMP for Edge Appliances
     
 1.  In the NMC, click **Filers** in the top bar.
