@@ -372,11 +372,12 @@ Troubleshooting
 =================
 
 ## Telegraf
-If Telegraf reports errors in /var/log/telegraf when starting, the source of the problem is most likely with the contents of telegraf.conf. You can run the following command to test telegraf.conf for errors:
+If Telegraf reports errors in /var/log/telegraf when starting, the source of the problem is most likely with the contents of telegraf.conf. Run the following command to test telegraf.conf:
 
-        ```shell
-        telegraf --config /etc/telegraf/telegraf.conf --test
-        ```
+    ```shell
+    telegraf --config /etc/telegraf/telegraf.conf --test
+    ```
+        
 
 Maintenance Tasks
 =================
