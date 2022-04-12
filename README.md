@@ -372,7 +372,7 @@ Troubleshooting
 =================
 
 ## Telegraf
-If Telegraf reports errors in cd **/var/log/telegraf/telegraf.log** when starting, the source of the problem is most likely with the contents of telegraf.conf. 
+If Telegraf reports errors in **/var/log/telegraf/telegraf.log**, the source of the problem is most likely with the contents of telegraf.conf. 
 * Run the following command to test telegraf.conf:
      ```shell
      telegraf --config /etc/telegraf/telegraf.conf --test
