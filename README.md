@@ -297,44 +297,50 @@ Install and Configure Grafana
 
 ### Install Grafana
 
-1.  Use wget to download Grafana:
+1.  Switch to your home directory befor downloading Grafana
+
+    ```shell
+   cd ~
+    ```
+
+2.  Use wget to download Grafana:
     
     ```shell
     wget https://dl.grafana.com/oss/release/grafana-8.4.4-1.x86_64.rpm
     ```
     
-2.  Install Grafana:
+3.  Install Grafana:
     
     ```shell
     sudo yum -y install grafana-8.4.4-1.x86_64.rpm
     ```
     
-3.  Start the Grafana service:
+4.  Start the Grafana service:
     
     ```shell
     sudo service grafana-server start
     ```
     
-4.  Configure the firewall for Grafana (only required if the firewall is enabled):
+5.  Configure the firewall for Grafana (only required if the firewall is enabled):
     
     ```shell
     firewall-cmd --permanent --zone=public --add-port=3000/tcp
     firewall-cmd --reload
     ```
     
-5.  Install the following Grafana plugin:
+6.  Install the following Grafana plugin:
     
     ```shell
     sudo grafana-cli plugins install grafana-clock-panel
     ```
     
-6.  Restart the Grafana service:
+7.  Restart the Grafana service:
     
     ```shell
     sudo service grafana-server restart
     ```
     
-7.  Set Grafana to run on startup:
+8.  Set Grafana to run on startup:
     
     ```shell
     sudo systemctl enable grafana-server
