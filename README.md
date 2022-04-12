@@ -371,7 +371,7 @@ Install and Configure Grafana
     
 ![Add Data Source](/images/AddGrafanaDataSource.png)
 
-4.  Click **Save & test** to complete adding the InfluxDB data source.
+4.  Click **Save & test** to complete adding the InfluxDB data source. A green checkbox should appear alongside a message that the **Data source is working**.
 
 ### Configure Grafana Dashboard
 
