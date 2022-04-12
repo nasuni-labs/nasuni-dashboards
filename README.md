@@ -297,10 +297,10 @@ Install and Configure Grafana
 
 ### Install Grafana
 
-1.  Switch to your home directory befor downloading Grafana
-
+1.  Switch to your home directory before downloading Grafana:
+    
     ```shell
-   cd ~
+    cd ~
     ```
 
 2.  Use wget to download Grafana:
