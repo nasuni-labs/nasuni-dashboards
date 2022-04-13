@@ -77,6 +77,13 @@ Configure SNMP for Nasuni Appliances
 6.  Enter your preferred **System Location** and **System Contact**.
     
 7.  Click **Save SNMP Settings**.
+
+Enable the GFA Telemetry API (Optional)
+---------------------------------------
+To use the GFA Telemetry API:
+    - Your Nasuni account must have GFA license feature enabled
+    - You must create an [API key on the Nasuni dashboard](https://dashboard.api.nasuni.com/account/gfa/)
+    - You must have a volume under GFA management (Active or Observation mode)
     
 
 Install and Configure InfluxDB
@@ -377,7 +384,7 @@ Install and Configure Grafana
 
 ![Performance Dashboard Screenshot](/images/PerformanceDashboardScreenshot.png)
 
-5. If using the Global GFA Telemetry API data source, download the [GFAAppliances.json](GFAAppliances.json) and [GFAVolumes.json](GFAVolumes.json) dashboard templates from Nasuni labs.
+5. If using the Global GFA Telemetry API data source, download the [GFAAppliances.json](GFAAppliances.json) and [GFAVolumes.json](GFAVolumes.json) dashboard templates from Nasuni Labs.
 
 6. From the Grafana left navigation bar, click the plus icon, then click the **Import** link. On the Import page, click **Import** and upload the first JSON file downloaded in step 5, accepting the defaults and saving the configuration. Repeat for the second file.
 
