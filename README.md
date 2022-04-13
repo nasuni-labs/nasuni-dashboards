@@ -101,7 +101,7 @@ Two common scenarios for DNS configuration:
 where **{xxx}** corresponds to your network adapter. 
 Add the `PEERDNS=no` to the end of the file.
 
-    *   Edit **etc/resolv.conf** , specifying the DNS servers that are authoritative for Edge Appliance DNS.
+    *   Edit **/etc/resolv.conf** , specifying the DNS servers that are authoritative for Edge Appliance DNS.
 
 *   Static IP: Ensure that the DNS servers you specify are authoritative for Edge Appliance DNS.
 
