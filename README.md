@@ -304,7 +304,9 @@ To install InfluxDB, ssh to the VM and run the following commands:
             - `sec_level`
 
 7.  In the **[inputs.snmp.tags]** section, update the **customer** and **country** values with appropriate information for your environment. Use two-letter country codes for the country value:</br>
+
     - `customer  = "MyCompanyName"`
+
     - `country = "US"`
         
 8.  To use the Global File Acceleration (GFA) Telemetry API data source, make the following changes to the **[inputs.http]** section:
