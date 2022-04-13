@@ -390,7 +390,7 @@ Install and Configure Grafana
 
 ![Performance Dashboard Screenshot](/images/PerformanceDashboardScreenshot.png)
 
-5. If using the Global GFA Telemetry API data source, download the [GFAAppliances.json](GFAAppliances.json) and [GFAVolumes.json](GFAVolumes.json) dashboard templates from Nasuni Labs.
+5. If using the GFA Telemetry API data source, download the [GFAAppliances.json](GFAAppliances.json) and [GFAVolumes.json](GFAVolumes.json) dashboard templates from Nasuni Labs.
 
 6. From the Grafana left navigation bar, click the plus icon, then click the **Import** link. On the Import page, click **Import** and upload the first JSON file downloaded in step 5, accepting the defaults and saving the configuration. Repeat for the second file.
 
