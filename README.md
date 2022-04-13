@@ -414,9 +414,13 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
 ![Performance Dashboard Screenshot](/images/PerformanceDashboardScreenshot.png)
 
-5. If using the GFA Telemetry API data source, download the [GFAAppliances.json](GFAAppliances.json) and [GFAVolumes.json](GFAVolumes.json) dashboard templates from Nasuni Labs.
+5. If using the GFA Telemetry API data source, download the [GFAVolumes.json](GFAVolumes.json) and [GFAAppliances.json](GFAAppliances.json) dashboard templates from Nasuni Labs.
 
 6. From the Grafana left navigation bar, click the plus icon, then click the **Import** link. On the Import page, click **Import** and upload the first JSON file downloaded in step 5, accepting the defaults and saving the configuration. Repeat for the second file.
+
+7. Navigate to the newly-imported GFA Volumes dashboard to view the performance information for your Edge Appliances. The dashboard should display the following output:
+
+![GFA Volumes Dashboard Screenshot](/images/GFAVolumesDashboardScreenshot.png)
 
 # Troubleshooting
 
