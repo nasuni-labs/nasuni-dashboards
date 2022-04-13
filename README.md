@@ -392,7 +392,9 @@ To install InfluxDB, ssh to the VM and run the following commands:
 2.  Log in to Grafana. The default username is **admin**, and the default password is **admin**. Grafana will prompt you to change the default password after logging in.
     
 3.  Under the Configuration (gear) icon, add InfluxDB as a data source using the details from your install, and test the connection. For the default single-node installation, use the following information:
+
     - URL: http://localhost:8086
+
     - Database: nasuni
     
 ![Add Data Source](/images/AddGrafanaDataSource.png)
