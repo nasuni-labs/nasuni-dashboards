@@ -31,7 +31,7 @@ Nasuni Dashboards has been validated with these component versions:
 VM Requirements for Single-Node Installation 
 ----------------------------------------
 
-*   OS: Rocky Linux 8.5 minimal or VM marketplace version
+*   OS: Rocky Linux 8.x minimal or VM marketplace version
     
 *   Sizing: 4 vCPU, 16GB RAM, and 100GB boot disk
 
