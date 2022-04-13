@@ -31,6 +31,11 @@ Nasuni Dashboards has been validated with these component versions:
     
 *   Sizing: 4 vCPU, 16GB RAM, and 100GB boot disk
 
+## Firewall Requirements
+
+* SNMP Data Source: UDP 161 inbound access from the VM to Edge Appliances
+* GFA Telemetry REST API Data Source: TCP 443 inbound access to https://gfa-telemetry-us1.api.nasuni.com
+
 ## Sizing Considerations
 
 ### InfluxDB
