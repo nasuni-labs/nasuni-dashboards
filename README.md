@@ -409,7 +409,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
 3.  The **Options** screen opens. Select the **InfluxDB** data source name, which should be **InfluxDB (default)**, and click **Import**.
 
-4.  Navigate to the newly-imported dashboard to view the performance information for your Edge Appliances. The dashboard should display the following output:
+4.  Navigate to the newly-imported dashboard to view the performance information for your Edge Appliances. Here is an example of expected output for the dashboard:
 
 
 ![Performance Dashboard Screenshot](/images/PerformanceDashboardScreenshot.png)
@@ -418,7 +418,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
 6. From the Grafana left navigation bar, click the plus icon, then click the **Import** link. On the Import page, click **Import** and upload the first JSON file downloaded in step 5, accepting the defaults and saving the configuration. Repeat for the second file.
 
-7. Navigate to the newly-imported GFA Volumes dashboard to view the performance information for your Edge Appliances. The dashboard should display the following output:
+7. Navigate to the newly-imported GFA Volumes dashboard. Here is an example of expected output for the dashboard:
 
 ![GFA Volumes Dashboard Screenshot](/images/GFAVolumesDashboardScreenshot.png)
 
