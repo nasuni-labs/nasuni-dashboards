@@ -1,7 +1,7 @@
 About
 =====
 
-Nasuni Performance Monitoring - A modern monitoring architecture.
+Nasuni Dashboards provides a framework for viewing time series data across a customer's entire Nasuni stack. Supported data sources currently include Edge Appliance SNMP data as well as the Global File Acceleration (GFA) Telemetry REST API.
 
 Components
 ===========
