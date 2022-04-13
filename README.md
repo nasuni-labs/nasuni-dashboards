@@ -19,22 +19,24 @@ Nasuni Dashboards provides a framework for viewing time series data across a cus
 
 Nasuni Dashboards has been validated with these component versions: 
 
-*   Telegraf: 1.22
+* Telegraf: 1.22
 
-*   InfluxDB: 1.8.10
+* InfluxDB: 1.8.10
     
-*   Grafana: 8.4.4
+* Grafana: 8.4.4
 
 ## VM Requirements for Single-Node Installation 
 
-*   OS: Rocky Linux 8.x minimal or VM marketplace version
+* OS: Rocky Linux 8.x minimal or VM marketplace version
     
-*   Sizing: 4 vCPU, 16GB RAM, and 100GB boot disk
+* Sizing: 4 vCPU, 16GB RAM, and 100GB boot disk
 
 ## Firewall Requirements
 
-* SNMP Data Source: UDP 161 inbound access from the VM to Edge Appliances
-* GFA Telemetry REST API Data Source: TCP 443 inbound access to https://gfa-telemetry-us1.api.nasuni.com
+The data sources used with Nasuni Dashboards must be accessible from the VM:
+
+* SNMP: UDP 161 access to monitored Edge Appliances
+* GFA Telemetry REST API: TCP 443 access to https://gfa-telemetry-us1.api.nasuni.com
 
 ## Sizing Considerations
 
