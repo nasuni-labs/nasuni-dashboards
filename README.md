@@ -33,7 +33,7 @@ Nasuni Dashboards has been validated with these component versions:
 
 ## Firewall Requirements
 
-The data sources used with Nasuni Dashboards must be accessible from the VM:
+The data sources used with Nasuni Dashboards should be accessible from the VM:
 
 * SNMP: UDP 161 access to monitored Edge Appliances
 
