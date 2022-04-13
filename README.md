@@ -91,7 +91,7 @@ To use the GFA Telemetry API:
 Deploy a Rocky Linux VM that meets the requirements for Nasuni Dashboards. 
 
 ## Configure DNS
-DNS is required to use hostnames rather than IP addresses for the telegraf SNMP agent configuration. 
+DNS is required to use hostnames rather than IP addresses for the Telegraf SNMP agent configuration. 
 Two common scenarios for DNS configuration:
 
 *   DHCP: DHCP is typically used for Cloud VMs but can also be used on-premises. If the DNS server provided by DHCP is not authorititative for Edge Appliance hostnames you can override the DNS server settings.
@@ -254,7 +254,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
 ### Telegraf Configuration
 
-1.  Back up the default telegraf configuration file:
+1.  Back up the default Telegraf configuration file:
     ```shell
     sudo mv /etc/telegraf/telegraf.conf /etc/telegraf/telegraf.conf.bak
     ```
@@ -305,7 +305,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
 10.  Save and close the file. Press **Esc**, type **:x**, and press **Enter**.
         
-11.  Start/Restart the telegraf service:
+11.  Start/Restart the Telegraf service:
     
         ```shell
         sudo systemctl restart telegraf
