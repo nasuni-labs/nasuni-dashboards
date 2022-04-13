@@ -52,13 +52,9 @@ InfluxDB is designed to run on solid-state drives (SSDs) and memory-optimized in
 *   Minimum recommended CPU: 1
     
 
-Installation
-============
+# Configure Nasuni Data Sources
 
-Configure SNMP for Nasuni Appliances
-------------------------------------
-
-### Configure SNMP for Edge Appliances
+## SNMP for Edge Appliances
     
 1.  In the NMC, click **Filers** in the top bar.
     
@@ -78,13 +74,13 @@ Configure SNMP for Nasuni Appliances
     
 7.  Click **Save SNMP Settings**.
 
-Enable the GFA Telemetry API (Optional)
----------------------------------------
+## GFA Telemetry API (Optional)
 To use the GFA Telemetry API:
-    - Your Nasuni account must have GFA license feature enabled
-    - You must create an [API key on the Nasuni dashboard](https://dashboard.api.nasuni.com/account/gfa/)
-    - You must have a volume under GFA management (Active or Observation mode)
+*   Your Nasuni account must have GFA license feature enabled
+*   You must create an [API key on the Nasuni dashboard](https://dashboard.api.nasuni.com/account/gfa/)
+*   You must have a volume under GFA management (Active or Observation mode)
     
+# Install Nasuni Dashboards
 
 Install and Configure InfluxDB
 -----------------------------
