@@ -124,25 +124,31 @@ To install InfluxDB, ssh to the VM and run the following commands:
     sudo yum -y install wget
     ```
     
-3.  Use wget to download InfluxDB:
+3.  Switch to your home directory before downloading packages:
+
+    ```shell
+    cd ~
+    ```    
+    
+4.  Use wget to download InfluxDB:
     
     ```shell
     wget https://dl.influxdata.com/influxdb/releases/influxdb-1.8.10.x86_64.rpm
     ```
     
-4.  Install InfluxDB:
+5.  Install InfluxDB:
     
     ```shell
     sudo yum -y localinstall influxdb-1.8.10.x86_64.rpm
     ```
     
-5.  Start and enable the InfluxDB service:
+6.  Start and enable the InfluxDB service:
     
     ```shell
     sudo systemctl start influxdb && sudo systemctl enable influxdb
     ```
     
-6.  Add firewall rules if the firewall service is running. First, check if the firewall service is running:
+7.  Add firewall rules if the firewall service is running. First, check if the firewall service is running:
 
     ```shell
     systemctl status firewalld
