@@ -77,7 +77,7 @@ InfluxDB is designed to run on solid-state drives (SSDs) and memory-optimized in
 ## GFA Telemetry API (Optional)
 To use the GFA Telemetry API:
 *   You must have a volume under GFA management (Active or Observation mode)
-*   You must create a [Global File Accelerator API key on the Nasuni dashboard](https://dashboard.api.nasuni.com/account/gfa/)
+*   You must create a [Global File Accelerator API key on the Nasuni dashboard](https://account.nasuni.com/account/gfa/). Note: If the link is not accessible, you may not be licensed for GFA. Contact your Nasuni Account Manager for assistance.
     
 # Install and Configure Nasuni Dashboards
 
