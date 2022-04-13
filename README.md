@@ -87,6 +87,9 @@ To use the GFA Telemetry API:
     
 # Install and Configure Nasuni Dashboards
 
+## Download Nasuni Dashboards Zip
+Click the green **Code** button within the Nasuni Labs nasuni-dashboards repository and select the **Download ZIP** option to download a local copy of the repository and extract the contents to your computer.
+
 ## Deploy the VM
 Deploy a Rocky Linux VM that meets the requirements for Nasuni Dashboards. 
 
@@ -270,7 +273,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
     sudo mv /etc/telegraf/telegraf.conf /etc/telegraf/telegraf.conf.bak
     ```
 
-2.  On your computer, download [telegraf.conf](telegraf.conf) from Nasuni Labs, open it in a text editor, select all, and copy the contents to your clipboard.
+2.  On your computer, open the telegraf.conf file in the extracted repository zip file, open it in a text editor, select all, and copy the contents to your clipboard.
 
 3.  Return to the VM ssh session, open vi, and paste the contents from step 2, customizing the values for the sections below:
     
@@ -408,22 +411,20 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
 ### Configure Grafana Dashboards
 
-1.  Download the [PerformanceDashboard.json](PerformanceDashboard.json) dashboard template from Nasuni Labs.
+1.  From the Grafana left navigation bar, click the plus icon, then click the **Import** link. On the Import page, click **Import** and upload the PerformanceDashboard.json file from the extracted repository zip archchive.
 
-2.  From the Grafana left navigation bar, click the plus icon, then click the **Import** link. On the Import page, click **Import** and upload the JSON file downloaded in step 1.
+2.  The **Options** screen opens. Select the **InfluxDB** data source name, which should be **InfluxDB (default)**, and click **Import**.
 
-3.  The **Options** screen opens. Select the **InfluxDB** data source name, which should be **InfluxDB (default)**, and click **Import**.
-
-4.  Navigate to the newly-imported dashboard to view the performance information for your Edge Appliances. Here is an example of expected output for the dashboard:
+3.  Navigate to the newly-imported dashboard to view the performance information for your Edge Appliances. Here is an example of expected output for the dashboard:
 
 
 ![Performance Dashboard Screenshot](/images/PerformanceDashboardScreenshot.png)
 
-5. If using the GFA Telemetry API data source, download the [GFAVolumes.json](GFAVolumes.json) and [GFAAppliances.json](GFAAppliances.json) dashboard templates from Nasuni Labs.
+4. If using the GFA Telemetry API data source, import the associated GFA dashboards. From the Grafana left navigation bar, click the plus icon, then click the **Import** link. On the Import page, click **Import** and upload the GFAVolumes.json file from the extracted repository zip archive accepting the defaults and saving the configuration. Repeat for the GFAAppliances.json file.
 
-6. From the Grafana left navigation bar, click the plus icon, then click the **Import** link. On the Import page, click **Import** and upload the first JSON file downloaded in step 5, accepting the defaults and saving the configuration. Repeat for the second file.
+5. by download the [GFAVolumes.json](GFAVolumes.json) and [GFAAppliances.json](GFAAppliances.json) dashboard templates from Nasuni Labs.
 
-7. Navigate to the newly-imported GFA Volumes dashboard. Here is an example of expected output for the dashboard:
+6. Navigate to the newly-imported GFA Volumes dashboard. Here is an example of expected output for the dashboard:
 
 ![GFA Volumes Dashboard Screenshot](/images/GFAVolumesDashboardScreenshot.png)
 
