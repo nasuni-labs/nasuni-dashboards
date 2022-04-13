@@ -292,7 +292,7 @@ Install and Configure Telegraf
 8.  To use the Global File Acceleration (GFA) Telemetry API data source, make the following changes to the **[inputs.http]** section:
     - `urls (uncomment this line)`
     - `headers (uncomment the first headers line and enter the <GFA API Key> from the NOC Dashboard)`
-    - `headers (uncomment the second headers line and enter the <GFA API Key> to use as unique identifier for this connection)`
+    - `headers (uncomment the second headers line and enter a string/name to use as unique identifier for this connection)`
 
 10.  Save and close the file. Press **Esc**, type **:x**, and press **Enter**.
         
