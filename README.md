@@ -226,25 +226,27 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
 ### Add Nasuni SNMP MIBs to Telegraf
 
-1.  On your computer, log in to the NMC and navigate to **Filers > SNMP Settings**.
+
     
-2.  Click the **NASUNI-FILER-MIB** link to open the file using your web browser or a text editor such as Notepad.
-    
-3.  Select all and copy text.
-    
-4.  Return to the VM ssh session and navigate to the mibs directory:
+1.  Navigate to the SNMP mibs directory:
     
     ```shell
     cd /usr/share/snmp/mibs
     ```
     
-5.  Create a new file for the Nasuni MIB:
+2.  Create a new file for the Nasuni MIB:
     
     ```shell
     sudo vi NASUNI-FILER-MIB.txt
     ```
     
-6.  Paste the text copied in step 3.
+3.  On your computer, log in to the NMC and navigate to **Filers > SNMP Settings**.
+    
+4.  Click the **NASUNI-FILER-MIB** link to open the file using your web browser or a text editor such as Notepad.
+    
+5.  Select all and copy text.
+    
+6.  Return to the VM ssh session and paste the text copied in step 5 into vi.
     
 7.  Save and close the file. Press **Esc**, type **:x**, and press **Enter**.
 
