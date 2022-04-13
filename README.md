@@ -320,7 +320,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
     - `country = "US"`
         
-8.  To use the Global File Acceleration (GFA) Telemetry API data source, make the following changes to the **[inputs.http]** section (located directly above the **[inputs.snmp]** section):
+8.  To use the optional Global File Acceleration (GFA) Telemetry API data source, make the following changes to the **[inputs.http]** section (located directly above the **[inputs.snmp]** section):
 
     - `urls (uncomment this line)`
 
