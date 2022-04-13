@@ -364,35 +364,29 @@ To install InfluxDB, ssh to the VM and run the following commands:
     sudo yum -y install grafana-8.4.4-1.x86_64.rpm
     ```
     
-4.  Start the Grafana service:
+4.  Install two Grafana plugins:
+
+    ```shell
+    sudo grafana-cli plugins install grafana-clock-panel
+    ```
+    
+5.  Start the Grafana service:
     
     ```shell
     sudo service grafana-server start
     ```
     
-5.  Configure the firewall for Grafana (only required if the firewall is enabled):
+6.  Set Grafana to run on startup:
+
+    ```shell
+    sudo systemctl enable grafana-server
+    ```
+    
+7.  Configure the firewall for Grafana (only required if the firewall is enabled):
     
     ```shell
     firewall-cmd --permanent --zone=public --add-port=3000/tcp
     firewall-cmd --reload
-    ```
-    
-6.  Install the following Grafana plugin:
-    
-    ```shell
-    sudo grafana-cli plugins install grafana-clock-panel
-    ```
-    
-7.  Restart the Grafana service:
-    
-    ```shell
-    sudo service grafana-server restart
-    ```
-    
-8.  Set Grafana to run on startup:
-    
-    ```shell
-    sudo systemctl enable grafana-server
     ```
     
 
