@@ -21,7 +21,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "8.4.6"
+      "version": "8.4.4"
     },
     {
       "type": "panel",
@@ -66,7 +66,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 2,
   "id": null,
-  "iteration": 1649856453431,
+  "iteration": 1649866578884,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -127,7 +127,7 @@
       "gridPos": {
         "h": 4,
         "w": 6,
-        "x": 9,
+        "x": 18,
         "y": 0
       },
       "id": 52,
@@ -146,7 +146,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "targets": [
         {
           "alias": "Total",
@@ -315,7 +315,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "targets": [
         {
           "groupBy": [
@@ -407,7 +407,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "targets": [
         {
           "groupBy": [
@@ -489,7 +489,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -724,7 +724,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -949,7 +949,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1127,7 +1127,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "targets": [
         {
           "groupBy": [
@@ -1230,7 +1230,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "targets": [
         {
           "dsType": "influxdb",
@@ -1327,7 +1327,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "targets": [
         {
           "groupBy": [
@@ -1419,7 +1419,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "targets": [
         {
           "groupBy": [
@@ -1501,7 +1501,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1668,7 +1668,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1918,7 +1918,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2036,7 +2036,7 @@
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Throughput",
+      "title": "Network Throughput",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2132,7 +2132,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "targets": [
         {
           "groupBy": [
@@ -2237,7 +2237,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "targets": [
         {
           "groupBy": [
@@ -2362,7 +2362,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "targets": [
         {
           "groupBy": [
@@ -2477,7 +2477,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "targets": [
         {
           "dsType": "influxdb",
@@ -2559,7 +2559,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2696,7 +2696,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2893,7 +2893,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2990,7 +2990,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgb(54, 34, 239)",
+                "color": "green",
                 "value": null
               }
             ]
@@ -3033,7 +3033,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.6",
+      "pluginVersion": "8.4.4",
       "targets": [
         {
           "alias": "Cache Read",
@@ -3242,8 +3242,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "PerformanceDashboard",
+  "title": "Performance Dashboard",
   "uid": "79m3TFEMz",
-  "version": 138,
+  "version": 2,
   "weekStart": ""
 }
