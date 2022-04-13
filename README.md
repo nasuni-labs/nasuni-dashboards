@@ -273,7 +273,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
     sudo mv /etc/telegraf/telegraf.conf /etc/telegraf/telegraf.conf.bak
     ```
 
-2.  On your computer, open the telegraf.conf file in the extracted repository zip file, open it in a text editor, select all, and copy the contents to your clipboard.
+2.  On your computer, open the **telegraf.conf** file from the extracted repository zip archive in a text editor, select all, and copy the contents to your clipboard.
 
 3.  Return to the VM ssh session, open vi, and paste the contents from step 2, customizing the values for the sections below:
     
@@ -411,7 +411,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
 ### Configure Grafana Dashboards
 
-1.  From the Grafana left navigation bar, click the plus icon, then click the **Import** link. On the Import page, click **Import** and upload the PerformanceDashboard.json file from the extracted repository zip archive.
+1.  From the Grafana left navigation bar, click the plus icon, then click the **Import** link. On the Import page, click **Import** and upload the **PerformanceDashboard.json** file from the extracted repository zip archive.
 
 2.  The **Options** screen opens. Select the **InfluxDB** data source name, which should be **InfluxDB (default)**, and click **Import**.
 
@@ -420,7 +420,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
 ![Performance Dashboard Screenshot](/images/PerformanceDashboardScreenshot.png)
 
-4. If using the GFA Telemetry API data source, import the associated GFA dashboards. From the Grafana left navigation bar, click the plus icon, then click the **Import** link. On the Import page, click **Import** and upload the GFAVolumes.json file from the extracted repository zip archive accepting the defaults and saving the configuration. Repeat for the GFAAppliances.json file.
+4. If using the GFA Telemetry API data source, import the associated GFA dashboards. From the Grafana left navigation bar, click the plus icon, then click the **Import** link. On the Import page, click **Import** and upload the **GFAVolumes.json** file from the extracted repository zip archive accepting the defaults and saving the configuration. Repeat for the **GFAAppliances.json** file.
 
 5. by download the [GFAVolumes.json](GFAVolumes.json) and [GFAAppliances.json](GFAAppliances.json) dashboard templates from Nasuni Labs.
 
