@@ -278,9 +278,14 @@ Install and Configure Telegraf
     - `customer  = "MyCompanyName"`
     - `country = "US"`
         
-8.  Save and close the file. Press **Esc**, type **:x**, and press **Enter**.
+8.  If you are planning to use the GFA Telemetry API data source, make the following changes to the **[inputs.http]** section
+    - `urls (uncomment this line)`
+    - 'headers (uncomment the first headers line and enter the <GFA API Key> from the NOC Dashboard)`
+    - 'headers (uncomment the second headers line and enter the <GFA API Key> to use as unique identifier for this connection)`
+
+10.  Save and close the file. Press **Esc**, type **:x**, and press **Enter**.
         
-9.  Start/Restart the service:
+11.  Start/Restart the telegraf service:
     
     ```shell
     sudo systemctl restart telegraf
