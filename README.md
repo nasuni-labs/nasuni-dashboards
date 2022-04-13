@@ -31,7 +31,7 @@ Nasuni Dashboards has been validated with these component versions:
 VM Requirements for Single-Node Installation 
 ----------------------------------------
 
-*   OS: Rocky Linux 8.5
+*   OS: Rocky Linux 8.5 minimal or VM marketplace version
     
 *   Sizing: 4 vCPU, 16GB RAM, and 100GB boot disk
 
@@ -82,8 +82,19 @@ To use the GFA Telemetry API:
     
 # Install and Configure Nasuni Dashboards
 
-Install and Configure InfluxDB
------------------------------
+## Deploy the VM
+Deploy a Rocky Linux VM that meets the requirements for Nasuni Dashboards. 
+
+## Configure DNS
+DNS is required to use hostnames rather than IP addresses for the telegraf SNMP agent configuration. To configure SSH
+Two common scenarios for DNS configuration:
+*   DHCP: DHCP is typically used for Cloud VMs but can also be used on-premises. 
+**   To enable static DNS with DHCP edit **/etc/sysconfig/network-scripts/ifcfg-{xxx}** where **{xxx}** corresponds to your network adapter. Add the `PEERDNS=no` to the end of the file.
+**   Edit **etc/resolv.conf** specifying the DNS servers that are authoritative for your Edge Appliances DNS hostnames
+*   Static IP: Configure both an IP and DNS servers that are authoritative for your Edge Appliances DNS hostnames
+
+
+## Install and Configure InfluxDB
 
 ### Install InfluxDB
 
