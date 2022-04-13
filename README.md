@@ -278,7 +278,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
     sudo vi /etc/telegraf/telegraf.conf
     ```
     
-4.  In the **[outputs.influxdb]** section, update the **urls** value with the InfluxDB IP address, and confirm the port. You can use the search function in vi to jump to the appropriate section of the file. Type **/** followed by the string you want to search for, and then press **Return**. The following example assumes the default port and InfluxDB running on the same host as Telegraf:</br>
+4.  If you installed influxDB on a dedicated host (single-node installs can skip this step), go the **[outputs.influxdb]** section, update the **urls** value with the InfluxDB IP address, and confirm the port. You can use the search function in vi to jump to the appropriate section of the file. Type **/** followed by the string you want to search for, and then press **Return**. The following example assumes the default port and InfluxDB running on the same host as Telegraf:</br>
     - `urls = ["http://127.0.0.1:8086"]`
         
 5.  In the **[inputs.snmp]** section, update the **agents** value with the FQDN of all Edge Appliances to be monitored. For example (Note: The last entry does not require a trailing comma):</br>
