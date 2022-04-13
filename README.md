@@ -278,7 +278,7 @@ Install and Configure Telegraf
     - `customer  = "MyCompanyName"`
     - `country = "US"`
         
-8.  If you are planning to use the GFA Telemetry API data source, make the following changes to the **[inputs.http]** section
+8.  To use the Global File Acceleration (GFA) Telemetry API data source, make the following changes to the **[inputs.http]** section:
     - `urls (uncomment this line)`
     - `headers (uncomment the first headers line and enter the <GFA API Key> from the NOC Dashboard)`
     - `headers (uncomment the second headers line and enter the <GFA API Key> to use as unique identifier for this connection)`
@@ -366,7 +366,7 @@ Install and Configure Grafana
 
 4.  Click **Save & test** to complete adding the InfluxDB data source. A green checkbox should appear alongside a message that the **Data source is working**.
 
-### Configure Grafana Dashboard
+### Configure Grafana Dashboards
 
 1.  Download the [PerformanceDashboard.json](PerformanceDashboard.json) dashboard template from Nasuni Labs.
 
@@ -378,6 +378,10 @@ Install and Configure Grafana
 
 
 ![Performance Dashboard Screenshot](/images/PerformanceDashboardScreenshot.png)
+
+5. If using the Global GFA Telemetry API data source, download the [GFAAppliances.json](GFAAppliances.json) and [GFAVolumes.json](GFAVolumes.json) dashboard templates from Nasuni labs.
+
+6. From the Grafana left navigation bar, click the plus icon, then click the **Import** link. On the Import page, click **Import** and upload the first JSON file downloaded in step 5, accepting the defaults and saving the configuration. Repeat for the second files.
 
 Troubleshooting
 =================
