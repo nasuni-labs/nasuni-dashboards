@@ -88,10 +88,10 @@ Deploy a Rocky Linux VM that meets the requirements for Nasuni Dashboards.
 ## Configure DNS
 DNS is required to use hostnames rather than IP addresses for the telegraf SNMP agent configuration. To configure SSH
 Two common scenarios for DNS configuration:
-*   DHCP: DHCP is typically used for Cloud VMs but can also be used on-premises. 
-**   To enable static DNS with DHCP edit **/etc/sysconfig/network-scripts/ifcfg-{xxx}** where **{xxx}** corresponds to your network adapter. Add the `PEERDNS=no` to the end of the file.
-**   Edit **etc/resolv.conf** specifying the DNS servers that are authoritative for your Edge Appliances DNS hostnames
-*   Static IP: Configure both an IP and DNS servers that are authoritative for your Edge Appliances DNS hostnames
+*   DHCP: DHCP is typically used for Cloud VMs but can also be used on-premises. If the DNS server provided by DHCP is not authorititative for Edge Appliance hostnames you can override the DNS server settings.
+    *   To enable static DNS with DHCP edit **/etc/sysconfig/network-scripts/ifcfg-{xxx}** where **{xxx}** corresponds to your network adapter. Add the `PEERDNS=no` to the end of the file.
+    *   Edit **etc/resolv.conf** specifying, the DNS servers that are authoritative for Edge Appliance DNS.
+*   Static IP: Ensure that the DNS servers you specify are authoritative for Edge Appliance DNS.
 
 
 ## Install and Configure InfluxDB
