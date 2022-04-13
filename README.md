@@ -15,8 +15,27 @@ Components
 
 ![TIGStackComponents](/images/TIGStackComponents.png)
 
-Sizing Guidelines
+Installation Guidelines
 ==================
+
+Validated Component Versions
+----------------------------------------
+Nasuni Dashboards has been validated with these component versions: 
+
+*   Telegraf: 1.22
+
+*   InfluxDB: 1.8.10
+    
+*   Grafana: 8.4.4
+
+VM Requirements for Single-Node Installation 
+----------------------------------------
+
+*   OS: Rocky Linux 8.5
+    
+*   Sizing: 4 vCPU, 16GB RAM, and 100GB boot disk
+
+# Sizing Considerations
 
 InfluxDB
 --------
@@ -28,30 +47,11 @@ InfluxDB is designed to run on solid-state drives (SSDs) and memory-optimized in
 Grafana
 -------
 
-*   Grafana does not use a lot of resources, and is very lightweight in its use of memory and CPU.
+*   Grafana is very lightweight in its use of memory and CPU.
     
 *   Minimum recommended memory: 255 MB
     
 *   Minimum recommended CPU: 1
-    
-
-VM Requirements for Single-Node Installation 
-----------------------------------------
-
-*   OS: Rocky Linux 8.5
-    
-*   Sizing: 4 vCPU, 16GB RAM, and 100GB boot disk
-
-
-Validated Component Versions
-----------------------------------------
-Nasuni Dashboards has been validated with these component versions: 
-
-*   Telegraf: 1.22
-
-*   InfluxDB: 1.8.10
-    
-*   Grafana: 8.4.4
     
 
 Installation
