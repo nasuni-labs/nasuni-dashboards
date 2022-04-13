@@ -80,7 +80,9 @@ InfluxDB is designed to run on solid-state drives (SSDs) and memory-optimized in
 
 ## GFA Telemetry API (Optional)
 To use the GFA Telemetry API:
+
 *   You must have a volume under GFA management (Active or Observation mode)
+
 *   You must create a [Global File Accelerator API key on the Nasuni dashboard](https://account.nasuni.com/account/gfa/). Note: If the link is not accessible, you may not be licensed for GFA. Contact your Nasuni Account Manager for assistance.
     
 # Install and Configure Nasuni Dashboards
@@ -91,9 +93,13 @@ Deploy a Rocky Linux VM that meets the requirements for Nasuni Dashboards.
 ## Configure DNS
 DNS is required to use hostnames rather than IP addresses for the telegraf SNMP agent configuration. 
 Two common scenarios for DNS configuration:
+
 *   DHCP: DHCP is typically used for Cloud VMs but can also be used on-premises. If the DNS server provided by DHCP is not authorititative for Edge Appliance hostnames you can override the DNS server settings.
+
     *   To enable static DNS with DHCP ssh to the VM and edit **/etc/sysconfig/network-scripts/ifcfg-{xxx}** where **{xxx}** corresponds to your network adapter. Add the `PEERDNS=no` to the end of the file.
+
     *   Edit **etc/resolv.conf** specifying, the DNS servers that are authoritative for Edge Appliance DNS.
+
 *   Static IP: Ensure that the DNS servers you specify are authoritative for Edge Appliance DNS.
 
 
