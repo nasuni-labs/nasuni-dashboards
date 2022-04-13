@@ -80,7 +80,7 @@ To use the GFA Telemetry API:
 *   You must create an [API key on the Nasuni dashboard](https://dashboard.api.nasuni.com/account/gfa/)
 *   You must have a volume under GFA management (Active or Observation mode)
     
-# Install Nasuni Dashboards
+# Install and Configure Nasuni Dashboards
 
 Install and Configure InfluxDB
 -----------------------------
