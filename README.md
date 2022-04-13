@@ -411,7 +411,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
 ### Configure Grafana Dashboards
 
-1.  From the Grafana left navigation bar, click the plus icon, then click the **Import** link. On the Import page, click **Import** and upload the PerformanceDashboard.json file from the extracted repository zip archchive.
+1.  From the Grafana left navigation bar, click the plus icon, then click the **Import** link. On the Import page, click **Import** and upload the PerformanceDashboard.json file from the extracted repository zip archive.
 
 2.  The **Options** screen opens. Select the **InfluxDB** data source name, which should be **InfluxDB (default)**, and click **Import**.
 
