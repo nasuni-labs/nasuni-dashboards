@@ -178,8 +178,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
     ```
         
 
-Install and Configure Telegraf
-----------------------------
+## Install and Configure Telegraf
 
 ### Install Telegraf
 
@@ -304,8 +303,7 @@ Install and Configure Telegraf
         systemctl status telegraf
         ```
 
-Install and Configure Grafana
----------------------------
+## Install and Configure Grafana
 
 ### Install Grafana
 
@@ -390,8 +388,7 @@ Install and Configure Grafana
 
 6. From the Grafana left navigation bar, click the plus icon, then click the **Import** link. On the Import page, click **Import** and upload the first JSON file downloaded in step 5, accepting the defaults and saving the configuration. Repeat for the second file.
 
-Troubleshooting
-=================
+# Troubleshooting
 
 ## Telegraf
 If Telegraf reports errors in **/var/log/telegraf/telegraf.log**, the source of the problem is most likely with the contents of telegraf.conf. 
@@ -401,8 +398,7 @@ If Telegraf reports errors in **/var/log/telegraf/telegraf.log**, the source of 
      ```
 
 
-Maintenance Tasks
-=================
+# Maintenance Tasks
 
 ## Adding Edge Appliances
 
@@ -494,8 +490,7 @@ When decommissioning a Nasuni Edge Appliance, it is good to clean up the InfluxD
     
     
 
-Support Statement
-=================
+# Support Statement
 
 *   This package stack has only been validated with the component versions documented in the README file.
     
