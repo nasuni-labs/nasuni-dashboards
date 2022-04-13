@@ -228,7 +228,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
 1.  On your computer, log in to the NMC and navigate to **Filers > SNMP Settings**.
     
-2.  Click the **NASUNI-FILER-MIB** link to open the file using a text editor such as Notepad.
+2.  Click the **NASUNI-FILER-MIB** link to open the file using your web browser or a text editor such as Notepad.
     
 3.  Select all and copy text.
     
