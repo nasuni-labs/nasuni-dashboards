@@ -9,6 +9,7 @@
       "pluginName": "InfluxDB"
     }
   ],
+  "__elements": [],
   "__requires": [
     {
       "type": "panel",
@@ -20,12 +21,12 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "7.5.9"
+      "version": "8.4.6"
     },
     {
       "type": "panel",
       "id": "graph",
-      "name": "Graph",
+      "name": "Graph (old)",
       "version": ""
     },
     {
@@ -60,21 +61,205 @@
       }
     ]
   },
+  "description": "Nasuni Performance Monitoring",
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 2,
   "id": null,
-  "iteration": 1648178825364,
+  "iteration": 1649856453431,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
+      "description": "Total customer licensed capacity.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "B"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "percentage",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 75
+                    },
+                    {
+                      "color": "red",
+                      "value": 90
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 9,
+        "y": 0
+      },
+      "id": 52,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.6",
+      "targets": [
+        {
+          "alias": "Total",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "none"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "Nasuni",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"nasuni_account_license_capacity\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY ($__interval) fill(null)",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "nasuni_account_license_capacity"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "hostname",
+              "operator": "=~",
+              "value": "/^$Appliance$/"
+            }
+          ]
+        },
+        {
+          "alias": "Used",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "none"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "Nasuni",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"nasuni_account_used_percentage\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": false,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "nasuni_account_used_percentage"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "hostname",
+              "operator": "=~",
+              "value": "/^$Appliance$/"
+            }
+          ]
+        }
+      ],
+      "title": "Nasuni Licensed Capacity Total vs Used",
+      "transformations": [],
+      "transparent": true,
+      "type": "stat"
+    },
+    {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 4
       },
       "id": 25,
       "panels": [],
@@ -83,8 +268,1015 @@
       "type": "row"
     },
     {
-      "datasource": null,
-      "description": "% CPU Utilized (1m)",
+      "description": "Nasuni appliance platform type.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 2,
+        "x": 0,
+        "y": 5
+      },
+      "id": 45,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^Nasuni\\.last$/",
+          "values": false
+        },
+        "text": {
+          "valueSize": 15
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.6",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "Nasuni",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"filer_platform_name\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "filer_platform_name"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "hostname",
+              "operator": "=~",
+              "value": "/^$Appliance$/"
+            }
+          ]
+        }
+      ],
+      "title": "Platform",
+      "type": "stat"
+    },
+    {
+      "description": "Nasuni software release version.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 2,
+        "x": 2,
+        "y": 5
+      },
+      "id": 36,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^Nasuni\\.last$/",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.6",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "Nasuni",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "filer_version"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "hostname",
+              "operator": "=~",
+              "value": "/^$Appliance$/"
+            }
+          ]
+        }
+      ],
+      "title": "Version",
+      "type": "stat"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "description": "The 1/5/15 minute load averages.",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 7,
+        "x": 4,
+        "y": 5
+      },
+      "hiddenSeries": false,
+      "id": 10,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.4.6",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "1Min Avg",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "Nasuni",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"cpula1\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cpula1"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "hostname",
+              "operator": "=~",
+              "value": "/^$Appliance$/"
+            }
+          ]
+        },
+        {
+          "alias": "5Min Avg",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "Nasuni",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"cpula5\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cpula5"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "hostname",
+              "operator": "=~",
+              "value": "/^$Appliance$/"
+            }
+          ]
+        },
+        {
+          "alias": "15Min Avg",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "Nasuni",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cpula15"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "hostname",
+              "operator": "=~",
+              "value": "/^$Appliance$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [
+        {
+          "$$hashKey": "object:428",
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 85,
+          "yaxis": "left"
+        },
+        {
+          "$$hashKey": "object:429",
+          "colorMode": "warning",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 75,
+          "yaxis": "left"
+        }
+      ],
+      "timeRegions": [],
+      "title": "CPU Load",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:400",
+          "decimals": 0,
+          "format": "percent",
+          "label": "",
+          "logBase": 1,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:401",
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {
+        "Disk (15Min)": "#6ed0e0",
+        "Disk (1Min)": "rgb(173, 69, 107)",
+        "Disk (5Min)": "rgb(0, 247, 190)"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "description": "The 1/5/15 minute average load of disk (%).",
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 7,
+        "x": 11,
+        "y": 5
+      },
+      "hiddenSeries": false,
+      "id": 23,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.4.6",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "Disk (1Min)",
+          "yaxis": 1
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "1Min Avg",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "nasuni_disk",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"diskiola1\") FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "diskiola1"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "hostname",
+              "operator": "=~",
+              "value": "/^$Appliance$/"
+            }
+          ]
+        },
+        {
+          "alias": "5Min Avg",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "nasuni_disk",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"diskiola5\") FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "diskiola5"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "hostname",
+              "operator": "=~",
+              "value": "/^$Appliance$/"
+            }
+          ]
+        },
+        {
+          "alias": "15Min Avg",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "nasuni_disk",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"diskiola15\") FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "diskiola15"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "hostname",
+              "operator": "=~",
+              "value": "/^$Appliance$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Disk Load",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:2432",
+          "decimals": 0,
+          "format": "percent",
+          "logBase": 1,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:2433",
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {
+        "Total Cache Available": "green",
+        "Total Cache Used": "blue"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "description": "Displays cache usage over time. Helpful for planning future cache size requirements.",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 18,
+        "y": 5
+      },
+      "hiddenSeries": false,
+      "id": 18,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.4.6",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "Total Cache Available",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "Nasuni",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"filer_cache_total\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "filer_cache_total"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "hostname",
+              "operator": "=~",
+              "value": "/^$Appliance$/"
+            }
+          ]
+        },
+        {
+          "alias": "Total Cache Used",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "Nasuni",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"filer_cache_used\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "filer_cache_used"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "hostname",
+              "operator": "=~",
+              "value": "/^$Appliance$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Cache Growth",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1579",
+          "decimals": 0,
+          "format": "bytes",
+          "label": "",
+          "logBase": 1,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1580",
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "description": "The amount of time since this host was last\ninitialized. (hrSystemUptime)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "timeticks"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 2,
+        "x": 0,
+        "y": 8
+      },
+      "id": 14,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.6",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "Nasuni",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"filer_online\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "filer_version"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "Uptime",
+      "type": "stat"
+    },
+    {
+      "description": "Number of connected SMB sessions.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 2,
+        "x": 2,
+        "y": 8
+      },
+      "id": 2,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.6",
+      "targets": [
+        {
+          "dsType": "influxdb",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            }
+          ],
+          "measurement": "Nasuni",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"filer_total_share_clients\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval)",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "filer_total_share_clients"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "hostname",
+              "operator": "=~",
+              "value": "/^$Appliance$/"
+            }
+          ]
+        }
+      ],
+      "title": "SMB Connections",
+      "type": "stat"
+    },
+    {
+      "description": "% CPU utilization (1m).",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -102,8 +1294,12 @@
                 "value": null
               },
               {
+                "color": "#eab839",
+                "value": 75
+              },
+              {
                 "color": "red",
-                "value": 80
+                "value": 95
               }
             ]
           },
@@ -115,10 +1311,11 @@
         "h": 3,
         "w": 2,
         "x": 0,
-        "y": 1
+        "y": 11
       },
       "id": 4,
       "options": {
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "mean"
@@ -130,7 +1327,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.9",
+      "pluginVersion": "8.4.6",
       "targets": [
         {
           "groupBy": [
@@ -177,45 +1374,26 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "CPU",
       "type": "gauge"
     },
     {
-      "cacheTimeout": null,
-      "datasource": null,
-      "description": "Number of connected CIFS users",
+      "description": "The total number of active shares.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
-          },
-          "unit": "none"
+          }
         },
         "overrides": []
       },
@@ -223,53 +1401,53 @@
         "h": 3,
         "w": 2,
         "x": 2,
-        "y": 1
+        "y": 11
       },
-      "id": 2,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 100,
+      "id": 43,
       "options": {
-        "colorMode": "none",
-        "graphMode": "none",
+        "colorMode": "value",
+        "graphMode": "area",
         "justifyMode": "auto",
-        "orientation": "horizontal",
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
           ],
-          "fields": "",
+          "fields": "/^Nasuni\\.last$/",
           "values": false
         },
-        "text": {
-          "valueSize": 20
-        },
+        "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.9",
+      "pluginVersion": "8.4.6",
       "targets": [
         {
-          "dsType": "influxdb",
           "groupBy": [
             {
               "params": [
                 "$__interval"
               ],
               "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
             }
           ],
           "measurement": "Nasuni",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"filer_total_share_clients\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval)",
-          "rawQuery": false,
+          "query": "SELECT last(\"filer_total_shares\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
             [
               {
                 "params": [
-                  "filer_total_share_clients"
+                  "filer_total_shares"
                 ],
                 "type": "field"
               },
@@ -288,7 +1466,7 @@
           ]
         }
       ],
-      "title": "Users",
+      "title": "Total Shares",
       "type": "stat"
     },
     {
@@ -296,29 +1474,22 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
-      "description": "CPU Avg over 1/5/15 mins",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
+      "description": "The total amount of real/physical memory installed\non this host and the amount of real/physical memory currently unused or available.",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 6,
         "w": 7,
         "x": 4,
-        "y": 1
+        "y": 11
       },
       "hiddenSeries": false,
-      "id": 10,
+      "id": 32,
       "legend": {
-        "alignAsTable": false,
         "avg": false,
         "current": false,
         "max": false,
         "min": false,
-        "rightSide": false,
         "show": true,
         "total": false,
         "values": false
@@ -330,7 +1501,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.9",
+      "pluginVersion": "8.4.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -340,7 +1511,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "alias": "CPU (1Min) Avg",
+          "alias": "Total",
           "groupBy": [
             {
               "params": [
@@ -358,7 +1529,7 @@
           "measurement": "Nasuni",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT max(\"cpula1\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT last(\"mem_total_real\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -366,13 +1537,13 @@
             [
               {
                 "params": [
-                  "cpula1"
+                  "mem_total_real"
                 ],
                 "type": "field"
               },
               {
                 "params": [],
-                "type": "max"
+                "type": "last"
               }
             ]
           ],
@@ -385,7 +1556,7 @@
           ]
         },
         {
-          "alias": "CPU (5Min) Avg",
+          "alias": "Available",
           "groupBy": [
             {
               "params": [
@@ -400,65 +1571,25 @@
               "type": "fill"
             }
           ],
+          "hide": false,
           "measurement": "Nasuni",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT last(\"mem_avail_real\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
           "select": [
             [
               {
                 "params": [
-                  "cpula5"
+                  "mem_avail_real"
                 ],
                 "type": "field"
               },
               {
                 "params": [],
-                "type": "max"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$Appliance$/"
-            }
-          ]
-        },
-        {
-          "alias": "CPU (15Min) Avg",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "Nasuni",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "C",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "cpula15"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "max"
+                "type": "last"
               }
             ]
           ],
@@ -471,28 +1602,9 @@
           ]
         }
       ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 85,
-          "yaxis": "left"
-        },
-        {
-          "colorMode": "warning",
-          "fill": true,
-          "line": true,
-          "op": "gt",
-          "value": 75,
-          "yaxis": "left"
-        }
-      ],
-      "timeFrom": null,
+      "thresholds": [],
       "timeRegions": [],
-      "timeShift": null,
-      "title": "CPU",
+      "title": "RAM",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -500,67 +1612,51 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
-          "format": "short",
-          "label": "percentage / cpu",
+          "$$hashKey": "object:3362",
+          "decimals": 0,
+          "format": "kbytes",
           "logBase": 1,
-          "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
+          "$$hashKey": "object:3363",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
-      "aliasColors": {
-        "Disk (15Min)": "rgb(214, 241, 4)",
-        "Disk (1Min)": "rgb(173, 69, 107)",
-        "Disk (5Min)": "rgb(0, 247, 190)"
-      },
+      "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
-      "description": "Disk I/O Operations Max over 1/5/15 mins",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 0,
+      "description": "The 1/5/15 minute max load of disk (%).",
+      "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 6,
         "w": 7,
         "x": 11,
-        "y": 1
+        "y": 11
       },
       "hiddenSeries": false,
-      "id": 23,
+      "id": 11,
       "legend": {
-        "alignAsTable": false,
         "avg": false,
         "current": false,
         "max": false,
         "min": false,
-        "rightSide": false,
         "show": true,
         "total": false,
         "values": false
@@ -572,22 +1668,17 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.9",
+      "pluginVersion": "8.4.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "Disk (1Min)",
-          "yaxis": 1
-        }
-      ],
+      "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "alias": "Disk (1Min)",
+          "alias": "1Min Max",
           "groupBy": [
             {
               "params": [
@@ -597,15 +1688,16 @@
             },
             {
               "params": [
-                "null"
+                "diskiodevice"
               ],
-              "type": "fill"
+              "type": "tag"
             }
           ],
+          "hide": false,
           "measurement": "nasuni_disk",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT max(\"diskiola1\") FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval), \"diskiodevice\"",
+          "query": "SELECT max(\"diskiola1\") FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/ AND \"diskiodevice\" = 'nvme1n1') AND $timeFilter GROUP BY time($__interval), \"diskiodevice\"",
           "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
@@ -628,11 +1720,17 @@
               "key": "hostname",
               "operator": "=~",
               "value": "/^$Appliance$/"
+            },
+            {
+              "condition": "AND",
+              "key": "diskiodevice",
+              "operator": "=",
+              "value": "nvme1n1"
             }
           ]
         },
         {
-          "alias": "Disk (5Min)",
+          "alias": "5Min Max",
           "groupBy": [
             {
               "params": [
@@ -642,14 +1740,16 @@
             },
             {
               "params": [
-                "null"
+                "diskiodevice"
               ],
-              "type": "fill"
+              "type": "tag"
             }
           ],
           "measurement": "nasuni_disk",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT max(\"diskiola5\") FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/ AND \"diskiodevice\" = 'nvme1n1') AND $timeFilter GROUP BY time($__interval), \"diskiodevice\"",
+          "rawQuery": false,
           "refId": "B",
           "resultFormat": "time_series",
           "select": [
@@ -671,11 +1771,17 @@
               "key": "hostname",
               "operator": "=~",
               "value": "/^$Appliance$/"
+            },
+            {
+              "condition": "AND",
+              "key": "diskiodevice",
+              "operator": "=",
+              "value": "nvme1n1"
             }
           ]
         },
         {
-          "alias": "Disk (15Min)",
+          "alias": "15Min Max",
           "groupBy": [
             {
               "params": [
@@ -685,15 +1791,18 @@
             },
             {
               "params": [
-                "null"
+                "diskiodevice"
               ],
-              "type": "fill"
+              "type": "tag"
             }
           ],
+          "hide": false,
           "measurement": "nasuni_disk",
           "orderByTime": "ASC",
           "policy": "default",
-          "refId": "C",
+          "query": "SELECT max(\"diskiola15\") FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/ AND \"diskiodevice\" = 'sdc') AND $timeFilter GROUP BY time($__interval), \"diskiodevice\"",
+          "rawQuery": false,
+          "refId": "A",
           "resultFormat": "time_series",
           "select": [
             [
@@ -714,15 +1823,19 @@
               "key": "hostname",
               "operator": "=~",
               "value": "/^$Appliance$/"
+            },
+            {
+              "condition": "AND",
+              "key": "diskiodevice",
+              "operator": "=",
+              "value": "nvme1n1"
             }
           ]
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
-      "title": "Appliance Disk I/O Load Avg",
+      "title": "Cache  I/O Load",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -730,87 +1843,93 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
-          "format": "short",
-          "label": null,
+          "$$hashKey": "object:1818",
+          "decimals": 0,
+          "format": "percent",
           "logBase": 1,
-          "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
+          "$$hashKey": "object:1819",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
-      "datasource": null,
-      "description": "Shows cache growth over a longer period of time, useful if you need to decide to increase the size of the cache",
+      "aliasColors": {
+        "Clients In": "green",
+        "Clients Out": "yellow",
+        "Cloud In": "red",
+        "Cloud Out": "blue",
+        "clients in": "#7EB26D",
+        "clients out": "#EAB839",
+        "cloud in": "#6ED0E0",
+        "cloud out": "#EF843C"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "description": "Clients to Nasuni transmit/receive bits/second for the last 1 minute.\nNasuni to Cloud transmit/receive bits/second for the last 1 minute.",
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "bytes"
+          "links": [],
+          "unit": "decbits"
         },
         "overrides": []
       },
+      "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 6,
         "w": 6,
         "x": 18,
-        "y": 1
+        "y": 11
       },
-      "id": 33,
+      "hiddenSeries": false,
+      "id": 16,
+      "legend": {
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "connected",
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
+        "alertThreshold": true
       },
-      "pluginVersion": "7.5.9",
+      "percentage": false,
+      "pluginVersion": "8.4.6",
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
       "targets": [
         {
-          "alias": "Total Cache Available",
+          "alias": "$col",
+          "dsType": "influxdb",
           "groupBy": [
             {
               "params": [
@@ -828,62 +1947,81 @@
           "measurement": "Nasuni",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT max(\"filer_nw_clients_in\") AS \"Clients In\", max(\"filer_nw_clients_out\") AS \"Clients Out\", max(\"filer_nw_cloud_in\") AS \"Cloud In\", max(\"filer_nw_cloud_out\") AS \"Cloud Out\" FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
             [
               {
                 "params": [
-                  "filer_cache_total"
+                  "filer_nw_clients_in"
                 ],
                 "type": "field"
               },
               {
                 "params": [],
-                "type": "mean"
+                "type": "max"
+              },
+              {
+                "params": [
+                  "Clients In"
+                ],
+                "type": "alias"
               }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$Appliance$/"
-            }
-          ]
-        },
-        {
-          "alias": "Total Cache Used",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "Nasuni",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
+            ],
             [
               {
                 "params": [
-                  "filer_cache_used"
+                  "filer_nw_clients_out"
                 ],
                 "type": "field"
               },
               {
                 "params": [],
-                "type": "mean"
+                "type": "max"
+              },
+              {
+                "params": [
+                  "Clients Out"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "filer_nw_cloud_in"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              },
+              {
+                "params": [
+                  "Cloud In"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "filer_nw_cloud_out"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              },
+              {
+                "params": [
+                  "Cloud Out"
+                ],
+                "type": "alias"
               }
             ]
           ],
@@ -896,19 +2034,49 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Cache Status",
-      "type": "stat"
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Throughput",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:2834",
+          "decimals": 0,
+          "format": "decbits",
+          "label": "bits/second",
+          "logBase": 1,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:2835",
+          "format": "short",
+          "logBase": 1,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
     },
     {
-      "cacheTimeout": null,
-      "datasource": null,
+      "description": "Memory utilization.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
+          "decimals": 0,
           "mappings": [
             {
               "options": {
@@ -947,7 +2115,7 @@
         "h": 3,
         "w": 2,
         "x": 0,
-        "y": 4
+        "y": 14
       },
       "id": 22,
       "links": [],
@@ -964,7 +2132,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.9",
+      "pluginVersion": "8.4.6",
       "targets": [
         {
           "groupBy": [
@@ -1024,50 +2192,26 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Memory",
       "type": "gauge"
     },
     {
-      "cacheTimeout": null,
-      "datasource": null,
-      "description": "Data that is yet to be snapped to your storage",
+      "description": "Active number of open file locks.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "decimals": 1,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)",
+                "color": "green",
                 "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 104857600
-              },
-              {
-                "color": "#F2495C",
-                "value": 289715200
               }
             ]
-          },
-          "unit": "bytes"
+          }
         },
         "overrides": []
       },
@@ -1075,49 +2219,53 @@
         "h": 3,
         "w": 2,
         "x": 2,
-        "y": 4
+        "y": 14
       },
-      "id": 6,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 100,
+      "id": 44,
       "options": {
-        "colorMode": "background",
+        "colorMode": "value",
         "graphMode": "none",
         "justifyMode": "auto",
-        "orientation": "horizontal",
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
           ],
-          "fields": "",
+          "fields": "/^Nasuni\\.last$/",
           "values": false
         },
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.9",
+      "pluginVersion": "8.4.6",
       "targets": [
         {
-          "dsType": "influxdb",
           "groupBy": [
             {
               "params": [
                 "$__interval"
               ],
               "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
             }
           ],
           "measurement": "Nasuni",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT last(\"filer_total_share_locks\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
             [
               {
                 "params": [
-                  "filer_total_unprotected_data"
+                  "filer_total_share_locks"
                 ],
                 "type": "field"
               },
@@ -1136,12 +2284,11 @@
           ]
         }
       ],
-      "title": "Unprotected Data",
+      "title": "File Locks",
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "datasource": null,
+      "description": "Cache utilization.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1198,7 +2345,7 @@
         "h": 3,
         "w": 2,
         "x": 0,
-        "y": 7
+        "y": 17
       },
       "id": 27,
       "links": [],
@@ -1215,7 +2362,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.9",
+      "pluginVersion": "8.4.6",
       "targets": [
         {
           "groupBy": [
@@ -1263,20 +2410,17 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Cache %",
+      "title": "Cache",
       "type": "gauge"
     },
     {
-      "cacheTimeout": null,
-      "datasource": null,
-      "description": "Number of Open File Locks",
+      "description": "Data that is yet to be snapped to your object storage provider.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
+          "decimals": 1,
           "mappings": [
             {
               "options": {
@@ -1289,19 +2433,23 @@
             }
           ],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
-                "color": "green",
+                "color": "rgba(50, 172, 45, 0.97)",
                 "value": null
               },
               {
-                "color": "red",
-                "value": 80
+                "color": "#F2495C",
+                "value": 25
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 50
               }
             ]
           },
-          "unit": "none"
+          "unit": "bytes"
         },
         "overrides": []
       },
@@ -1309,14 +2457,13 @@
         "h": 3,
         "w": 2,
         "x": 2,
-        "y": 7
+        "y": 17
       },
-      "id": 26,
-      "interval": null,
+      "id": 6,
       "links": [],
       "maxDataPoints": 100,
       "options": {
-        "colorMode": "none",
+        "colorMode": "background",
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "horizontal",
@@ -1330,7 +2477,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.9",
+      "pluginVersion": "8.4.6",
       "targets": [
         {
           "dsType": "influxdb",
@@ -1345,15 +2492,13 @@
           "measurement": "Nasuni",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"filer_total_share_clients\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval)",
-          "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
             [
               {
                 "params": [
-                  "filer_total_share_locks"
+                  "filer_total_unprotected_data"
                 ],
                 "type": "field"
               },
@@ -1372,7 +2517,7 @@
           ]
         }
       ],
-      "title": "Open Files",
+      "title": "Unprotected Data",
       "type": "stat"
     },
     {
@@ -1380,10 +2525,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "description": "Memory utilization over time.",
       "fieldConfig": {
         "defaults": {
-          "unit": "deckbytes"
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -1393,10 +2538,10 @@
         "h": 6,
         "w": 7,
         "x": 4,
-        "y": 7
+        "y": 17
       },
       "hiddenSeries": false,
-      "id": 32,
+      "id": 42,
       "legend": {
         "avg": false,
         "current": false,
@@ -1408,12 +2553,13 @@
       },
       "lines": true,
       "linewidth": 1,
+      "links": [],
       "nullPointMode": "connected",
       "options": {
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.9",
+      "pluginVersion": "8.4.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1423,50 +2569,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "alias": "RAM Total",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "Nasuni",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "mem_total_real"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$Appliance$/"
-            }
-          ]
-        },
-        {
-          "alias": "RAM Available",
+          "alias": "Memory Utilization",
           "groupBy": [
             {
               "params": [
@@ -1485,9 +2588,23 @@
           "measurement": "Nasuni",
           "orderByTime": "ASC",
           "policy": "default",
-          "refId": "B",
+          "query": "SELECT (last(\"mem_total_real\") - last(\"mem_avail_real\")) / last(\"mem_total_real\") * 100 FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time(10s) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
           "resultFormat": "time_series",
           "select": [
+            [
+              {
+                "params": [
+                  "mem_total_real"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
             [
               {
                 "params": [
@@ -1511,10 +2628,8 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
-      "title": "RAM",
+      "title": "Memory Usage",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1522,56 +2637,49 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
-          "format": "deckbytes",
-          "label": null,
+          "$$hashKey": "object:63",
+          "format": "percent",
           "logBase": 1,
-          "max": null,
-          "min": null,
+          "max": "100",
+          "min": 0,
           "show": true
         },
         {
+          "$$hashKey": "object:64",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
-      "aliasColors": {},
+      "aliasColors": {
+        "Read iOps": "semi-dark-red",
+        "Write": "blue"
+      },
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
-      "description": "Disk I/O Operations Max over 1/5/15 mins",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
+      "description": "The number of read & write accesses on this device since boot.",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 6,
         "w": 7,
         "x": 11,
-        "y": 7
+        "y": 17
       },
       "hiddenSeries": false,
-      "id": 11,
+      "id": 29,
       "legend": {
         "avg": false,
         "current": false,
@@ -1583,12 +2691,12 @@
       },
       "lines": true,
       "linewidth": 1,
-      "nullPointMode": "connected",
+      "nullPointMode": "null",
       "options": {
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.9",
+      "pluginVersion": "8.4.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1598,7 +2706,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "alias": "Cache Disk (1Min)",
+          "alias": "Read",
           "groupBy": [
             {
               "params": [
@@ -1608,16 +2716,15 @@
             },
             {
               "params": [
-                "diskiodevice"
+                "null"
               ],
-              "type": "tag"
+              "type": "fill"
             }
           ],
-          "hide": false,
           "measurement": "nasuni_disk",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT max(\"diskiola5\") FROM \"nasuni_disk\" WHERE (\"agent_host\" =~ /^$Appliance$/ AND \"diskiodevice\" = 'sdc') AND $timeFilter GROUP BY time($__interval), \"diskiodevice\"",
+          "query": "SELECT non_negative_derivative(sum(\"diskioreads\"), 1m) FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/ AND \"diskiodevice\" = 'nvme1n1') AND $timeFilter GROUP BY time($__interval) fill(null)",
           "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1625,13 +2732,19 @@
             [
               {
                 "params": [
-                  "diskiola1"
+                  "diskioreads"
                 ],
                 "type": "field"
               },
               {
                 "params": [],
-                "type": "max"
+                "type": "sum"
+              },
+              {
+                "params": [
+                  "1m"
+                ],
+                "type": "non_negative_derivative"
               }
             ]
           ],
@@ -1650,7 +2763,7 @@
           ]
         },
         {
-          "alias": "Cache Disk (5Min)",
+          "alias": "Write",
           "groupBy": [
             {
               "params": [
@@ -1660,15 +2773,16 @@
             },
             {
               "params": [
-                "diskiodevice"
+                "null"
               ],
-              "type": "tag"
+              "type": "fill"
             }
           ],
+          "hide": false,
           "measurement": "nasuni_disk",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT max(\"diskiola5\") FROM \"nasuni_disk\" WHERE (\"agent_host\" =~ /^$Appliance$/ AND \"diskiodevice\" = 'sdc') AND $timeFilter GROUP BY time($__interval), \"diskiodevice\"",
+          "query": "SELECT non_negative_derivative(mean(\"diskiowrites\"), 1m) FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/ AND \"diskiodevice\" = 'nvme1n1') AND $timeFilter GROUP BY time($__interval) fill(null)",
           "rawQuery": false,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1676,65 +2790,19 @@
             [
               {
                 "params": [
-                  "diskiola5"
+                  "diskiowrites"
                 ],
                 "type": "field"
               },
               {
                 "params": [],
-                "type": "max"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$Appliance$/"
-            },
-            {
-              "condition": "AND",
-              "key": "diskiodevice",
-              "operator": "=",
-              "value": "sdc"
-            }
-          ]
-        },
-        {
-          "alias": "Cache Disk (15Min)",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "diskiodevice"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": false,
-          "measurement": "nasuni_disk",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT max(\"diskiola5\") FROM \"nasuni_disk\" WHERE (\"agent_host\" =~ /^$Appliance$/ AND \"diskiodevice\" = 'sdc') AND $timeFilter GROUP BY time($__interval), \"diskiodevice\"",
-          "rawQuery": false,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
+                "type": "sum"
+              },
               {
                 "params": [
-                  "diskiola15"
+                  "1m"
                 ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "max"
+                "type": "non_negative_derivative"
               }
             ]
           ],
@@ -1748,16 +2816,14 @@
               "condition": "AND",
               "key": "diskiodevice",
               "operator": "=",
-              "value": "sdc"
+              "value": "nvme1n1"
             }
           ]
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
-      "title": "Cache Disk I/O Load Avg",
+      "title": "Disk I/O",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1765,38 +2831,155 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
-          "format": "short",
-          "label": null,
+          "$$hashKey": "object:1956",
+          "decimals": 0,
+          "format": "iops",
           "logBase": 1,
-          "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
+          "$$hashKey": "object:1957",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {
+        "Nasuni.last": "orange"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "decimals": 0,
+      "description": "SMB connection count over time.",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 18,
+        "y": 17
+      },
+      "hiddenSeries": false,
+      "id": 34,
+      "legend": {
+        "alignAsTable": false,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.4.6",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "Connections",
+          "dsType": "influxdb",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            }
+          ],
+          "measurement": "Nasuni",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"filer_total_share_clients\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "filer_total_share_clients"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "hostname",
+              "operator": "=~",
+              "value": "/^$Appliance$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "SMB Connections",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:111",
+          "decimals": 0,
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:112",
+          "format": "short",
+          "logBase": 1,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
-      "datasource": null,
-      "description": "This graph allows you to monitor cache activity in a little more detail.  eg What your % cache hit ratio looks like.",
+      "description": "This graph allows you to monitor cache activity in a little more detail.  eg What your % cache miss ratio looks like.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1829,15 +3012,15 @@
         ]
       },
       "gridPos": {
-        "h": 6,
-        "w": 6,
-        "x": 18,
-        "y": 7
+        "h": 3,
+        "w": 4,
+        "x": 0,
+        "y": 20
       },
       "id": 20,
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
@@ -1850,7 +3033,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.5.9",
+      "pluginVersion": "8.4.6",
       "targets": [
         {
           "alias": "Cache Read",
@@ -1972,1168 +3155,23 @@
           ]
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Cache Activity",
       "type": "stat"
-    },
-    {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 2,
-        "x": 0,
-        "y": 10
-      },
-      "id": 36,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/^Nasuni\\.last$/",
-          "values": false
-        },
-        "text": {
-          "valueSize": 20
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.5.9",
-      "targets": [
-        {
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "Nasuni",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "filer_version"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$Appliance$/"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Version",
-      "type": "stat"
-    },
-    {
-      "datasource": null,
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "timeticks"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 2,
-        "x": 2,
-        "y": 10
-      },
-      "id": 14,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.5.9",
-      "targets": [
-        {
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "Nasuni",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"filer_online\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "filer_version"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Uptime",
-      "type": "stat"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "cacheTimeout": null,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 6,
-        "w": 7,
-        "x": 4,
-        "y": 13
-      },
-      "hiddenSeries": false,
-      "id": 42,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.9",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "alias": "Memory Utilization",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "Nasuni",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT (last(\"mem_total_real\") - (last(\"mem_avail_real\") + last(\"mem_cached\"))) / last(\"mem_total_real\") * 100 FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time(10s) fill(null)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "mem_total_real"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "mem_avail_real"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$Appliance$/"
-            }
-          ]
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Memory",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "percent",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {
-        "Read iOps": "semi-dark-red"
-      },
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 6,
-        "w": 7,
-        "x": 11,
-        "y": 13
-      },
-      "hiddenSeries": false,
-      "id": 29,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.9",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "alias": "Read iOps",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "nasuni_disk",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "diskioreads"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "sum"
-              },
-              {
-                "params": [
-                  "1m"
-                ],
-                "type": "non_negative_derivative"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$Appliance$/"
-            },
-            {
-              "condition": "AND",
-              "key": "diskiodevice",
-              "operator": "=",
-              "value": "nvme1n1"
-            }
-          ]
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Read iOps",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {
-        "Total Cache Available": "blue",
-        "Total Cache Used": "red"
-      },
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "description": "Shows cache growth over a longer period of time, useful if you need to decide to increase the size of the cache",
-      "fieldConfig": {
-        "defaults": {
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 6,
-        "w": 6,
-        "x": 18,
-        "y": 13
-      },
-      "hiddenSeries": false,
-      "id": 18,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.9",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "alias": "Total Cache Available",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "Nasuni",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "filer_cache_total"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$Appliance$/"
-            }
-          ]
-        },
-        {
-          "alias": "Total Cache Used",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "Nasuni",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "filer_cache_used"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$Appliance$/"
-            }
-          ]
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Cache History",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "bytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {
-        "Nasuni.last": "orange"
-      },
-      "bars": false,
-      "cacheTimeout": null,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "decimals": null,
-      "description": "Number of connected SMB users over time",
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 6,
-        "w": 7,
-        "x": 4,
-        "y": 19
-      },
-      "hiddenSeries": false,
-      "id": 34,
-      "interval": null,
-      "legend": {
-        "alignAsTable": false,
-        "avg": true,
-        "current": false,
-        "max": true,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "maxDataPoints": 100,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.9",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "alias": "Users",
-          "dsType": "influxdb",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            }
-          ],
-          "measurement": "Nasuni",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT last(\"filer_total_share_clients\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval)",
-          "rawQuery": false,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "filer_total_share_clients"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$Appliance$/"
-            }
-          ]
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Users (History)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {
-        "Write iOps": "light-red"
-      },
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 6,
-        "w": 7,
-        "x": 11,
-        "y": 19
-      },
-      "hiddenSeries": false,
-      "id": 30,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.9",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "alias": "Write iOps",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "nasuni_disk",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "diskiowrites"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "sum"
-              },
-              {
-                "params": [
-                  "1m"
-                ],
-                "type": "non_negative_derivative"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$Appliance$/"
-            },
-            {
-              "condition": "AND",
-              "key": "diskiodevice",
-              "operator": "=",
-              "value": "nvme1n1"
-            }
-          ]
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Write iOps",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {
-        "Clients In": "green",
-        "Clients Out": "yellow",
-        "Cloud In": "red",
-        "Cloud Out": "blue",
-        "clients in": "#7EB26D",
-        "clients out": "#EAB839",
-        "cloud in": "#6ED0E0",
-        "cloud out": "#EF843C"
-      },
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "links": []
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 6,
-        "w": 6,
-        "x": 18,
-        "y": 19
-      },
-      "hiddenSeries": false,
-      "id": 16,
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.5.9",
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "alias": "$col",
-          "dsType": "influxdb",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "Nasuni",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"filer_cache_total\") FROM \"ngfs\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": false,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "filer_nw_clients_in"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "max"
-              },
-              {
-                "params": [
-                  "Clients In"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "filer_nw_clients_out"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "max"
-              },
-              {
-                "params": [
-                  "Clients Out"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "filer_nw_cloud_in"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "max"
-              },
-              {
-                "params": [
-                  "Cloud In"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "filer_nw_cloud_out"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "max"
-              },
-              {
-                "params": [
-                  "Cloud Out"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$Appliance$/"
-            }
-          ]
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Throughput",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "bps",
-          "label": "bytes / second",
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
     }
   ],
-  "refresh": false,
-  "schemaVersion": 27,
+  "refresh": "",
+  "schemaVersion": 35,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {},
-        "datasource": "${DS_INFLUXDB}",
+        "datasource": {
+          "type": "influxdb",
+          "uid": "${DS_INFLUXDB}"
+        },
         "definition": "SHOW TAG VALUES FROM \"Nasuni\" WITH KEY = \"customer\"",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Customer",
@@ -3146,55 +3184,52 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
         "current": {},
-        "datasource": "${DS_INFLUXDB}",
-        "definition": "SHOW TAG VALUES FROM \"Nasuni\" WITH KEY = \"region\" WHERE customer =~ /$Customer/",
-        "description": null,
-        "error": null,
+        "datasource": {
+          "type": "influxdb",
+          "uid": "${DS_INFLUXDB}"
+        },
+        "definition": "SHOW TAG VALUES FROM \"Nasuni\" WITH KEY = \"filer_location\" WHERE customer =~ /$Customer/",
         "hide": 0,
         "includeAll": false,
         "label": "Region",
         "multi": false,
         "name": "Region",
         "options": [],
-        "query": "SHOW TAG VALUES FROM \"Nasuni\" WITH KEY = \"region\" WHERE customer =~ /$Customer/",
+        "query": "SHOW TAG VALUES FROM \"Nasuni\" WITH KEY = \"filer_location\" WHERE customer =~ /$Customer/",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
       },
       {
-        "allValue": null,
         "current": {},
-        "datasource": "${DS_INFLUXDB}",
-        "definition": "SHOW TAG VALUES FROM \"Nasuni\" WITH KEY = \"hostname\" WHERE customer =~ /$Customer/ AND Region =~ /$Region/",
-        "description": null,
-        "error": null,
+        "datasource": {
+          "type": "influxdb",
+          "uid": "${DS_INFLUXDB}"
+        },
+        "definition": "SHOW TAG VALUES FROM \"Nasuni\" WITH KEY = \"hostname\" WHERE customer =~ /$Customer/ AND filer_location =~ /$Region/",
         "hide": 0,
         "includeAll": false,
         "label": "Appliance",
         "multi": true,
         "name": "Appliance",
         "options": [],
-        "query": "SHOW TAG VALUES FROM \"Nasuni\" WITH KEY = \"hostname\" WHERE customer =~ /$Customer/ AND Region =~ /$Region/",
+        "query": "SHOW TAG VALUES FROM \"Nasuni\" WITH KEY = \"hostname\" WHERE customer =~ /$Customer/ AND filer_location =~ /$Region/",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -3207,7 +3242,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Nasuni | Monitoring | Main",
+  "title": "PerformanceDashboard",
   "uid": "79m3TFEMz",
-  "version": 29
+  "version": 138,
+  "weekStart": ""
 }
