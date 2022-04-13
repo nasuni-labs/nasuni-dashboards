@@ -1,10 +1,8 @@
-About
-=====
+# About
 
 Nasuni Dashboards provides a framework for viewing time series data across a customer's entire Nasuni stack. Supported data sources currently include Edge Appliance SNMP data as well as the Global File Acceleration (GFA) Telemetry REST API.
 
-Components
-===========
+# Components
 
 *   Telegraf is an agent for collecting, processing, aggregating, and writing metrics.
     
@@ -15,11 +13,10 @@ Components
 
 ![TIGStackComponents](/images/TIGStackComponents.png)
 
-Installation Guidelines
-==================
+# Installation Guidelines
 
-Validated Component Versions
-----------------------------------------
+## Validated Component Versions
+
 Nasuni Dashboards has been validated with these component versions: 
 
 *   Telegraf: 1.22
@@ -28,8 +25,7 @@ Nasuni Dashboards has been validated with these component versions:
     
 *   Grafana: 8.4.4
 
-VM Requirements for Single-Node Installation 
-----------------------------------------
+## VM Requirements for Single-Node Installation 
 
 *   OS: Rocky Linux 8.x minimal or VM marketplace version
     
