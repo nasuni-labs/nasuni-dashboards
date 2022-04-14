@@ -263,7 +263,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
     `HOST-RESOURCES-MIB.txt  IF-MIB.txt  NASUNI-FILER-MIB.txt  SNMPv2-MIB.txt  UCD-DISKIO-MIB.txt  UCD-SNMP-MIB.txt`
         
-9.  If any MIBs are missing, repeat steps 5-7 for each missing MIB name, and confirm installation using the command in step 8.
+9.  If any MIBs are missing, repeat steps 4-7 for each missing MIB name, and confirm installation using the command in step 8.
     
 
 ### Telegraf Configuration
