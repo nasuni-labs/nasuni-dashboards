@@ -154,7 +154,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
 7.  Add firewall rules if the firewall service is running. First, check if the firewall service is running:
 
     ```shell
-    systemctl status firewalld
+    systemctl status firewalld --no-pager
     ```
     
     If the firewall service is running, the output will be similar to the following:
@@ -342,7 +342,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
 10.  Confirm the service is running. Look for **Active: active (running)**:
 
         ```shell
-        systemctl status telegraf
+        systemctl status telegraf --no-pager
         ```
 
 ## Install and Configure Grafana
@@ -479,7 +479,7 @@ When decommissioning a Nasuni Edge Appliance, it is good to clean up the InfluxD
 4.  Confirm that the service is running. Look for “Active: active (running)”:
     
     ```shell
-    systemctl status telegraf
+    systemctl status telegraf --no-pager
     ```
     
 5.  Open the InfluxDB shell:
