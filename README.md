@@ -297,9 +297,9 @@ To install InfluxDB, ssh to the VM and run the following commands:
 6.  In the **[inputs.snmp]** section, update protocol-specific values based on the protocol configured for your Edge Appliances and NMC: 
     - SNMPv3
 
-        - `sec_name = "SNMPv3Username"` (match the **Username** supplied in the Nasuni SNMP UI)
+        - `sec_name = "<username>"` (match the **Username** supplied in the Nasuni SNMP UI)
 
-        - `auth_password = "SNMPv3Password"` (match the **Password** supplied in the Nasuni SNMP UI)
+        - `auth_password = "<password>"` (match the **Password** supplied in the Nasuni SNMP UI)
     
     - SNMPv2: The included telegraf.conf assumes SNMPv3, so some values must be changed from the defaults and commented/uncommented (comment lines begin with **#**) to use SNMPv2:
 
