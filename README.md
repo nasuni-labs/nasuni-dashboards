@@ -305,7 +305,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
         - `version = 2`
 
-        - `community = "communityName"` (uncomment this line and set the value for **communityName**)
+        - `community = "public"` (uncomment this line and set the value if not using the **public** default)
 
         - comment out (add **#** to the beginning) lines SNMPv3-related lines that start with the following:
 
