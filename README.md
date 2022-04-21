@@ -99,10 +99,14 @@ Two common scenarios for DNS configuration:
 
 *   DHCP: DHCP is typically used for Cloud VMs, but can also be used on-premises. If the DNS server provided by DHCP is not authorititative for Edge Appliance hostnames, you can override the DNS server settings.
 
-    *   To enable static DNS with DHCP, ssh to the VM and edit 
-**/etc/sysconfig/network-scripts/ifcfg-{xxx}** 
-where **{xxx}** corresponds to your network adapter. 
-Add the `PEERDNS=no` to the end of the file.
+    *   To enable static DNS with DHCP, ssh to the VM and run the following command to disable dhcp updates to DNS:
+
+        ```shell
+        sudo sudo tee -a /etc/NetworkManager/conf.d/disable-resolve.conf-managing.conf > /dev/null <<EOT
+        [main]
+        dns=none
+        EOT
+        ```
 
     *   Edit **/etc/resolv.conf** , specifying nameserver entries for the DNS servers that are authoritative for Edge Appliance DNS.
 
