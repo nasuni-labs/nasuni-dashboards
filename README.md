@@ -102,7 +102,7 @@ Two common scenarios for DNS configuration:
     *   To enable static DNS with DHCP, ssh to the VM and run the following command to disable dhcp updates to DNS:
 
         ```shell
-        sudo sudo tee -a /etc/NetworkManager/conf.d/disable-resolve.conf-managing.conf > /dev/null <<EOT
+        sudo tee -a /etc/NetworkManager/conf.d/disable-resolve.conf-managing.conf > /dev/null <<EOT
         [main]
         dns=none
         EOT
