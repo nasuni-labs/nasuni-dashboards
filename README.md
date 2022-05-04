@@ -499,7 +499,7 @@ When decommissioning a Nasuni Edge Appliance, it is good to clean up the InfluxD
 
 *   This package stack has only been validated with the component versions documented in the README file.
     
-*   Nasuni Support is limited to Nasuni APIs and Protocols (SMB, NFS, SNMP).
+*   Nasuni Support is limited to Nasuni APIs and Protocols (SMB, NFS, SNMP, GFA Telemetry).
     
 *   Nasuni API and Protocol bugs or feature requests should be communicated to Nasuni Customer Success.
     
