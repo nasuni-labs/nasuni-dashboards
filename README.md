@@ -404,7 +404,7 @@ If Telegraf reports errors in **/var/log/telegraf/telegraf.log**, the source of 
      telegraf --config /etc/telegraf/telegraf.conf --test
      ```
 ### JSON_V2 Errors
-If Telegraf reports an error parsing JSON_V2 (used for the GFA Telemetry data source), your version of Telegraf is too old. Telegraf added JSON_V2 parsing in version 1.19. Update to the supported version of Telegraf for Nasuni labs to correct this issue.
+If Telegraf reports an error parsing JSON_V2 (used for the GFA Telemetry data source), your version of Telegraf is too old. Telegraf added JSON_V2 parsing in version 1.19. Update to the validated version of Telegraf for Nasuni Dashboards to correct this issue.
 
 
 # Maintenance Tasks
