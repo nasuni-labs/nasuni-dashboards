@@ -387,9 +387,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
 4. If using the GFA Telemetry API data source, import the associated GFA dashboards. From the Grafana left navigation bar, click the plus icon, then click the **Import** link. On the Import page, click **Import** and upload the **GFAVolumes.json** file from the extracted repository zip archive accepting the defaults and saving the configuration. Repeat for the **GFAAppliances.json** file.
 
-5. by download the [GFAVolumes.json](GFAVolumes.json) and [GFAAppliances.json](GFAAppliances.json) dashboard templates from Nasuni Labs.
-
-6. Navigate to the newly-imported GFA Volumes dashboard. Here is an example of expected output for the dashboard:
+5. Navigate to the newly-imported GFA Volumes dashboard. Here is an example of expected output for the dashboard:
 
 ![GFA Volumes Dashboard Screenshot](/images/GFAVolumesDashboardScreenshot.png)
 
