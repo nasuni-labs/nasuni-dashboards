@@ -1,4 +1,41 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_MYINFLUXDB",
+      "label": "MYINFLUXDB",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "influxdb",
+      "pluginName": "InfluxDB"
+    }
+  ],
+  "__elements": [],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "8.4.3"
+    },
+    {
+      "type": "datasource",
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -22,8 +59,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 3,
-  "iteration": 1649686455357,
+  "id": null,
+  "iteration": 1652985339839,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -95,19 +132,14 @@
           "show": false
         },
         "showHeader": true,
-        "sortBy": [
-          {
-            "desc": false,
-            "displayName": "filer_title"
-          }
-        ]
+        "sortBy": []
       },
       "pluginVersion": "8.4.3",
       "targets": [
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "PB6B4F2F1C736D27A"
+            "uid": "${DS_MYINFLUXDB}"
           },
           "groupBy": [
             {
@@ -222,7 +254,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "PB6B4F2F1C736D27A"
+            "uid": "${DS_MYINFLUXDB}"
           },
           "groupBy": [
             {
@@ -378,7 +410,7 @@
           "alias": "$col",
           "datasource": {
             "type": "influxdb",
-            "uid": "PB6B4F2F1C736D27A"
+            "uid": "${DS_MYINFLUXDB}"
           },
           "groupBy": [
             {
@@ -423,7 +455,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 84
+        "y": 69
       },
       "id": 16,
       "panels": [],
@@ -527,7 +559,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 85
+        "y": 70
       },
       "id": 12,
       "maxPerRow": 2,
@@ -549,7 +581,7 @@
           "alias": "$col",
           "datasource": {
             "type": "influxdb",
-            "uid": "PB6B4F2F1C736D27A"
+            "uid": "${DS_MYINFLUXDB}"
           },
           "groupBy": [
             {
@@ -614,7 +646,7 @@
           "alias": "$col",
           "datasource": {
             "type": "influxdb",
-            "uid": "PB6B4F2F1C736D27A"
+            "uid": "${DS_MYINFLUXDB}"
           },
           "groupBy": [
             {
@@ -690,15 +722,7 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
+        "current": {},
         "definition": "SELECT distinct(volume_title) FROM (\nSELECT * \nFROM \"gfa_data\" \nWHERE $timeFilter \n)",
         "description": "",
         "hide": 0,
@@ -712,14 +736,11 @@
         "regex": "",
         "skipUrlSync": false,
         "sort": 5,
-        "type": "query"
+        "type": "query",
+        "datasource": "${DS_MYINFLUXDB}"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
+        "current": {},
         "definition": "SELECT distinct(filer_title) FROM (\nSELECT * \nFROM \"gfa_data\" \nWHERE $timeFilter \n)",
         "description": "",
         "hide": 0,
@@ -733,7 +754,8 @@
         "regex": "",
         "skipUrlSync": false,
         "sort": 5,
-        "type": "query"
+        "type": "query",
+        "datasource": "${DS_MYINFLUXDB}"
       }
     ]
   },
@@ -745,6 +767,6 @@
   "timezone": "",
   "title": "GFA :: Appliances",
   "uid": "9iFmEGL7z",
-  "version": 4,
+  "version": 5,
   "weekStart": ""
 }
