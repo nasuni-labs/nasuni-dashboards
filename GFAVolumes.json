@@ -1,8 +1,8 @@
 {
   "__inputs": [
     {
-      "name": "DS_SOMEOTHERNAME",
-      "label": "SOMEOTHERNAME",
+      "name": "DS_INFLUXDB",
+      "label": "InfluxDB",
       "description": "",
       "type": "datasource",
       "pluginId": "influxdb",
@@ -65,7 +65,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1652963964447,
+  "iteration": 1653056328351,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -183,7 +183,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_SOMEOTHERNAME}"
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -289,7 +289,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_SOMEOTHERNAME}"
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -333,7 +333,13 @@
               }
             ]
           ],
-          "tags": []
+          "tags": [
+            {
+              "key": "volume_title",
+              "operator": "=~",
+              "value": "/^$volume$/"
+            }
+          ]
         }
       ],
       "title": "Propagation",
@@ -455,7 +461,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_SOMEOTHERNAME}"
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -496,7 +502,13 @@
               }
             ]
           ],
-          "tags": []
+          "tags": [
+            {
+              "key": "volume_title",
+              "operator": "=~",
+              "value": "/^$volume$/"
+            }
+          ]
         }
       ],
       "title": "Oldest Unprotected Data",
@@ -553,7 +565,32 @@
           },
           "unit": "none"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "gfa_data.writes {volume_title: USVolume2}"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 6,
@@ -577,7 +614,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_SOMEOTHERNAME}"
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -619,7 +656,13 @@
               }
             ]
           ],
-          "tags": []
+          "tags": [
+            {
+              "key": "volume_title",
+              "operator": "=~",
+              "value": "/^$volume$/"
+            }
+          ]
         }
       ],
       "title": "Audit Event Counts",
@@ -691,13 +734,13 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_SOMEOTHERNAME}"
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [],
           "measurement": "gfa_data",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"lock_state\" FROM \"gfa_data\" WHERE (\"volume_title\" =~ /^$volume$/) AND $timeFilter AND (\"lock_state\" = 'ACQUIRED' OR \"lock_state\" = 'RELEASED')",
+          "query": "SELECT \"lock_state\" FROM \"gfa_data\" WHERE (\"volume_title\" =~ /^$volume$/) AND $timeFilter AND (\"lock_state\" = 'ACQUIRED' OR \"lock_state\" = 'RELEASED') GROUP BY volume_title",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -789,13 +832,13 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_SOMEOTHERNAME}"
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [],
           "measurement": "gfa_data",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"mode\", \"profile\", \"time_to_protect\" FROM \"gfa_data\" WHERE $timeFilter GROUP BY \"volume_title\"",
+          "query": "SELECT \"mode\", \"profile\", \"time_to_protect\" FROM \"gfa_data\" WHERE $timeFilter AND (\"volume_title\" =~ /^$volume$/) GROUP BY \"volume_title\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -824,6 +867,10 @@
     "list": [
       {
         "current": {},
+        "datasource": {
+          "type": "influxdb",
+          "uid": "${DS_INFLUXDB}"
+        },
         "definition": "SELECT distinct(volume_title) FROM (\nSELECT * \nFROM \"gfa_data\" \nWHERE $timeFilter \n)",
         "description": "",
         "hide": 0,
@@ -837,19 +884,18 @@
         "regex": "",
         "skipUrlSync": false,
         "sort": 5,
-        "type": "query",
-        "datasource": "${DS_SOMEOTHERNAME}"
+        "type": "query"
       }
     ]
   },
   "time": {
-    "from": "now-7d",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "GFA :: Volumes",
   "uid": "60XLPNL7z",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }

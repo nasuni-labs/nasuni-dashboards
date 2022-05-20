@@ -1,0 +1,1128 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_INFLUXDB",
+      "label": "InfluxDB",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "influxdb",
+      "pluginName": "InfluxDB"
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 3,
+  "iteration": 1653073145012,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "description": "Check-in indicator for all appliances in 15 minute intervals, values are OK (under 5 minutes), >5 minutes and >1 hour",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "fixed"
+          },
+          "custom": {
+            "fillOpacity": 50,
+            "lineWidth": 1,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "from": 0,
+                "result": {
+                  "color": "dark-green",
+                  "index": 0,
+                  "text": "Ok"
+                },
+                "to": 300
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 301,
+                "result": {
+                  "color": "yellow",
+                  "index": 1,
+                  "text": "> 5 minutes"
+                },
+                "to": 3600
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 3601,
+                "result": {
+                  "color": "red",
+                  "index": 2,
+                  "text": "> 1 hour"
+                },
+                "to": 36000000
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 23,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 145,
+      "options": {
+        "alignValue": "left",
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "mergeValues": false,
+        "rowHeight": 0.57,
+        "showValue": "never",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.4.2",
+      "targets": [
+        {
+          "alias": "$tag_filer_title",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "30m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "filer_title"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "gfa_data",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "last_checkin"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "min"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "filer_title",
+              "operator": "=~",
+              "value": "/^$appliance$/"
+            },
+            {
+              "condition": "AND",
+              "key": "volume_title",
+              "operator": "=~",
+              "value": "/^$volume$/"
+            }
+          ]
+        }
+      ],
+      "title": "GFA controller connectivity per appliance",
+      "type": "state-timeline"
+    },
+    {
+      "description": "Volume activity indicator for all appliances in 15 minute intervals, values are OK (under 5 minutes), >5 minutes and >1 hour",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "fixed"
+          },
+          "custom": {
+            "fillOpacity": 50,
+            "lineWidth": 1,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "from": 0,
+                "result": {
+                  "color": "dark-green",
+                  "index": 0,
+                  "text": "Ok"
+                },
+                "to": 300
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 301,
+                "result": {
+                  "color": "yellow",
+                  "index": 1,
+                  "text": "> 5 minutes"
+                },
+                "to": 3600
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 3601,
+                "result": {
+                  "color": "red",
+                  "index": 2,
+                  "text": "> 1 hour"
+                },
+                "to": 3600000000
+              },
+              "type": "range"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 23,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "id": 210,
+      "options": {
+        "alignValue": "left",
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "mergeValues": false,
+        "rowHeight": 0.57,
+        "showValue": "never",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.4.2",
+      "targets": [
+        {
+          "alias": "$tag_filer_title",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "30m"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "volume_title"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "filer_title"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "gfa_data",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "last_checkin"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "filer_title",
+              "operator": "=~",
+              "value": "/^$appliance$/"
+            },
+            {
+              "condition": "AND",
+              "key": "volume_title",
+              "operator": "=~",
+              "value": "/^$volume$/"
+            }
+          ]
+        }
+      ],
+      "title": "Last volume activity",
+      "type": "state-timeline"
+    },
+    {
+      "description": "Average age of unprotected data for all appliances sharing the selected volume",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": 3600000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 19,
+        "w": 24,
+        "x": 0,
+        "y": 46
+      },
+      "id": 275,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "$tag_filer_title",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1h"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "filer_title"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "volume_title"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "gfa_data",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "oldest_unprotected_data"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "filer_title",
+              "operator": "=~",
+              "value": "/^$appliance$/"
+            },
+            {
+              "condition": "AND",
+              "key": "volume_title",
+              "operator": "=~",
+              "value": "/^$volume$/"
+            }
+          ]
+        }
+      ],
+      "title": "Average oldest unprotected data",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "description": "Total file system (audit) events for all appliances for the selected volume ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": 3600000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 19,
+        "w": 24,
+        "x": 0,
+        "y": 65
+      },
+      "id": 339,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "$tag_filer_title",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "1h"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "filer_title"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "volume_title"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "gfa_data",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "data_protected"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "filer_title",
+              "operator": "=~",
+              "value": "/^$appliance$/"
+            },
+            {
+              "condition": "AND",
+              "key": "volume_title",
+              "operator": "=~",
+              "value": "/^$volume$/"
+            }
+          ]
+        }
+      ],
+      "title": "Audit events per appliance",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "description": "Percentage of time the volume lock was held across all appliances for the selcted volume",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 0.5
+              },
+              {
+                "color": "green",
+                "value": 0.7
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 0,
+        "y": 84
+      },
+      "id": 2,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            }
+          ],
+          "measurement": "gfa_data",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \n   sum(\"lock_duration\")  / ($__to - $__from) * 1000\nFROM \n    \"gfa_data\" \nWHERE \n    $timeFilter AND volume_title = '$volume'\nGROUP BY \n    \"volume_title\"",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "lock_duration"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "Total lock utilization",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "description": "Amount of time each appliance held the volume lock",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 19,
+        "x": 5,
+        "y": 84
+      },
+      "id": 15,
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "text": {}
+      },
+      "pluginVersion": "8.4.1",
+      "targets": [
+        {
+          "alias": "$tag_filer_title",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "filer_title"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "gfa_data",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \n   sum(\"lock_duration\")\nFROM \n    \"gfa_data\" \nWHERE \n    $timeFilter AND volume_title = '$volume'\nGROUP BY \n    \"filer_title\"",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "lock_duration"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "volume_title",
+              "operator": "=~",
+              "value": "/^$volume$/"
+            }
+          ]
+        }
+      ],
+      "title": "Volume lock usage by appliance",
+      "transformations": [],
+      "transparent": true,
+      "type": "bargauge"
+    },
+    {
+      "description": "Volume lock usage (time held) for all appliances during the selected time interval ",
+      "gridPos": {
+        "h": 18,
+        "w": 24,
+        "x": 0,
+        "y": 97
+      },
+      "id": 80,
+      "options": {
+        "colors": [
+          {
+            "color": "#1F60C4",
+            "text": ""
+          }
+        ],
+        "endField": "End",
+        "showYAxis": true,
+        "sortBy": "startTime",
+        "sortOrder": "asc",
+        "startField": "Start"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "query": "SELECT \"filer_title\" as \"Text\", time AS \"End\", \"lock_duration\"  FROM \"gfa_data\" WHERE (\"volume_title\" =~ /^$volume$/) AND $timeFilter AND (\"lock_state\" = 'RELEASED')",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table"
+        }
+      ],
+      "title": "Lock usage by appliance",
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {
+            "binary": {
+              "left": "lock_duration",
+              "operator": "*",
+              "reducer": "sum",
+              "right": "1000"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Start",
+            "binary": {
+              "left": "End",
+              "operator": "-",
+              "reducer": "sum",
+              "right": "lock_duration * 1000"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        }
+      ],
+      "type": "marcusolsson-gantt-panel"
+    },
+    {
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 115
+      },
+      "id": 6,
+      "panels": [],
+      "repeat": "appliance",
+      "title": "$appliance",
+      "type": "row"
+    },
+    {
+      "description": "Percentage of time the volume lock was held for an individual appliance during the selected time interval ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 0,
+        "y": 116
+      },
+      "id": 7,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            }
+          ],
+          "measurement": "gfa_data",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \n   sum(\"lock_duration\")  / ($__to - $__from) * 1000\nFROM \n    \"gfa_data\" \nWHERE \n    $timeFilter AND \"filer_title\" = '${appliance:raw}' AND volume_title = '$volume'\nGROUP BY \n    \"volume_title\"",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "lock_duration"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "sum"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "Lock Utilization",
+      "type": "stat"
+    },
+    {
+      "description": "Volume lock usage (time held) for an individual appliance during the selected time interval ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "ACQUIRED": {
+                  "color": "blue",
+                  "index": 0,
+                  "text": "locked"
+                },
+                "RELEASED": {
+                  "color": "transparent",
+                  "index": 1,
+                  "text": "unlocked"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 20,
+        "x": 4,
+        "y": 116
+      },
+      "id": 8,
+      "options": {
+        "alignValue": "left",
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "never",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "$col",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "groupBy": [],
+          "measurement": "gfa_data",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"lock_state\" as \"lock\" FROM \"gfa_data\" WHERE (\"filer_title\" =~ /^$appliance$/ AND \"volume_title\" =~ /^$volume$/) AND $timeFilter AND (\"lock_state\" = 'ACQUIRED' OR \"lock_state\" = 'RELEASED')",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "lock_state"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "filer_guid",
+              "operator": "=~",
+              "value": "/^$appliances$/"
+            },
+            {
+              "condition": "AND",
+              "key": "volume_guid",
+              "operator": "=~",
+              "value": "/^$volumes$/"
+            }
+          ]
+        }
+      ],
+      "title": "Lock Usage",
+      "type": "state-timeline"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 35,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "UKVolume1",
+          "value": "UKVolume1"
+        },
+        "definition": "SELECT distinct(volume_title) FROM (\nSELECT * \nFROM \"gfa_data\" \nWHERE $timeFilter \n)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Volume",
+        "multi": false,
+        "name": "volume",
+        "options": [],
+        "query": "SELECT distinct(volume_title) FROM (\nSELECT * \nFROM \"gfa_data\" \nWHERE $timeFilter \n)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "definition": "SELECT distinct(filer_title) FROM (\nSELECT * \nFROM \"gfa_data\" \nWHERE $timeFilter  AND (\"volume_title\" =~ /^$volume$/)\n)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Appliances",
+        "multi": true,
+        "name": "appliance",
+        "options": [],
+        "query": "SELECT distinct(filer_title) FROM (\nSELECT * \nFROM \"gfa_data\" \nWHERE $timeFilter  AND (\"volume_title\" =~ /^$volume$/)\n)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "GFA :: Miscellaneous",
+  "uid": "XQyncEL7k",
+  "version": 7,
+  "weekStart": ""
+}
