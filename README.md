@@ -332,10 +332,11 @@ To install InfluxDB, ssh to the VM and run the following commands:
     sudo yum -y install grafana-8.4.4-1.x86_64.rpm
     ```
     
-4.  Install the Grafana Clock Panel Plugin:
+4.  Install two Grafana plugins:
 
     ```shell
     sudo grafana-cli plugins install grafana-clock-panel
+    sudo grafana-cli plugins install marcusolsson-gantt-panel
     ```
     
 5.  Start the Grafana service:
