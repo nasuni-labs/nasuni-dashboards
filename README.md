@@ -97,7 +97,7 @@ Deploy a Rocky Linux VM that meets the requirements for Nasuni Dashboards.
 To use hostnames rather than IP addresses for the Telegraf SNMP agent configuration, DNS is required. 
 Two common scenarios for DNS configuration:
 
-*   DHCP: DHCP is typically used for Cloud VMs, but can also be used on-premises. If the DNS server provided by DHCP is not authorititative for Edge Appliance hostnames, you can override the DNS server settings.
+*   DHCP: DHCP is typically used for Cloud VMs, but can also be used on-premises. If the DNS server provided by DHCP is not authoritative for Edge Appliance hostnames, you can override the DNS server settings.
 
     *   To enable static DNS with DHCP, ssh to the VM and run the following command to disable DHCP updates to DNS:
 
@@ -294,7 +294,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
     - `headers (uncomment the first headers line and enter the <GFA API Key> from the NOC Dashboard)`
 
-    - `headers (uncomment the second headers line and enter a string/name to use as unique identifier for this connection)`
+    - `headers (uncomment the second headers line and enter a string/name to use as a unique identifier for this connection)`
 
 10.  Save and close the file. Press **Esc**, type **:x**, and press **Enter**.
         
