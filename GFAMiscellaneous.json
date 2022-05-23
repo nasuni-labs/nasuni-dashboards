@@ -9,6 +9,45 @@
       "pluginName": "InfluxDB"
     }
   ],
+  "__elements": [],
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "8.4.1"
+    },
+    {
+      "type": "datasource",
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "state-timeline",
+      "name": "State timeline",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -31,8 +70,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 3,
-  "iteration": 1653073145012,
+  "id": null,
+  "iteration": 1653310463740,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -1070,11 +1109,7 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "UKVolume1",
-          "value": "UKVolume1"
-        },
+        "current": {},
         "definition": "SELECT distinct(volume_title) FROM (\nSELECT * \nFROM \"gfa_data\" \nWHERE $timeFilter \n)",
         "hide": 0,
         "includeAll": false,
@@ -1087,18 +1122,11 @@
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
-        "type": "query"
+        "type": "query",
+        "datasource": "${DS_INFLUXDB}"
       },
       {
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
+        "current": {},
         "definition": "SELECT distinct(filer_title) FROM (\nSELECT * \nFROM \"gfa_data\" \nWHERE $timeFilter  AND (\"volume_title\" =~ /^$volume$/)\n)",
         "hide": 0,
         "includeAll": true,
@@ -1111,7 +1139,8 @@
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
-        "type": "query"
+        "type": "query",
+        "datasource": "${DS_INFLUXDB}"
       }
     ]
   },
@@ -1123,6 +1152,6 @@
   "timezone": "",
   "title": "GFA :: Miscellaneous",
   "uid": "XQyncEL7k",
-  "version": 7,
+  "version": 2,
   "weekStart": ""
 }

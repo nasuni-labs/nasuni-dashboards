@@ -60,7 +60,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1653068605768,
+  "iteration": 1653310450843,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -455,7 +455,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 109
+        "y": 79
       },
       "id": 16,
       "panels": [],
@@ -559,7 +559,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 110
+        "y": 80
       },
       "id": 12,
       "maxPerRow": 2,
@@ -773,6 +773,6 @@
   "timezone": "",
   "title": "GFA :: Appliances",
   "uid": "9iFmEGL7z",
-  "version": 4,
+  "version": 2,
   "weekStart": ""
 }
