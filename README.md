@@ -19,7 +19,7 @@ Nasuni Dashboards provides a framework for viewing time series data across a cus
 
 Nasuni Dashboards has been validated with these component versions: 
 
-* Telegraf: 1.22
+* Telegraf: 1.20.4
 
 * InfluxDB: 1.8.10
     
@@ -215,13 +215,13 @@ To install InfluxDB, ssh to the VM and run the following commands:
 1.  Use wget to download Telegraf:
     
     ```shell
-    wget https://dl.influxdata.com/telegraf/releases/telegraf-1.22.1-1.x86_64.rpm
+    wget https://dl.influxdata.com/telegraf/releases/telegraf-1.20.4-1.x86_64.rpm
     ```
     
 2.  Install Telegraf:
     
     ```shell
-    sudo yum -y localinstall telegraf-1.22.1-1.x86_64.rpm
+    sudo yum -y localinstall telegraf-1.20.4-1.x86_64.rpm
     ```
     
 3.  Install SNMP dependencies for Telegraf:
