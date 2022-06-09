@@ -392,6 +392,8 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
 ![GFA Volumes Dashboard Screenshot](/images/GFAVolumesDashboardScreenshot.png)
 
+6. If you are using the GFA Miscellaneous dashboard you will need to install the Gantt Chart plugin. Follow the instructions https://grafana.com/grafana/plugins/marcusolsson-gantt-panel/?tab=installation to download and install the plugin.
+
 # Troubleshooting
 
 ## Telegraf
