@@ -397,7 +397,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
 # Troubleshooting
 
 ## No SNMP Data
-Telegraf depends on SNMP data from the Edge Appliances to work. You can confirm that SNMP is configured and working on the Edge Appliance by connecting to he server where you installed the TIG stack and using the snmpwalk utility to load SNMP data. 
+Telegraf depends on SNMP data from the Edge Appliances to work. You can confirm that SNMP is configured and working on the Edge Appliance by connecting to the server where you installed the TIG stack over SSH and using the snmpwalk utility to load SNMP data. 
 
 ### Snmpwalk using SNMPv3
 
@@ -411,7 +411,7 @@ You will need to populate snmpUsername, snmpPassword (enclosed in single quotes 
 snmpwalk -v3 -l authnoPriv -u admin -a SHA -A 'myPassword123' -On edge1.domain.com .1.3.6.1.4.1.42040
 ```
      
-The OID at the end corresponds to the root OID of the Nasuni MIB and will list all values in it. If this really is an Edge Appliance SNMP issue the working Edge Appliance in Nasuni Dashboards will report a full set of values while the problem Edge Appliance(s) might report only a subset of data or no values.
+The OID at the end corresponds to the root OID of the Nasuni MIB and will list all values in it.
 
 ### Snmpwalk using SNMPv2
 ```shell
