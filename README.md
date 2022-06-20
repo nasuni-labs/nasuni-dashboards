@@ -401,12 +401,12 @@ Telegraf depends on SNMP data from the Edge Appliances to work. You can confirm 
 
 Here's the command for SNMPv3:  
      ```shell
-     snmpwalk -v3 -l authnoPriv -u <snmpUsername> -a SHA -A <snmpPassword> -On <edgeApplianceHostnameOrIP> .1.3.6.1.4.1.42040
+     telegraf --config /etc/telegraf/telegraf.conf --test
      ```
      
 You will need to populate !snmpUsername, snmpPassword, and edgeApplianceHostnameOrIP with the relevant values for your environment. Here's an example of the populated command:  
-    ```shell
-    snmpwalk -v3 -l authnoPriv -u admin -a SHA -A myPassword123 -On edge1.domain.com .1.3.6.1.4.1.42040
+     ```shell
+     telegraf --config /etc/telegraf/telegraf.conf --test
      ```
 
 ## Telegraf
