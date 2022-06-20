@@ -406,7 +406,7 @@ Here's the command for SNMPv3:
      ```
      
 You will need to populate !snmpUsername, snmpPassword, and edgeApplianceHostnameOrIP with the relevant values for your environment. Here's an example of the populated command:
-    
+
     ```shell
     snmpwalk -v3 -l authnoPriv -u admin -a SHA -A myPassword123 -On edge1.domain.com .1.3.6.1.4.1.42040
      ```
