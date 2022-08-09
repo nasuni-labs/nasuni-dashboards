@@ -66,7 +66,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 2,
   "id": null,
-  "iteration": 1649866578884,
+  "iteration": 1660085328434,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -461,6 +461,12 @@
       "dashLength": 10,
       "dashes": false,
       "description": "The 1/5/15 minute load averages.",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -653,7 +659,7 @@
         }
       ],
       "timeRegions": [],
-      "title": "CPU Load",
+      "title": "CPU Load Average",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -669,7 +675,7 @@
         {
           "$$hashKey": "object:400",
           "decimals": 0,
-          "format": "percent",
+          "format": "none",
           "label": "",
           "logBase": 1,
           "min": "0",
@@ -739,7 +745,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "alias": "1Min Avg",
+          "alias": "1Min Max",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
           "groupBy": [
             {
               "params": [
@@ -757,7 +767,7 @@
           "measurement": "nasuni_disk",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT max(\"diskiola1\") FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT max(\"diskiola1\") FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/ AND \"diskiodevice\" =~ /^$CacheDisk$/) AND $timeFilter GROUP BY time($__interval), \"diskiodevice\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -784,7 +794,11 @@
           ]
         },
         {
-          "alias": "5Min Avg",
+          "alias": "5Min Max",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
           "groupBy": [
             {
               "params": [
@@ -802,7 +816,7 @@
           "measurement": "nasuni_disk",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT max(\"diskiola5\") FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT max(\"diskiola5\") FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/ AND \"diskiodevice\" =~ /^$CacheDisk$/) AND $timeFilter GROUP BY time($__interval), \"diskiodevice\"",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -829,7 +843,11 @@
           ]
         },
         {
-          "alias": "15Min Avg",
+          "alias": "15Min Max",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
           "groupBy": [
             {
               "params": [
@@ -847,7 +865,7 @@
           "measurement": "nasuni_disk",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT max(\"diskiola15\") FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT max(\"diskiola15\") FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/ AND \"diskiodevice\" =~ /^$CacheDisk$/) AND $timeFilter GROUP BY time($__interval), \"diskiodevice\"",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -876,7 +894,7 @@
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Disk Load",
+      "title": "Cache Disk I/O Load",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -911,7 +929,7 @@
     {
       "aliasColors": {
         "Total Cache Available": "green",
-        "Total Cache Used": "blue"
+        "Total Cache Used": "#eab839"
       },
       "bars": false,
       "dashLength": 10,
@@ -1470,7 +1488,9 @@
       "type": "stat"
     },
     {
-      "aliasColors": {},
+      "aliasColors": {
+        "Available": "#EAB839"
+      },
       "bars": false,
       "dashLength": 10,
       "dashes": false,
@@ -1637,7 +1657,9 @@
       }
     },
     {
-      "aliasColors": {},
+      "aliasColors": {
+        "Write": "#eab839"
+      },
       "bars": false,
       "dashLength": 10,
       "dashes": false,
@@ -1678,164 +1700,32 @@
       "steppedLine": false,
       "targets": [
         {
-          "alias": "1Min Max",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "diskiodevice"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": false,
-          "measurement": "nasuni_disk",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT max(\"diskiola1\") FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/ AND \"diskiodevice\" = 'nvme1n1') AND $timeFilter GROUP BY time($__interval), \"diskiodevice\"",
-          "rawQuery": false,
+          "alias": "Read",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "query": "SELECT non_negative_derivative(sum(\"diskioreads\"), 1m) FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/ AND \"diskiodevice\" =~ /^$CacheDisk$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "diskiola1"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "max"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$Appliance$/"
-            },
-            {
-              "condition": "AND",
-              "key": "diskiodevice",
-              "operator": "=",
-              "value": "nvme1n1"
-            }
-          ]
+          "resultFormat": "time_series"
         },
         {
-          "alias": "5Min Max",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "diskiodevice"
-              ],
-              "type": "tag"
-            }
-          ],
-          "measurement": "nasuni_disk",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT max(\"diskiola5\") FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/ AND \"diskiodevice\" = 'nvme1n1') AND $timeFilter GROUP BY time($__interval), \"diskiodevice\"",
-          "rawQuery": false,
+          "alias": "Write",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "hide": false,
+          "query": "SELECT non_negative_derivative(sum(\"diskiowrites\"), 1m) FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/ AND \"diskiodevice\" =~ /^$CacheDisk$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "diskiola5"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "max"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$Appliance$/"
-            },
-            {
-              "condition": "AND",
-              "key": "diskiodevice",
-              "operator": "=",
-              "value": "nvme1n1"
-            }
-          ]
-        },
-        {
-          "alias": "15Min Max",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "diskiodevice"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": false,
-          "measurement": "nasuni_disk",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT max(\"diskiola15\") FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/ AND \"diskiodevice\" = 'sdc') AND $timeFilter GROUP BY time($__interval), \"diskiodevice\"",
-          "rawQuery": false,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "diskiola15"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "max"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$Appliance$/"
-            },
-            {
-              "condition": "AND",
-              "key": "diskiodevice",
-              "operator": "=",
-              "value": "nvme1n1"
-            }
-          ]
+          "resultFormat": "time_series"
         }
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Cache  I/O Load",
+      "title": "Cache Disk I/O",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1851,7 +1741,7 @@
         {
           "$$hashKey": "object:1818",
           "decimals": 0,
-          "format": "percent",
+          "format": "iops",
           "logBase": 1,
           "min": "0",
           "show": true
@@ -1870,7 +1760,7 @@
     {
       "aliasColors": {
         "Clients In": "green",
-        "Clients Out": "yellow",
+        "Clients Out": "#eab839",
         "Cloud In": "red",
         "Cloud Out": "blue",
         "clients in": "#7EB26D",
@@ -2569,7 +2459,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "alias": "Memory Utilization",
+          "alias": "Utilized",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
           "groupBy": [
             {
               "params": [
@@ -2625,6 +2519,30 @@
               "value": "/^$Appliance$/"
             }
           ]
+        },
+        {
+          "alias": "Cached (Available)",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "hide": false,
+          "query": "SELECT (last(\"mem_cached\"))/ last(\"mem_total_real\") * 100   FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time(10s) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "Buffered (Available)",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "hide": false,
+          "query": "SELECT (last(\"mem_buffer\"))/ last(\"mem_total_real\") * 100   FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/) AND $timeFilter GROUP BY time(10s) fill(null)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series"
         }
       ],
       "thresholds": [],
@@ -2706,7 +2624,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "alias": "Read",
+          "alias": "1Min Avg",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
           "groupBy": [
             {
               "params": [
@@ -2724,8 +2646,8 @@
           "measurement": "nasuni_disk",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT non_negative_derivative(sum(\"diskioreads\"), 1m) FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/ AND \"diskiodevice\" = 'nvme1n1') AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": false,
+          "query": "SELECT max(\"diskiola1\") FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/ AND \"diskiodevice\" =~ /^$RootDisk$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -2763,67 +2685,33 @@
           ]
         },
         {
-          "alias": "Write",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
+          "alias": "5Min Avg",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
           "hide": false,
-          "measurement": "nasuni_disk",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT non_negative_derivative(mean(\"diskiowrites\"), 1m) FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/ AND \"diskiodevice\" = 'nvme1n1') AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": false,
+          "query": "SELECT max(\"diskiola5\") FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/ AND \"diskiodevice\" =~ /^$RootDisk$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
           "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "diskiowrites"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "sum"
-              },
-              {
-                "params": [
-                  "1m"
-                ],
-                "type": "non_negative_derivative"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "hostname",
-              "operator": "=~",
-              "value": "/^$Appliance$/"
-            },
-            {
-              "condition": "AND",
-              "key": "diskiodevice",
-              "operator": "=",
-              "value": "nvme1n1"
-            }
-          ]
+          "resultFormat": "time_series"
+        },
+        {
+          "alias": "15Min Avg",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "hide": false,
+          "query": "SELECT max(\"diskiola15\") FROM \"nasuni_disk\" WHERE (\"hostname\" =~ /^$Appliance$/ AND \"diskiodevice\" =~ /^$RootDisk$/) AND $timeFilter GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series"
         }
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Disk I/O",
+      "title": "OS Disk Load",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -3233,6 +3121,40 @@
         "tagsQuery": "",
         "type": "query",
         "useTags": false
+      },
+      {
+        "current": {},
+        "definition": "SELECT last(\"filer_device_cache\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/)",
+        "hide": 2,
+        "includeAll": false,
+        "label": "CacheDisk",
+        "multi": false,
+        "name": "CacheDisk",
+        "options": [],
+        "query": "SELECT last(\"filer_device_cache\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query",
+        "datasource": "${DS_INFLUXDB}"
+      },
+      {
+        "current": {},
+        "definition": "SELECT last(\"filer_device_root\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/)",
+        "hide": 2,
+        "includeAll": false,
+        "label": "RootDisk",
+        "multi": false,
+        "name": "RootDisk",
+        "options": [],
+        "query": "SELECT last(\"filer_device_root\") FROM \"Nasuni\" WHERE (\"hostname\" =~ /^$Appliance$/)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query",
+        "datasource": "${DS_INFLUXDB}"
       }
     ]
   },
@@ -3244,6 +3166,6 @@
   "timezone": "",
   "title": "Performance Dashboard",
   "uid": "79m3TFEMz",
-  "version": 2,
+  "version": 6,
   "weekStart": ""
 }
