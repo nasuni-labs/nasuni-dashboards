@@ -354,8 +354,8 @@ To install InfluxDB, ssh to the VM and run the following commands:
 7.  Configure the firewall for Grafana (only required if the firewall is enabled):
     
     ```shell
-    firewall-cmd --permanent --zone=public --add-port=3000/tcp
-    firewall-cmd --reload
+    sudo firewall-cmd --permanent --zone=public --add-port=3000/tcp
+    sudo firewall-cmd --reload
     ```
     
 
