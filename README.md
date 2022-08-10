@@ -396,7 +396,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
 # Troubleshooting
 
-## No SNMP Data
+## Data Unvailable in Performance Dashboard
 Telegraf depends on SNMP data from the Edge Appliances to work. You can confirm that SNMP is configured and working on the Edge Appliance by connecting to the server where you installed the TIG stack over SSH and using the snmpwalk utility to load SNMP data. 
 
 ### Snmpwalk using SNMPv3
