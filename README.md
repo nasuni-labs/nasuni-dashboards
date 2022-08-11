@@ -108,7 +108,11 @@ Two common scenarios for DNS configuration:
         EOT
         ```
 
-    *   Edit **/etc/resolv.conf** , specifying nameserver entries for the DNS servers that are authoritative for Edge Appliance DNS.
+    *   Edit **/etc/resolv.conf**, specifying nameserver entries for the DNS servers that are authoritative for Edge Appliance DNS.
+    
+        ```shell
+        sudo vi /etc/resolv.conf
+        ```
 
 *   Static IP: Ensure that the DNS servers you specify are authoritative for Edge Appliance DNS.
 
