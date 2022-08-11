@@ -300,7 +300,14 @@ To install InfluxDB, ssh to the VM and run the following commands:
 
     - `headers (uncomment the second headers line and enter a string/name to use as a unique identifier for this connection)`
 
-10.  Save and close the file. Press **Esc**, type **:x**, and press **Enter**.
+9.  Save and close the file. Press **Esc**, type **:x**, and press **Enter**.
+
+10.  Set the ownership and permissions for telegraf.conf:
+
+        ```shell
+        sudo chown root:root /etc/telegraf/telegraf.conf
+        sudo chmod 644 /etc/telegraf/telegraf.conf
+        ```
         
 11.  Start/Restart the Telegraf service:
     
@@ -308,7 +315,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
         sudo systemctl restart telegraf
         ```
     
-10.  Confirm the service is running. Look for **Active: active (running)**:
+12.  Confirm the service is running. Look for **Active: active (running)**:
 
         ```shell
         systemctl status telegraf --no-pager
