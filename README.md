@@ -353,13 +353,13 @@ To install InfluxDB, ssh to the VM and run the following commands:
 5.  Start the Grafana service:
     
     ```shell
-    sudo service grafana-server start
+    sudo systemctl start grafana-server
     ```
     
 6.  Set Grafana to run on startup:
 
     ```shell
-    sudo systemctl start grafana-server
+    sudo systemctl enable grafana-server
     ```
     
 7.  Confirm the Grafana service is running. Look for **Active: active (running)**:
