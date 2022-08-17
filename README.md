@@ -315,7 +315,7 @@ To install InfluxDB, ssh to the VM and run the following commands:
         sudo systemctl restart telegraf
         ```
     
-12.  Confirm the service is running. Look for **Active: active (running)**:
+12.  Confirm the Telegraf service is running. Look for **Active: active (running)**:
 
         ```shell
         systemctl status telegraf --no-pager
@@ -359,10 +359,16 @@ To install InfluxDB, ssh to the VM and run the following commands:
 6.  Set Grafana to run on startup:
 
     ```shell
-    sudo systemctl enable grafana-server
+    sudo systemctl start grafana-server
     ```
     
-7.  Configure the firewall for Grafana (only required if the firewall is enabled):
+7.  Confirm the Grafana service is running. Look for **Active: active (running)**:
+
+        ```shell
+        systemctl status grafana-server --no-pager
+        ```
+    
+8.  Configure the firewall for Grafana (only required if the firewall is enabled):
     
     ```shell
     sudo firewall-cmd --permanent --zone=public --add-port=3000/tcp
