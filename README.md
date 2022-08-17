@@ -364,9 +364,9 @@ To install InfluxDB, ssh to the VM and run the following commands:
     
 7.  Confirm the Grafana service is running. Look for **Active: active (running)**:
 
-        ```shell
-        systemctl status grafana-server --no-pager
-        ```
+    ```shell
+    systemctl status grafana-server --no-pager
+    ```
     
 8.  Configure the firewall for Grafana (only required if the firewall is enabled):
     
