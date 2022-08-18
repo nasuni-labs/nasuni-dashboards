@@ -350,25 +350,19 @@ To install InfluxDB, ssh to the VM and run the following commands:
     sudo grafana-cli plugins install marcusolsson-gantt-panel
     ```
     
-5.  Start the Grafana service:
+5.  Start and enable the Grafana service:
     
     ```shell
-    sudo systemctl start grafana-server
+    sudo systemctl start grafana-server && sudo systemctl enable grafana-server
     ```
     
-6.  Set Grafana to run on startup:
-
-    ```shell
-    sudo systemctl enable grafana-server
-    ```
-    
-7.  Confirm the Grafana service is running. Look for **Active: active (running)**:
+6.  Confirm the Grafana service is running. Look for **Active: active (running)**:
 
     ```shell
     systemctl status grafana-server --no-pager
     ```
     
-8.  Configure the firewall for Grafana (only required if the firewall is enabled):
+7.  Configure the firewall for Grafana (only required if the firewall is enabled):
     
     ```shell
     sudo firewall-cmd --permanent --zone=public --add-port=3000/tcp
