@@ -19,11 +19,11 @@ Nasuni Dashboards provides a framework for viewing time series data across a cus
 
 Nasuni Dashboards has been validated with these component versions: 
 
-* Telegraf: 1.20.4
+* Telegraf: 1.23.4
 
 * InfluxDB: 1.8.10
     
-* Grafana: 8.4.4
+* Grafana: 9.1.0
 
 ## VM Requirements for Single-Node Installation 
 
@@ -219,13 +219,13 @@ To install InfluxDB, ssh to the VM and run the following commands:
 1.  Use wget to download Telegraf:
     
     ```shell
-    wget https://dl.influxdata.com/telegraf/releases/telegraf-1.20.4-1.x86_64.rpm
+    wget https://dl.influxdata.com/telegraf/releases/telegraf-1.23.4-1.x86_64.rpm
     ```
     
 2.  Install Telegraf:
     
     ```shell
-    sudo yum -y localinstall telegraf-1.20.4-1.x86_64.rpm
+    sudo yum -y localinstall telegraf-1.23.4-1.x86_64.rpm
     ```
     
 3.  Install SNMP dependencies for Telegraf:
@@ -334,13 +334,13 @@ To install InfluxDB, ssh to the VM and run the following commands:
 2.  Use wget to download Grafana:
     
     ```shell
-    wget https://dl.grafana.com/oss/release/grafana-8.4.4-1.x86_64.rpm
+    wget https://dl.grafana.com/oss/release/grafana-9.1.0-1.x86_64.rpm
     ```
     
 3.  Install Grafana:
     
     ```shell
-    sudo yum -y install grafana-8.4.4-1.x86_64.rpm
+    sudo yum -y install grafana-9.1.0-1.x86_64.rpm
     ```
     
 4.  Install two Grafana plugins:
