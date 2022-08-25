@@ -200,6 +200,7 @@ To install InfluxDB on Rocky Linux, ssh to the VM and run the following commands
 ### Windows InfluxDB Installation Instructions
 <details>
     <summary>Expand Windows Installation Instructions</summary>
+    
    <br/>
 
 To install InfluxD on Windows, connect to the Windows VM and follow these instructions:
