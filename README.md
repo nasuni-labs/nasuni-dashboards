@@ -101,7 +101,7 @@ To use the GFA Telemetry API:
 Click the green **Code** button within the Nasuni Labs nasuni-dashboards repository and select the **Download ZIP** option to download a local copy of the repository and extract the contents to your computer.
 
 ## Deploy the VM
-Deploy a Rocky Linux VM that meets the requirements for Nasuni Dashboards. 
+Deploy a Rocky Linux or Windows VM that meets the requirements for Nasuni Dashboards. 
 
 ## Configure DNS
 To use hostnames rather than IP addresses for the Telegraf SNMP agent configuration, DNS is required. 
@@ -109,7 +109,7 @@ Two common scenarios for DNS configuration:
 
 *   DHCP: DHCP is typically used for Cloud VMs, but can also be used on-premises. If the DNS server provided by DHCP is not authoritative for Edge Appliance hostnames, you can override the DNS server settings.
 
-    *   To enable static DNS with DHCP, ssh to the VM and run the following command to disable DHCP updates to DNS:
+    *   To enable static DNS with DHCP for Rocky Linux, ssh to the VM and run the following command to disable DHCP updates to DNS:
 
         ```shell
         sudo tee -a /etc/NetworkManager/conf.d/disable-resolve.conf-managing.conf > /dev/null <<EOT
@@ -129,7 +129,9 @@ Two common scenarios for DNS configuration:
 
 ## Install and Configure InfluxDB
 
-### Install InfluxDB
+### Rocky Linux InfluxDB Installation Instructions
+<details>
+    <summary>Expand Rocky Linux Installation Instructions</summary>
 
 To install InfluxDB, ssh to the VM and run the following commands:
 
@@ -192,6 +194,26 @@ To install InfluxDB, ssh to the VM and run the following commands:
     sudo firewall-cmd --add-port=8086/tcp --permanent
     sudo firewall-cmd --reload
     ```
+</details>
+    
+### Windows InfluxDB Installation Instructions
+<details>
+    <summary>Expand Rocky Linux Installation Instructions</summary>
+
+To install InfluxDB, connect to the Windows VM and follow these instructions:
+    
+1.  Run PowerShell as an administrator, then enter the following commands to download and install InfluxDB:
+
+    ```PowerShell
+    cd ~\Downloads ; Invoke-WebRequest https://dl.influxdata.com/influxdb/releases/influxdb-1.8.10_windows_amd64.zip -UseBasicParsing -OutFile influxdb-1.8.10_windows_amd64.zip ;Expand-Archive .\influxdb-1.8.10_windows_amd64.zip -DestinationPath .\ ;mkdir 'c:\Program Files\InfluxData\InfluxDB' ;mv .\influxdb-1.8.10-1\* 'c:\Program Files\InfluxData\InfluxDB\'
+    ```    
+    
+2. Download and configure the NSSM service manager to make InfluxDB run as a Windows Service (The final output should show "Status: Running", "Name: InfluxDB"):
+   
+   ```PowerShell
+   cd ~\Downloads ;Invoke-WebRequest https://nssm.cc/release/nssm-2.24.zip -UseBasicParsing -OutFile nssm-2.24.zip ;Expand-Archive .\nssm-2.24.zip -DestinationPath .\ ;mkdir 'c:\Program Files\NSSM' ;mv .\nssm-2.24\win64\nssm.exe 'c:\Program Files\NSSM\' ;cd 'c:\Program Files\NSSM\' ;.\nssm.exe install InfluxDB "C:\Program Files\InfluxData\InfluxDB\influxd.exe" ;.\nssm.exe set InfluxDB Description "InfluxDB Time-Series Database" ;Start-Service InfluxDB ; Get-Service InfluxDB
+   ```
+</details>    
     
 ### Create the InfluxDB database:
     
