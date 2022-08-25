@@ -258,7 +258,10 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
 
 ## Install and Configure Telegraf
 
-### Install Telegraf
+### Rocky Linux Telegraf Installation Instructions
+<details>
+    <summary>Expand Rocky Linux Installation Instructions</summary>
+<br/>
 
 1.  Use wget to download Telegraf:
     
@@ -277,8 +280,20 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
     ```shell
     sudo yum -y install net-snmp net-snmp-utils
     ```
+</details
   
-
+### Windows Telegraf Installation Instructions
+<details>
+    <summary>Expand Windows Installation Instructions</summary>
+    
+1.  Run PowerShell as an administrator, the run commands to download and install Telegraf:
+    
+    ```PowerShell
+    cd ~\Downloads ;Invoke-WebRequest https://dl.influxdata.com/telegraf/releases/telegraf-1.23.4_windows_amd64.zip -UseBasicParsing -OutFile telegraf-1.23.4_windows_amd64.zip ;Expand-Archive .\telegraf-1.23.4_windows_amd64.zip -DestinationPath .\ ;mkdir 'c:\Program Files\Telegraf' ;mv .\telegraf-1.23.4\* 'C:\Program Files\Telegraf\' ;mv 'C:\Program Files\Telegraf\telegraf.conf' 'C:\Program Files\Telegraf\telegraf.conf.bak'
+    ```    
+    
+</details>
+    
 ### Telegraf Configuration
 
 1.  Back up the default Telegraf configuration file:
