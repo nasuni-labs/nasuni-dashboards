@@ -133,7 +133,8 @@ Two common scenarios for DNS configuration:
 <details>
     <summary>Expand Rocky Linux Installation Instructions</summary>
 
-To install InfluxDB, ssh to the VM and run the following commands:
+
+To install InfluxDB on Rocky Linux, ssh to the VM and run the following commands:
 
 1.  Update all packages (*-y* argument skips confirmation; for manual confirmation, remove it):
     
@@ -198,9 +199,10 @@ To install InfluxDB, ssh to the VM and run the following commands:
     
 ### Windows InfluxDB Installation Instructions
 <details>
-    <summary>Expand Rocky Linux Installation Instructions</summary>
+    <summary>Expand Windows Installation Instructions</summary>
+    
 
-To install InfluxDB, connect to the Windows VM and follow these instructions:
+To install InfluxD on Windows, connect to the Windows VM and follow these instructions:
     
 1.  Run PowerShell as an administrator, then enter the following commands to download and install InfluxDB:
 
