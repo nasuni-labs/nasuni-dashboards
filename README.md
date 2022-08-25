@@ -29,9 +29,9 @@ Nasuni Dashboards has been validated with these component versions:
 
 * OSes: 
 
-** Rocky Linux 8.6 or 9.0 minimal, sourced from cloud marketplace offerings or Rocky Linux ISO
+  - Rocky Linux 8.6 or 9.0 minimal, sourced from cloud marketplace offerings or Rocky Linux ISO
 
-** Windows Server 2019 64-bit (x86)
+  - Windows Server 2019 64-bit (x86)
 
 * Sizing: 4 vCPU, 16GB RAM, and 100GB boot disk
 
@@ -41,13 +41,13 @@ The data sources used with Nasuni Dashboards should be accessible from the VM:
 
 * Outbound:
 
-** SNMP: UDP 161 access to monitored Edge Appliances
+  - SNMP: UDP 161 access to monitored Edge Appliances
 
-** GFA Telemetry REST API: TCP 443 access to https://gfa-telemetry-us1.api.nasuni.com
+  - GFA Telemetry REST API: TCP 443 access to https://gfa-telemetry-us1.api.nasuni.com
 
 * Inbound:
 
-** Grafana: TCP Port 3000 for access to the default Grafana UI
+  - Grafana: TCP Port 3000 for access to the default Grafana UI
 
 ## Sizing Considerations
 
