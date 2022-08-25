@@ -221,11 +221,19 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
     
 1.  Open the InfluxDB shell:
 
+    - Rocky Linux - ssh to the VM and run the following commands:
+
     ```shell
     influx
     ```
+    
+    - Windows - Use PowerShell to open the InfluxDB shell:
+    
+    ```PowerShell
+    Start-Process "C:\Program Files\InfluxData\InfluxDB\influx.exe"
+    ```
 
-2.  Create the database for use by Grafana:
+2.  Create the database for use by Grafana using the InfluxDB (Rocky Linux and Windows):
 
     ```shell
     create database nasuni
