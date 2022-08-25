@@ -222,14 +222,14 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
 1.  Open the InfluxDB shell:
 
     - Rocky Linux - ssh to the VM and run the following commands:
-
+    <br/>
 
     ```shell
     influx
     ```
     
     - Windows - Use PowerShell to open the InfluxDB shell:
-    
+    <br/>
     
     ```PowerShell
     Start-Process "C:\Program Files\InfluxData\InfluxDB\influx.exe"
