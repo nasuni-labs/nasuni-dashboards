@@ -97,9 +97,6 @@ To use the GFA Telemetry API:
     
 # Install and Configure Nasuni Dashboards
 
-## Download Nasuni Dashboards Zip
-Click the green **Code** button within the Nasuni Labs nasuni-dashboards repository and select the **Download ZIP** option to download a local copy of the repository and extract the contents to your computer.
-
 ## Deploy the VM
 Deploy a Rocky Linux or Windows VM that meets the requirements for Nasuni Dashboards. 
 
@@ -126,6 +123,8 @@ Two common scenarios for DNS configuration:
 
 *   Static IP: Ensure that the DNS servers you specify are authoritative for Edge Appliance DNS.
 
+## Download Nasuni Dashboards Zip
+From your computer (Rocky Linux) or the Windows VM (Windows Install), click the green **Code** button within the Nasuni Labs nasuni-dashboards repository and select the **Download ZIP** option to download a local copy of the repository and extract the contents.
 
 ## Install and Configure InfluxDB
 
@@ -148,31 +147,25 @@ To install InfluxDB on Rocky Linux, ssh to the VM and run the following commands
     sudo yum -y install wget
     ```
     
-3.  Switch to your home directory before downloading packages:
+3.  Switch to your home directory and use wget to download InfluxDB :
 
     ```shell
-    cd ~
+    cd ~ && wget https://dl.influxdata.com/influxdb/releases/influxdb-1.8.10.x86_64.rpm
     ```    
     
-4.  Use wget to download InfluxDB:
-    
-    ```shell
-    wget https://dl.influxdata.com/influxdb/releases/influxdb-1.8.10.x86_64.rpm
-    ```
-    
-5.  Install InfluxDB:
+4.  Install InfluxDB:
     
     ```shell
     sudo yum -y localinstall influxdb-1.8.10.x86_64.rpm
     ```
     
-6.  Start and enable the InfluxDB service:
+5.  Start and enable the InfluxDB service:
     
     ```shell
     sudo systemctl start influxdb && sudo systemctl enable influxdb
     ```
     
-7.  Add firewall rules if the firewall service is running. First, check if the firewall service is running:
+6.  Add firewall rules if the firewall service is running. First, check if the firewall service is running:
 
     ```shell
     systemctl status firewalld --no-pager
@@ -192,8 +185,7 @@ To install InfluxDB on Rocky Linux, ssh to the VM and run the following commands
     If the firewall service is running, configure the firewall for InfluxDB (only required if the firewall was running), then reload the firewall configuration:
     
     ```shell
-    sudo firewall-cmd --add-port=8086/tcp --permanent
-    sudo firewall-cmd --reload
+    sudo firewall-cmd --add-port=8086/tcp --permanent && sudo firewall-cmd --reload
     ```
 </details>
     
@@ -222,19 +214,17 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
     
 1.  Open the InfluxDB shell:
 
-    - Rocky Linux - ssh to the VM and run the following commands:
-    <br/>
+    * Rocky Linux - ssh to the VM and run the following commands:
 
-    ```shell
-    influx
-    ```
-    
-    - Windows - Use PowerShell to open the InfluxDB shell:
-    <br/>
-    
-    ```PowerShell
-    Start-Process "C:\Program Files\InfluxData\InfluxDB\influx.exe"
-    ```
+        ```shell
+        influx
+        ```
+
+    * Windows - Use PowerShell to open the InfluxDB shell:
+
+        ```PowerShell
+        Start-Process "C:\Program Files\InfluxData\InfluxDB\influx.exe"
+        ```
 
 2.  Create the database for use by Grafana using the InfluxDB (Rocky Linux and Windows):
 
@@ -270,24 +260,25 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
     wget https://dl.influxdata.com/telegraf/releases/telegraf-1.23.4-1.x86_64.rpm
     ```
     
-2.  Install Telegraf:
+2.  Install Telegraf and SNMP dependencies:
     
     ```shell
-    sudo yum -y localinstall telegraf-1.23.4-1.x86_64.rpm
+    sudo yum -y localinstall telegraf-1.23.4-1.x86_64.rpm && sudo yum -y install net-snmp net-snmp-utils
     ```
     
-3.  Install SNMP dependencies for Telegraf:
-    
+3.  Backup the default Telegraf configuration file:
+
     ```shell
-    sudo yum -y install net-snmp net-snmp-utils
+    sudo mv /etc/telegraf/telegraf.conf /etc/telegraf/telegraf.conf.bak
     ```
-</details
+    
+</details>
   
 ### Windows Telegraf Installation Instructions
 <details>
     <summary>Expand Windows Installation Instructions</summary>
     
-1.  Run PowerShell as an administrator, the run commands to download and install Telegraf:
+1.  Run PowerShell as an administrator, then run commands to download and install Telegraf:
     
     ```PowerShell
     cd ~\Downloads ;Invoke-WebRequest https://dl.influxdata.com/telegraf/releases/telegraf-1.23.4_windows_amd64.zip -UseBasicParsing -OutFile telegraf-1.23.4_windows_amd64.zip ;Expand-Archive .\telegraf-1.23.4_windows_amd64.zip -DestinationPath .\ ;mkdir 'c:\Program Files\Telegraf' ;mv .\telegraf-1.23.4\* 'C:\Program Files\Telegraf\' ;mv 'C:\Program Files\Telegraf\telegraf.conf' 'C:\Program Files\Telegraf\telegraf.conf.bak'
@@ -297,20 +288,21 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
     
 ### Telegraf Configuration
 
-1.  Back up the default Telegraf configuration file:
-    ```shell
-    sudo mv /etc/telegraf/telegraf.conf /etc/telegraf/telegraf.conf.bak
-    ```
+1.  Edit the telegraf.conf file:
 
-2.  On your computer, open the **telegraf.conf** file from the extracted repository zip archive in a text editor, select all, and copy the contents to your clipboard.
+    - Rocky Linux: On your computer, open the **telegraf.conf** file from the extracted repository zip archive in a text editor, select all, and copy       the contents to your clipboard. Return to the VM ssh session, open vi, and paste the contents from step 2, customizing the values for the             sections below:
 
-3.  Return to the VM ssh session, open vi, and paste the contents from step 2, customizing the values for the sections below:
+       ```shell
+       sudo vi /etc/telegraf/telegraf.conf
+       ```
+       
+    - Windows: In the Windows VM, copy the contents of the **telegraf.conf** file to "C:\Program Files\Telegraf\telegraf.conf" and make the edits outlined in the next set of steps. One way to do this is to run Notepad or Notepad++ as an administrator, and paste the contents of telegraf.conf. Example to open telegraf.conf for editing in Notepad using PowerShell (running PowerShell as administrator):
+
+        ```PowerShell
+        notepad.exe "C:\Program Files\Telegraf\telegraf.conf"
+        ```   
     
-    ```shell
-    sudo vi /etc/telegraf/telegraf.conf
-    ```
-    
-4.  If you installed influxDB on a dedicated host (single-node installs can skip this step), go the **[outputs.influxdb]** section, update the **urls** value with the InfluxDB IP address, and confirm the port. You can use the search function in vi to jump to the appropriate section of the file. Type **/** followed by the string you want to search for, and then press **Return**. The following example assumes the default port and InfluxDB running on the same host as Telegraf:</br>
+2.  If you installed influxDB on a dedicated host (single-node installs can skip this step), go the **[outputs.influxdb]** section, update the **urls** value with the InfluxDB IP address, and confirm the port. You can use the search function in vi to jump to the appropriate section of the file. Type **/** followed by the string you want to search for, and then press **Return**. The following example assumes the default port and InfluxDB running on the same host as Telegraf:</br>
     - `urls = ["http://127.0.0.1:8086"]`
         
 5.  In the **[inputs.snmp]** section, update the **agents** value with the FQDN of all Edge Appliances to be monitored. For example (Note: The last entry does not require a trailing comma):</br>
@@ -360,75 +352,87 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
 
     - `headers (uncomment the second headers line and enter a string/name to use as a unique identifier for this connection)`
 
-9.  Save and close the file. Press **Esc**, type **:x**, and press **Enter**.
+9.  Save and close the file. For Rocky Linux editors using vi, press **Esc**, type **:x**, and press **Enter**.
 
-10.  Set the ownership and permissions for telegraf.conf:
+10. Make final changes to the telegraf.conf file permissions (Linux) and start Telegraf:
 
-        ```shell
-        sudo chown root:root /etc/telegraf/telegraf.conf
-        sudo chmod 644 /etc/telegraf/telegraf.conf
-        ```
+     * Rocky Linux
+     
+        * Set the ownership and permissions for telegraf.conf:
+
+            ```shell
+            sudo chown root:root /etc/telegraf/telegraf.conf && sudo chmod 644 /etc/telegraf/telegraf.conf
+            ```
         
-11.  Start/Restart the Telegraf service:
-    
-        ```shell
-        sudo systemctl restart telegraf
-        ```
-    
-12.  Confirm the Telegraf service is running. Look for **Active: active (running)**:
+        * Restart the Telegraf service and confirm the Telegraf service is running. Look for **Active: active (running)** :
 
-        ```shell
-        systemctl status telegraf --no-pager
-        ```
+            ```shell
+            sudo systemctl restart telegraf && systemctl status telegraf --no-pager
+            ```
+            
+      * Windows
+       
+         *  Run PowerShell as and administrator to install Telegraf as a Windows service and start it (The final output should show "Status: Running","Name: Telegraf"):
+
+         ```Powershell
+            cd "C:\Program Files\Telegraf" ;.\telegraf.exe --service install --config "C:\Program Files\Telegraf\telegraf.conf" ;Start-Service Telegraf ; Get-Service Telegraf
+         ```
 
 ## Install and Configure Grafana
 
-### Install Grafana
+### Rocky Linux Grafana Installation Instructions
+<details>
+    <summary>Expand Rocky Linux Installation Instructions</summary>
 
-1.  Switch to your home directory before downloading Grafana:
-    
-    ```shell
-    cd ~
-    ```
 
-2.  Use wget to download Grafana:
+1.  Switch to your home directory and use wget to download Grafana:
     
     ```shell
-    wget https://dl.grafana.com/oss/release/grafana-9.1.0-1.x86_64.rpm
+    cd ~ && wget https://dl.grafana.com/oss/release/grafana-9.1.0-1.x86_64.rpm
     ```
     
-3.  Install Grafana:
+2.  Install Grafana and two plugins:
     
     ```shell
-    sudo yum -y install grafana-9.1.0-1.x86_64.rpm
+    sudo yum -y install grafana-9.1.0-1.x86_64.rpm && sudo grafana-cli plugins install grafana-clock-panel && sudo grafana-cli plugins install marcusolsson-gantt-panel
     ```
     
-4.  Install two Grafana plugins:
-
-    ```shell
-    sudo grafana-cli plugins install grafana-clock-panel
-    sudo grafana-cli plugins install marcusolsson-gantt-panel
-    ```
-    
-5.  Start and enable the Grafana service:
+3.  Start and enable the Grafana service:
     
     ```shell
     sudo systemctl start grafana-server && sudo systemctl enable grafana-server
     ```
     
-6.  Confirm the Grafana service is running. Look for **Active: active (running)**:
+4.  Confirm the Grafana service is running. Look for **Active: active (running)**:
 
     ```shell
     systemctl status grafana-server --no-pager
     ```
     
-7.  Configure the firewall for Grafana (only required if the firewall is enabled):
+5.  Configure the firewall for Grafana (only required if the firewall is enabled):
     
     ```shell
-    sudo firewall-cmd --permanent --zone=public --add-port=3000/tcp
-    sudo firewall-cmd --reload
+    sudo firewall-cmd --permanent --zone=public --add-port=3000/tcp && sudo firewall-cmd --reload
+    ```
+ </details>
+ 
+ ### Windows Grafana Installation Instructions
+<details>
+    <summary>Expand Windows Installation Instructions</summary>
+    
+1.  Run PowerShell as an administrator, and run commands to download and install Grafana. Accept all the defaults (Grafana will automatically be installed as a Windows service and started) :
+    
+    ```PowerShell
+    cd ~\Downloads ;Invoke-WebRequest https://dl.grafana.com/oss/release/grafana-9.1.0.windows-amd64.msi -UseBasicParsing -OutFile grafana-9.1.0.windows-amd64.msi ;.\grafana-9.1.0.windows-amd64.msi
     ```
     
+2.  If Windows firewall is active, open TCP port 3000 for inbound access so remote computers can access the Grafana Dashboard:
+
+    ```PowerShell
+    New-NetFirewallRule -DisplayName “Allow Grafana Port 3000” -Direction Inbound -LocalPort 3000 -Protocol TCP -Action Allow
+    ```
+    
+</details>
 
 ### Configure Grafana Data Source
 
