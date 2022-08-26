@@ -290,13 +290,13 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
 
 1.  Edit the telegraf.conf file:
 
-    - Rocky Linux: On your computer, open the **telegraf.conf** file from the extracted repository zip archive in a text editor, select all, and copy       the contents to your clipboard. Return to the VM ssh session, open vi, and paste the contents from step 2, customizing the values for the             sections below:
+    - Rocky Linux: On your computer, open the **telegraf.conf** file from the extracted Nasuni Dashboards repository zip archive in a text editor, select all, and copy       the contents to your clipboard. Return to the VM ssh session, open vi, and paste the contents from step 2, customizing the values for the             sections below:
 
        ```shell
        sudo vi /etc/telegraf/telegraf.conf
        ```
        
-    - Windows: In the Windows VM, copy the contents of the **telegraf.conf** file from the extracted repository zip archive to "C:\Program Files\Telegraf\telegraf.conf" and make the edits outlined in the next set of steps. One way to do this is to run Notepad or Notepad++ as an administrator, and paste the contents of telegraf.conf. Example to open telegraf.conf for editing in Notepad using PowerShell (running PowerShell as administrator):
+    - Windows: In the Windows VM, copy the contents of the **telegraf.conf** file from the extracted Nasuni Dashboards repository zip archive to "C:\Program Files\Telegraf\telegraf.conf" and make the edits outlined in the next set of steps. One way to do this is to run Notepad or Notepad++ as an administrator, and paste the contents of telegraf.conf. Example to open telegraf.conf for editing in Notepad using PowerShell (running PowerShell as administrator):
 
         ```PowerShell
         notepad.exe "C:\Program Files\Telegraf\telegraf.conf"
