@@ -100,6 +100,10 @@ To use the GFA Telemetry API:
 ## Deploy the VM
 Deploy a Rocky Linux or Windows VM that meets the requirements for Nasuni Dashboards. 
 
+NOTE: Be sure to update all the OS packages by running 
+
+        sudo dnf update
+
 ## Configure DNS
 To use hostnames rather than IP addresses for the Telegraf SNMP agent configuration, DNS is required. 
 Two common scenarios for DNS configuration:
