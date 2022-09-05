@@ -591,7 +591,7 @@ When decommissioning a Nasuni Edge Appliance, it is good to clean up the InfluxD
 10.  Delete all series for the agent\_host:
 
         ```shell
-        drop series where "agent_host" = <IP or FQDN>
+        drop series where "agent_host" = '<IP or FQDN>'
         ```
 
 11. Verify if the command was successful:
