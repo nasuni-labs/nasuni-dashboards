@@ -480,13 +480,22 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
 ## Data Unavailable in Performance Dashboard
 Telegraf depends on SNMP data from the Edge Appliances to work. You can confirm that SNMP is configured and working on the Edge Appliance by connecting to the server where you installed the TIG stack over SSH and using the snmpwalk utility to load SNMP data. 
 
-### Snmpwalk using SNMPv3
+## SNMP Troubleshooting
+
+## Rocky Linux SNMP Troubleshooting
+<details>
+    <summary>Expand Rocky Linux Snmpwalk Instructions</summary>
+<br/>
+    
+Snmpwalk can be used to test SNMP connectivity and inspect values returned for an SNMP Object Identifier (OID). Nasuni publishes a full list of [OIDs for the Nasuni Edge Appliance](http://b.link/Nasuni_SNMP_OIDs_for_NASUNI-FILER-MIB). Snmpwalk for Linux is automatically installed when installing Nasuni Dashboards, although the syntax to use it differs by SNMP version.
+    
+### Rocky Linux Snmpwalk using SNMPv3
 
 ```shell
 snmpwalk -v3 -l authnoPriv -u <snmpUsername> -a SHA -A '<snmpPassword>' -On <edgeApplianceHostnameOrIP> .1.3.6.1.4.1.42040
 ```
      
-You will need to populate snmpUsername, snmpPassword (enclosed in single quotes to handle special characters), and edgeApplianceHostnameOrIP with the relevant values for your environment. Here's an example of the populated command:  
+Populate snmpUsername, snmpPassword (enclosed in single quotes to handle special characters), and edgeApplianceHostnameOrIP with the relevant values for your environment. Here's an example of the populated command:  
 
 ```shell
 snmpwalk -v3 -l authnoPriv -u admin -a SHA -A 'myPassword123' -On edge1.domain.com .1.3.6.1.4.1.42040
@@ -494,17 +503,52 @@ snmpwalk -v3 -l authnoPriv -u admin -a SHA -A 'myPassword123' -On edge1.domain.c
      
 The OID at the end corresponds to the root OID of the Nasuni MIB and will list all values in it.
 
-### Snmpwalk using SNMPv2
+### Rocky Linux Snmpwalk using SNMPv2
 ```shell
 snmpwalk -v 2c -c <communityName> -On  <edgeApplianceHostnameOrIP> .1.3.6.1.4.1.42040
 ```
 
-You will need to populate communityName and edgeApplianceHostnameOrIP with the relevant values for your environment. Here's an example of the populated command:  
+Populate communityName and edgeApplianceHostnameOrIP with the relevant values for your environment. Here's an example of the populated command:  
 
 ```shell
 snmpwalk -v 2c -c public -On edge1.domain.com .1.3.6.1.4.1.42040
 ```
+    
+</details>
+    
+## Windows SNMP Troubleshooting
+<details>
+    <summary>Expand Windows SNMP Troubleshooting Info</summary>
+<br/>
 
+Windows does not include SNMP troubleshooting tools, although a number of third-party tools are available. [SnmpGet](https://ezfive.com/snmpsoft-tools/snmp-get/) is an easy to use command-line SNMP utility for Windows. It can be used to verify SNMP connectivity and inspect values returned for an SNMP Object Identifier (OID). Nasuni publishes a full list of [OIDs for the Nasuni Edge Appliance](http://b.link/Nasuni_SNMP_OIDs_for_NASUNI-FILER-MIB). After downloading SnmpGet, CD to the directory where you saved the file using PowerShell and run it by using the version specific SNMP commands below.
+    
+### Windows SNMP Troubleshooting using SNMPv3
+    
+```PowerShell
+.\SnmpGet.exe -v:3 -sn:"<snmpUsername>" -ap:SHA -aw:"<snmpPassword>" -r:"<edgeApplianceHostnameOrIP>" -o:<OidToQuery>
+```
+    
+Populate snmpUsername, snmpPassword, edgeApplianceHostnameOrIP, and OidToQuery with the relevant values for your environment. Here's an example of the populated command:
+    
+```PowerShell
+.\SnmpGet.exe -v:3 -sn:"admin" -ap:SHA -aw:"myPassword123" -r:"edge1.domain.com" -o:.1.3.6.1.4.1.42040.1.1.0
+```
+    
+### Windows SNMP Troubleshooting using SNMPv2   
+    
+```PowerShell
+.\SnmpGet.exe -v:2 -c:"<communityName>" -r:"<edgeApplianceHostnameOrIP>" -o:<OidToQuery>
+```
+
+Populate communityName, edgeApplianceHostnameOrIP, and OidToQuery with the relevant values for your environment. Here's an example of the populated command:  
+
+```Powershell
+.\SnmpGet.exe -v:2 -c:"nasuni" -r:"edge1.domain.com" -o:1.3.6.1.4.1.42040.1.1.0    
+```
+    
+</details>
+    
 ## Telegraf
 
 ### Issues Starting
