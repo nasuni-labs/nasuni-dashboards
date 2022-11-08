@@ -478,7 +478,7 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
 # Troubleshooting
 
 ## Data Unavailable in Performance Dashboard
-Telegraf depends on SNMP data from the Edge Appliances to work. You can confirm that SNMP is configured and working on the Edge Appliance by connecting to the server where you installed the TIG stack over SSH and using the snmpwalk utility to load SNMP data. 
+Telegraf depends on SNMP data from the Edge Appliances to work. You can confirm that SNMP is configured and working on the Edge Appliance by connecting to the server where you installed the TIG stack over SSH (Rocky Linux) or RDP (Windows) and using SNMP utilities to load SNMP data. 
 
 ## SNMP Troubleshooting
 
@@ -635,7 +635,7 @@ When decommissioning a Nasuni Edge Appliance, it is good to clean up the InfluxD
     
     * Windows
     
-      Run PowerShell as an administrator and run the following command:
+      Run PowerShell as an administrator and run the following command to open the InfluxDB shell:
     
       ```PowerShell
       Start-Process "C:\Program Files\InfluxData\InfluxDB\influx.exe"
