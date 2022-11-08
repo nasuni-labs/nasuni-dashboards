@@ -376,7 +376,7 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
             
       * Windows
        
-         *  Run PowerShell as and administrator to install Telegraf as a Windows service and start it (The final output should show "Status: Running","Name: Telegraf"):
+         *  Run PowerShell as an administrator to install Telegraf as a Windows service and start it (The final output should show "Status: Running","Name: Telegraf"):
 
          ```Powershell
             cd "C:\Program Files\Telegraf" ;.\telegraf.exe --service install --config "C:\Program Files\Telegraf\telegraf.conf" ;Start-Service Telegraf ; Get-Service Telegraf
@@ -552,64 +552,94 @@ Populate communityName, edgeApplianceHostnameOrIP, and OidToQuery with the relev
 ## Telegraf
 
 ### Issues Starting
-If Telegraf reports errors in **/var/log/telegraf/telegraf.log**, the source of the problem is most likely with the contents of telegraf.conf. 
-* Run the following command to test telegraf.conf:
-     ```shell
-     telegraf --config /etc/telegraf/telegraf.conf --test
-     ```
+If Telegraf reports errors in **/var/log/telegraf/telegraf.log**, the source of the problem is most likely with the contents of telegraf.conf. Run the following command to test telegraf.conf (the command will report a verbose error if it encounters a problem):
+    
+* Rocky Linux
+    
+  ```shell
+   telegraf --config /etc/telegraf/telegraf.conf --test
+   ```
+    
+ * Windows
+    
+   Run the following command in PowerShell:
+
+   ```PowerShell
+   cd "c:\Program Files\telegraf" ; .\telegraf.exe --config "C:\Program Files\Telegraf\telegraf.conf" --test
+   ```
+    
 ### JSON_V2 Errors
 If Telegraf reports an error parsing JSON_V2 (used for the GFA Telemetry data source), your version of Telegraf is too old. Telegraf added JSON_V2 parsing in version 1.19. Update to the validated version of Telegraf for Nasuni Dashboards to correct this issue.
 
-
 # Maintenance Tasks
 
+## Editing Telegraf.conf
+
+To edit edit the telegraf.conf file:
+    
+* Rocky Linux
+    
+  ```shell
+  sudo vi /etc/telegraf/telegraf.conf
+  ```
+    
+ * Windows
+    
+   Run the following command in PowerShell to open telegraf.conf for editing in Notepad:
+    
+   ```PowerShell
+   notepad.exe "C:\Program Files\Telegraf\telegraf.conf"
+   ```
+ 
+ ## Restart the Telegraf service
+ Always restart the Telegraf service after editing telegraf.conf to load the new settings.
+    
+ * Rocky Linux
+    
+   ```shell
+   systemctl restart telegraf
+   ```
+    
+* Windows
+    
+  Run PowerShell as an administrator and run the following command:
+    
+  ```PowerShell
+  Restart-Service Telegraf ; Get-Service Telegraf
+  ```
+   
 ## Adding Edge Appliances
-
 It is easy to add performance monitoring for newly-deployed Edge Appliances.
-
-1.  To add the Nasuni Edge Appliance IP or FQDN to Telegraf, edit the telegraf.conf file:
     
-    ```shell
-    sudo vi /etc/telegraf/telegraf.conf
-    ```
+1.  Edit telegraf.conf using the instructions above. In the **[inputs.snmp]** section, update the **agents** value to include the additional Edge Appliance monitor and save the changes. (Note that the last entry does not need a trailing comma.)
     
-2.  In the **[inputs.snmp]** section, update the **agents** value to include the additional Edge Appliance monitor. (Note that the last entry does not need a trailing comma.)
-
-3.  Start/Restart the Telegraf service:
-    
-    ```shell
-    systemctl restart telegraf
-    ```
+2.  Restart the Telegraf servcie using the instructions above.
 
 ## Removing Stale Edge Appliances
 
 When decommissioning a Nasuni Edge Appliance, it is good to clean up the InfluxDB database to save disk space and remove stale data from Grafana.
 
-1.  To remove the Nasuni Edge Appliance IP or FQDN from Telegraf, edit the telegraf.conf file:
+1.  To remove the Nasuni Edge Appliance IP or FQDN from Telegraf, edit the telegraf.conf file.
     
-    ```shell
-    sudo vi /etc/telegraf/telegraf.conf
-    ```
+2.  In the **[inputs.snmp]** section, update the **agents** value to remove the unwanted Edge Appliance monitor and save telegraf.conf. (Note that the last entry does not need a trailing comma.)
     
-2.  In the **[inputs.snmp]** section, update the **agents** value to remove the unwanted Edge Appliance monitor. (Note that the last entry does not need a trailing comma.)
+3.  Start/Restart the Telegraf service using the instructions above.
     
-3.  Start/Restart the service:
+4.  Open the InfluxDB shell:
     
-    ```shell
-    systemctl restart telegraf
-    ```
+    * Rocky Linux
     
-4.  Confirm that the service is running. Look for “Active: active (running)”:
+      ```shell
+      influx
+      ```
     
-    ```shell
-    systemctl status telegraf --no-pager
-    ```
+    * Windows
     
-5.  Open the InfluxDB shell:
+      Run PowerShell as an administrator and run the following command:
     
-    ```shell
-    influx
-    ```
+      ```PowerShell
+      Start-Process "C:\Program Files\InfluxData\InfluxDB\influx.exe"
+      ```
     
 6.  Identify the correct database for Nasuni:
     
@@ -649,8 +679,6 @@ When decommissioning a Nasuni Edge Appliance, it is good to clean up the InfluxD
     ```shell
     exit
     ```
-    
-    
     
 
 # Support Statement
