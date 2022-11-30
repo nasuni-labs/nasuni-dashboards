@@ -43,7 +43,7 @@ The data sources used with Nasuni Dashboards should be accessible from the VM:
 
   - SNMP: UDP 161 access to monitored Edge Appliances
 
-  - GFA Telemetry REST API: TCP 443 access to https://gfa-telemetry-us1.api.nasuni.com
+  - GFA Telemetry REST API: TCP 443 access to https://gfa-telemetry-1.api.nasuni.com
 
 * Inbound:
 
