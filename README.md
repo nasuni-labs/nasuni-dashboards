@@ -395,10 +395,10 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
     cd ~ && wget https://dl.grafana.com/oss/release/grafana-9.1.0-1.x86_64.rpm
     ```
     
-2.  Install Grafana and two plugins:
+2.  Install Grafana and plugins:
     
     ```shell
-    sudo yum -y install grafana-9.1.0-1.x86_64.rpm && sudo grafana-cli plugins install grafana-clock-panel && sudo grafana-cli plugins install marcusolsson-gantt-panel
+    sudo yum -y install grafana-9.1.0-1.x86_64.rpm && sudo grafana-cli plugins install grafana-clock-panel
     ```
     
 3.  Start and enable the Grafana service:
