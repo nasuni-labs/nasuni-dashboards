@@ -552,7 +552,13 @@ Populate communityName, edgeApplianceHostnameOrIP, and OidToQuery with the relev
 ## Telegraf
 
 ### Issues Starting
-If Telegraf reports errors in **/var/log/telegraf/telegraf.log**, the source of the problem is most likely with the contents of telegraf.conf. Run the following command to test telegraf.conf (the command will report a verbose error if it encounters a problem):
+If Telegraf reports errors in **/var/log/telegraf/telegraf.log**, the source of the problem is most likely with the formatting or contents of telegraf.conf. 
+
+#### Telegraf.conf Format Validation
+The telegraf.conf file uses the [TOML](https://toml.io/en/) file format. Omitting or adding unexpected characters to telegraf.conf can invalidate the configuration file. You can validate telegraf.conf using a TOML file validator such as the [TOML Lint](https://www.toml-lint.com/) website.
+    
+#### Validating Telegraf.conf Contents
+Run the following command to test telegraf.conf (the command will report a verbose error if it encounters a problem):
     
 * Rocky Linux
     
