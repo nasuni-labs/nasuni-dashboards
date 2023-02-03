@@ -13,6 +13,16 @@ Nasuni Dashboards provides a framework for viewing time series data across a cus
 
 ![TIGStackComponents](/images/TIGStackComponents.png)
 
+# Support Statement
+
+*   This package stack has only been validated with the component versions documented in the README file.
+    
+*   Nasuni Support is limited to Nasuni APIs and Protocols (SMB, NFS, SNMP, GFA Telemetry).
+    
+*   GitHub project to-do's, bugs, questions, and feature requests should be submitted as “Issues” in GitHub under its repositories.
+
+*   Nasuni API and Protocol bugs or feature requests should be communicated to Nasuni Customer Success.
+
 # Installation Guidelines
 
 ## Validated Component Versions
@@ -687,14 +697,6 @@ When decommissioning a Nasuni Edge Appliance, it is good to clean up the InfluxD
     ```
     
 
-# Support Statement
 
-*   This package stack has only been validated with the component versions documented in the README file.
-    
-*   Nasuni Support is limited to Nasuni APIs and Protocols (SMB, NFS, SNMP, GFA Telemetry).
-    
-*   Nasuni API and Protocol bugs or feature requests should be communicated to Nasuni Customer Success.
-    
-*   GitHub project to-do's, bugs, and feature requests should be submitted as “Issues” in GitHub under its repositories.
     
 
