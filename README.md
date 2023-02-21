@@ -109,7 +109,7 @@ To use the GFA Telemetry API:
 ## Deploy the VM
 Deploy a Rocky Linux or Windows VM that meets the requirements for Nasuni Dashboards. 
 
-NOTE: Be sure to update all the OS packages by running 
+NOTE: Be sure to update all the OS packages by running (Linux)
 
         sudo dnf update
 
