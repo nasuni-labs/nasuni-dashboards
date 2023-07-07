@@ -126,7 +126,7 @@ You can use the example TIG buildout as a template. Or if you have an existing T
 
 # Importing NAA dashboard into Grafana
 
-Once you have your grafana system setup, use the [Grafana Dashboard Json](Nasuni Access Anywhere-1685122347925.json) to load the default dasb
+Once you have your grafana system setup, use the [GrafanaDashboardJson](NasuniAccessAnywhere-1685122347925.json) to load the default dashboard
 
 # TIG Stack in Docker
 
