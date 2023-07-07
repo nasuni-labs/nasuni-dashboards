@@ -126,7 +126,7 @@ You can use the example TIG buildout as a template. Or if you have an existing T
 
 # Importing NAA dashboard into Grafana
 
-Once you have your grafana system setup, use the [Grafana Dashboard Json](naa/Nasuni Access Anywhere-1685122347925.json) to load the default dasb
+Once you have your grafana system setup, use the [Grafana Dashboard Json](Nasuni Access Anywhere-1685122347925.json) to load the default dasb
 
 # TIG Stack in Docker
 
@@ -135,7 +135,7 @@ To deploy all components in a TIG stack via docker see the docker-compose.yaml i
 ```shell
 mkdir -p /opt/tig/telegraf /opt/tig/influx/data /opt/tig/lok /opt/tig/grafana/data
 ```
-Place the [docker-compose.yaml](naa/docker-compose.yaml) in that /opt/tig directory. 
+Place the [docker-compose.yaml](docker-compose.yaml) in that /opt/tig directory. 
 
 Edit /opt/tig/telegraf/telegraf.conf as required. Then start up the containers like so:
 
