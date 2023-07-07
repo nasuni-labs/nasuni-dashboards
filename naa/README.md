@@ -13,21 +13,21 @@ The monitoring API will be installed from the CLI via the standard package deplo
 
 As the root user on the machine run the following command:
 	
-    ```shell
+```shell
 	yum install naamon
-	```
+```
 
 Once completed, you will need to update the firewalls to allow the default port for the NAA mon api:
 
 	Add the following line into /etc/sysconfig/iptables before the "-j REJECT" line:
-      ```shell	
+```shell	
 		-A RH-Firewall-1-INPUT -p tcp -m state --state NEW -m tcp --dport 8010 -j ACCEPT
-	  ```
+```
 
 	After added restart the firewall and docker:
-        ```shell
+```shell
 		systemctl restart iptables docker 
-        ```
+```
 		
 ## Configuration File Changes
 
@@ -39,17 +39,17 @@ There are one required change that is required for this setup, and other optiona
 
 The default config file has just localhost in the allow list as such:
 
-    ```shell
+```shell
 	allowlist {
 	    ip = [
 	        "127.0.0.1"
 	        ]
 	}
-    ```
+```
 
 You will want to add your TIG server, or any other servers/networks that should be allowed to access the apis like so:
 
-    ```shell
+```shell
 	allowlist {
 	    ip = [
 	        "127.0.0.1",
@@ -57,18 +57,18 @@ You will want to add your TIG server, or any other servers/networks that should 
 	        "172.20.1.128"
 	        ]
 	}
-	```
+```
 	
 ### HTTPS
 
 The default configuration has all API metrics data transferred in plain text (HTTP). If you would like to ensure all data in transit for the API is encrypted you will update the ssl setting, replacing false with true like this example:
 
-    ```shell
+```shell
 	ssl "true" {
 	    certfile = "/etc/ssl/fullchain.pem"
 	    keyfile = "/etc/ssl/privkey.pem"
 	}
-    ```
+```
 
 Pointing to your relevant ssl files. 
 Please note, that as you renew/update your certs you will need to restart the naamon service for the new certificates to be available. 
@@ -76,33 +76,33 @@ Please note, that as you renew/update your certs you will need to restart the na
 ### Database Replication
 
 The default naamon doesn't check for database replication status. If you're system is setup with a replicated  database,  and you would like to monitor status of the database replication via naamon you will need to update the config file like so:
-	```shell
+```shell
 	dbrepl "true" {
 	    username = "replicationcheckuser"
 	    password = "replicationcheckerpasswordhere"
 	}
-    ```
+```
 	
 That user in the configuration will need to be created in the database, and have permissions to check replication status. Here's an example command that will setup the user in the database with the correct permissions: 
 
-    ```shell
+```shell
 	mysql -e "CREATE USER 'replicationcheckuser'@'localhost' IDENTIFIED BY 'replicationcheckerpasswordhere';"
 	mysql -e "GRANT REPLICATION SLAVE ON *.* TO 'replicationcheckuser'@'localhost';"
-	```
+```
 	
 # Starting the naamon service
 
 The naamon is installed as a systemd service. To startup the service and enable it please run the following command, after updating the configuration above
 	
-    ```shell
+```shell
 	systemctl enable --now naamon
-    ```
+```
 	
 You can  check the status of the service like so:
 	
-    ```shell
+```shell
 	systemctl status naamon
-    ```
+```
 	
 	
 	
