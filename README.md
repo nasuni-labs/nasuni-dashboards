@@ -30,7 +30,7 @@ Nasuni Dashboards has been validated with these component versions:
 
 * Telegraf: 1.23.4
 
-* InfluxDB: 1.8.10
+* InfluxDB: 1.8.10 or 2.7+
     
 * Grafana: 9.1.0
 
@@ -114,7 +114,7 @@ NOTE: Be sure to update all the OS packages by running (Linux)
         sudo dnf update
 
 ## Configure DNS
-To use hostnames rather than IP addresses for the Telegraf SNMP agent configuration, DNS is required. 
+DNS is required to use hostnames rather than IP addresses for the Telegraf SNMP agent configuration. 
 Two common scenarios for DNS configuration:
 
 *   DHCP: DHCP is typically used for Cloud VMs, but can also be used on-premises. If the DNS server provided by DHCP is not authoritative for Edge Appliance hostnames, you can override the DNS server settings.
@@ -141,7 +141,11 @@ From your computer (Rocky Linux) or the Windows VM (Windows Install), click the 
 
 ## Install and Configure InfluxDB
 
-### Rocky Linux InfluxDB Installation Instructions
+Nasuni dashboards work with InfluxDB 1.8 and 2.7+. 2.7+ is slightly more complicated to install and configure but receives regular security updates.
+
+### Influx DB 1.8
+
+#### Rocky Linux InfluxDB 1.8 Installation Instructions
 <details>
     <summary>Expand Rocky Linux Installation Instructions</summary>
 <br/>
@@ -202,7 +206,7 @@ To install InfluxDB on Rocky Linux, ssh to the VM and run the following commands
     ```
 </details>
     
-### Windows InfluxDB Installation Instructions
+#### Windows InfluxDB 1.8 Installation Instructions
 <details>
     <summary>Expand Windows Installation Instructions</summary>
     
@@ -223,7 +227,7 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
    ```
 </details>    
     
-### Create the InfluxDB database:
+#### Create the InfluxDB 1.8 database:
     
 1.  Open the InfluxDB shell:
 
@@ -258,6 +262,108 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
     ```shell
     exit
     ```
+
+### Influx DB 2.7+
+
+Influx DB 2.7+ instructions are currently only available for Rocky Linux. Windows instructions coming soon.
+
+#### Rocky Linux InfluxDB 2.7+ Installation Instructions
+<details>
+    <summary>Expand Rocky Linux Installation Instructions</summary>
+<br/>
+
+To install InfluxDB on Rocky Linux, ssh to the VM and run the following commands:
+
+1.  Update all packages (*-y* argument skips confirmation; for manual confirmation, remove it):
+    
+    ```shell
+    sudo yum -y update
+    ```
+    
+2.  Install wget (if not present):
+    
+    ```shell
+    sudo yum -y install wget
+    ```
+    
+3.  Register the InfluxDB Repository:
+
+    ```shell
+    cat <<EOF | sudo tee /etc/yum.repos.d/influxdata.repo
+    [influxdata]
+    name = InfluxData Repository - Stable
+    baseurl = https://repos.influxdata.com/stable/\$basearch/main
+    enabled = 1
+    gpgcheck = 1
+    gpgkey = https://repos.influxdata.com/influxdata-archive_compat.key
+    EOF
+    ```    
+    
+4.  Install InfluxDB and CLI:
+    
+    ```shell
+    sudo yum -y install influxdb2 influxdb2-cli
+    ```
+    
+5.  Start and enable the InfluxDB service:
+    
+    ```shell
+    sudo systemctl start influxdb && sudo systemctl enable influxdb
+    ```
+    
+6.  Add firewall rules if the firewall service is running. First, check if the firewall service is running:
+
+    ```shell
+    systemctl status firewalld --no-pager
+    ```
+    
+    If the firewall service is running, the output will be similar to the following:
+    
+    `firewalld.service - firewalld - dynamic firewall daemon`</br>
+    `Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor pr`</br>
+    `Active: active (running) since Mon 2021-12-18 16:05:15 CET; 50min ago`</br>
+    `Docs: man:firewalld(1)`
+
+    If the firewall is not running, the output will be similar to the following:
+    
+    `Unit firewalld.service could not be found.`
+    
+    If the firewall service is running, configure the firewall for InfluxDB (only required if the firewall was running), then reload the firewall configuration:
+    
+    ```shell
+    sudo firewall-cmd --add-port=8086/tcp --permanent && sudo firewall-cmd --reload
+    ```
+</details>
+
+#### Create the InfluxDB 2.7+ database:
+    
+1.  Open the InfluxDB shell:
+
+    * Rocky Linux - ssh to the VM and run the following command, substituting values for the variables in brackets:
+
+        ```shell
+        influx setup --name <databaseName> --host http://localhost:8086 -u <username> -p <password> -o <orgName> -b <bucketName> -r 0 -f
+        ```
+        Populated Example:
+      
+        `influx setup --name nasuni --host http://localhost:8086 -u admin -p Password123 -o MyCompany -b nasuni-bucket -r 0 -f`
+
+      The output will be similar to the following:
+    
+      `User Organization Bucket`</br>
+      `admin MyCompany nasuni-bucket`</br>
+
+2.  List the automatically created database token and make note of the token since it will be required for configuring Grafana database authentication:
+
+    ```shell
+    influx auth list
+    ```
+    The output will be similar to the following (ellipsis added for readability):
+    
+    `[~]$ influx auth list`</br>
+    `ID Description Token User Name	User ID Permissions`</br>
+    `0b7c38544ff51000 admin's Token 5xi_9lX...GFg== admin 0b7c3...1000 [read:/authorizations...]`</br>
+
         
 
 ## Install and Configure Telegraf
@@ -315,10 +421,16 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
         notepad.exe "C:\Program Files\Telegraf\telegraf.conf"
         ```   
     
-2.  If you installed influxDB on a dedicated host (single-node installs can skip this step), go the **[outputs.influxdb]** section, update the **urls** value with the InfluxDB IP address, and confirm the port. You can use the search function in vi to jump to the appropriate section of the file. Type **/** followed by the string you want to search for, and then press **Return**. The following example assumes the default port and InfluxDB running on the same host as Telegraf:</br>
-    - `urls = ["http://127.0.0.1:8086"]`
+2.  If you installed influxDB 2.7+ (influxDB 1.8 installs can skip this step), perform the following steps:
+   - In the **[outputs.influxdb]** section for Influx 1.8 and add a **#** to the beginning of each line (including the **[outputs.influxdb]** section header) to comment them out. You can use the search function in vi to jump to the appropriate section of the file. Type **/** followed by the string you want to search for, and then press **Return**.
+   - In the **[outputs.influxdb_V2]** section for Influx 1.8 and remove the **#** from the beginning of the following lines to uncomment them and populate them with the following values:
+       - **[outputs.influxdb_v2]** section header (uncomment only)
+       - URLs (uncomment only)
+       - token (uncomment and replace **<token>** with the token from the **influx auth list** command)
+       - organization (uncomment and replace **<myOrg>** with the organization you specified during **influx setup**)
+       - bucket (uncomment and replace **<bucket>** with the bucket you specified during **influx setup**)
         
-5.  In the **[inputs.snmp]** section, update the **agents** value with the FQDN of all Edge Appliances to be monitored. For example (Note: The last entry does not require a trailing comma):</br>
+3.  In the **[inputs.snmp]** section, update the **agents** value with the FQDN of all Edge Appliances to be monitored. For example (Note: The last entry does not require a trailing comma):</br>
     
     ```shell
        agents = [
@@ -328,7 +440,7 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
         ]
     ```
             
-6.  In the **[inputs.snmp]** section, update protocol-specific values based on the protocol configured for your Edge Appliances and NMC: 
+4.  In the **[inputs.snmp]** section, update protocol-specific values based on the protocol configured for your Edge Appliances and NMC: 
     - SNMPv3
 
         - `sec_name = "<username>"` (match the **Username** supplied in the Nasuni SNMP UI)
@@ -351,13 +463,13 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
 
             - `sec_level`
 
-7.  In the **[inputs.snmp.tags]** section, update the **customer** and **country** values with appropriate information for your environment. Use two-letter country codes for the country value:</br>
+5.  In the **[inputs.snmp.tags]** section, update the **customer** and **country** values with appropriate information for your environment. Use two-letter country codes for the country value:</br>
 
     - `customer  = "<CustomerName>"`
 
     - `country = "<CountryCode>"`
         
-8.  To use the optional Global File Acceleration (GFA) Telemetry API data source, make the following changes to the **[inputs.http]** section (located directly above the **[inputs.snmp]** section):
+6.  To use the optional Global File Acceleration (GFA) Telemetry API data source, make the following changes to the **[inputs.http]** section (located directly above the **[inputs.snmp]** section):
 
     - `urls (uncomment this line)`
 
@@ -365,9 +477,9 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
 
     - `headers (uncomment the second headers line and enter a string/name to use as a unique identifier for this connection)`
 
-9.  Save and close the file. For Rocky Linux editors using vi, press **Esc**, type **:x**, and press **Enter**.
+7.  Save and close the file. For Rocky Linux editors using vi, press **Esc**, type **:x**, and press **Enter**.
 
-10. Make final changes to the telegraf.conf file permissions (Linux) and start Telegraf:
+8. Make final changes to the telegraf.conf file permissions (Linux) and start Telegraf:
 
      * Rocky Linux
      
@@ -453,15 +565,20 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
     
 2.  Log in to Grafana. The default username is **admin**, and the default password is **admin**. Grafana will prompt you to change the default password after logging in.
     
-3.  Under the Configuration (gear) icon, add InfluxDB as a data source using the details from your install, and test the connection. For the default single-node installation, use the following information:
+3.  Under the Configuration (gear) icon, add InfluxDB as a data source using the details from your install:
 
-    - URL: http://localhost:8086
-
-    - Database: nasuni
+    - Name(1): InfluxDB (Make sure default is toggled on)
+    - URL(2): http://localhost:8086
+    - Custom HTTP Headers (3): Skip if using InfluxDB 1.8. For InfluxDB 2.7, select **Add Header**. Provide your InfluxDB API token:
+         - Header: Enter **Authorization**
+         - Value: Use the Token schema (the word **Token** followed by a space and the token value) and provide your InfluxDB API token (the same token you entered telegraf.conf). For example:</br>
+           `Token y0uR5uP3rSecr3tT0k3n`
+        
+    - Database (4): nasuni (Influx 1.8), your Influx bucket name (Influx 2.7+)
     
 ![Add Data Source](/images/AddGrafanaDataSource.png)
 
-4.  Click **Save & test** to complete adding the InfluxDB data source. A green checkbox should appear alongside a message that the **Data source is working**.
+4.  Click **Save & test** (5) to complete adding the InfluxDB data source. A green checkbox should appear alongside a message that the **Data source is working**.
 
 ### Configure Grafana Dashboards
 
