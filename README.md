@@ -1,6 +1,6 @@
 # About
 
-Nasuni Dashboards provides a framework for viewing time series data across a customer's entire Nasuni stack. Supported data sources currently include Edge Appliance SNMP data as well as the Global File Acceleration (GFA) Telemetry REST API.
+Nasuni Dashboards provides a framework for viewing time series data across a customer's entire Nasuni stack. Supported data sources currently include Edge Appliance SNMP data and the Global File Acceleration (GFA) Telemetry REST API.
 
 # Components
 
@@ -91,7 +91,7 @@ InfluxDB is designed to run on solid-state drives (SSDs) and memory-optimized in
 
     a. SNMPv3 (most secure): Set **Enable v3 Support** to **On**. Enter a **Username** and **Password**.
 
-    b. SNMPv1/v2: Set **Enable v1,v2c Support**  to **On**. Set the **Community Name** to **public** (or to what you plan to use).
+    b. SNMPv1/v2: Set **Enable v1,v2c Support**  to **On**. Set the **Community Name** to **public** (or what you plan to use).
     
 6.  Enter your preferred **System Location** and **System Contact**.
     
@@ -119,7 +119,7 @@ Two common scenarios for DNS configuration:
 
 *   DHCP: DHCP is typically used for Cloud VMs, but can also be used on-premises. If the DNS server provided by DHCP is not authoritative for Edge Appliance hostnames, you can override the DNS server settings.
 
-    *   To enable static DNS with DHCP for Rocky Linux, ssh to the VM and run the following command to disable DHCP updates to DNS:
+    *   To enable static DNS with DHCP for Rocky Linux, SSH to the VM and run the following command to disable DHCP updates to DNS:
 
         ```shell
         sudo tee -a /etc/NetworkManager/conf.d/disable-resolve.conf-managing.conf > /dev/null <<EOT
@@ -128,13 +128,13 @@ Two common scenarios for DNS configuration:
         EOT
         ```
 
-    *   Edit **/etc/resolv.conf**, specifying nameserver entries for the DNS servers that are authoritative for Edge Appliance DNS.
+    *   Edit **/etc/resolv.conf**, specifying nameserver entries for the authoritative DNS servers for Edge Appliance DNS.
     
         ```shell
         sudo vi /etc/resolv.conf
         ```
 
-*   Static IP: Ensure that the DNS servers you specify are authoritative for Edge Appliance DNS.
+*   Static IP: Ensure that the specified DNS servers are authoritative for Edge Appliance DNS.
 
 ## Download Nasuni Dashboards Zip
 From your computer (Rocky Linux) or the Windows VM (Windows Install), click the green **Code** button within the Nasuni Labs nasuni-dashboards repository and select the **Download ZIP** option to download a local copy of the repository and extract the contents.
@@ -265,7 +265,6 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
 
 ### Influx DB 2.7+
 
-Influx DB 2.7+ instructions are currently only available for Rocky Linux. Windows instructions coming soon.
 
 #### Rocky Linux InfluxDB 2.7+ Installation Instructions
 <details>
@@ -335,6 +334,26 @@ To install InfluxDB on Rocky Linux, ssh to the VM and run the following commands
     ```
 </details>
 
+#### Windows InfluxDB 2.7+ Installation Instructions
+<details>
+    <summary>Expand Windows Installation Instructions</summary>
+<br/>
+
+To install InfluxDB on Windows, connect to the Windows VM and follow these instructions:
+
+1.  Run PowerShell as an administrator, then enter the following commands to download and install InfluxDB:
+
+    ```PowerShell
+    mkdir ~\Downloads\InfluxInstall; cd ~\Downloads\InfluxInstall; Invoke-WebRequest https://dl.influxdata.com/influxdb/releases/influxdb2-2.7.1-windows-amd64.zip -UseBasicParsing -OutFile influxdb2-2.7.1-windows-amd64.zip ; Expand-Archive .\influxdb2-2.7.1-windows-amd64.zip -DestinationPath .\ ;rm influxdb2-2.7.1-windows-amd64.zip ;mkdir 'c:\Program Files\InfluxData\InfluxDB' ;mv .\influxdb2_windows_amd64\* 'c:\Program Files\InfluxData\InfluxDB\'; rmdir .\influxdb2_windows_amd64\; Invoke-WebRequest https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.7.3-windows-amd64.zip -OutFile influxdb2-client-2.7.3-windows-amd64.zip ; Expand-Archive .\influxdb2-client-2.7.3-windows-amd64.zip -DestinationPath .\;rm .\influxdb2-client-2.7.3-windows-amd64.zip; mkdir 'c:\Program Files\InfluxData\influxdb2-client' ;mv .\* 'c:\Program Files\InfluxData\influxdb2-client\'
+    ```
+    
+2. Download and configure the NSSM service manager to make InfluxDB run as a Windows Service (The final output should show "Status: Running", "Name: InfluxDB"):
+   
+   ```PowerShell
+   mkdir ~\Downloads\NssmInstall; cd ~\Downloads\NssmInstall; Invoke-WebRequest https://nssm.cc/release/nssm-2.24.zip -UseBasicParsing -OutFile nssm-2.24.zip ;Expand-Archive .\nssm-2.24.zip -DestinationPath .\ ;mkdir 'c:\Program Files\NSSM' ;mv .\nssm-2.24\win64\nssm.exe 'c:\Program Files\NSSM\' ;cd 'c:\Program Files\NSSM\' ;.\nssm.exe install InfluxDB "C:\Program Files\InfluxData\InfluxDB\influxd.exe" ;.\nssm.exe set InfluxDB Description "InfluxDB Time-Series Database" ;Start-Service InfluxDB ; Get-Service InfluxDB
+   ```
+</details>    
+
 #### Create the InfluxDB 2.7+ database:
     
 1.  Open the InfluxDB shell:
@@ -348,15 +367,29 @@ To install InfluxDB on Rocky Linux, ssh to the VM and run the following commands
       
         `influx setup --name nasuni --host http://localhost:8086 -u admin -p Password123 -o MyCompany -b nasuni-bucket -r 0 -f`
 
-      The output will be similar to the following:
+    * Windows - Use PowerShell to configure InfluxDB
+  
+       ```PowerShell
+       cd "c:\Program Files\InfluxDB\influxdb2-client"; .\influx.exe setup --name nasuni --host http://localhost:8086 -u <username> -p <password> -o Nasuni -b <bucketName> -r 0 -f
+       ```
+       Populated Example:
+      
+        `cd "c:\Program Files\InfluxDB\influxdb2-client"; .\influx.exe setup --name nasuni --host http://localhost:8086 -u admin -p Password123 -o MyCompany -b nasuni-bucket -r 0 -f`
+
+    The output will be similar to the following:
     
       `User Organization Bucket`</br>
       `admin MyCompany nasuni-bucket`</br>
 
-2.  List the automatically created database token and make note of the token since it will be required for configuring Grafana database authentication:
+3.  List the automatically created database token and make a note of the token since it will be required for configuring Grafana database authentication:
 
+    * Rocky Linux - ssh to the VM and run the following command to list Influx authentication info:
     ```shell
     influx auth list
+    ```
+      * Windows - Use PowerShell to list Influx authentication info:
+    ```Powershell
+    d "c:\Program Files\InfluxDB\influxdb2-client"; .\influx.exe auth list
     ```
     The output will be similar to the following (ellipsis added for readability):
     
@@ -400,7 +433,7 @@ To install InfluxDB on Rocky Linux, ssh to the VM and run the following commands
 1.  Run PowerShell as an administrator, then run commands to download and install Telegraf:
     
     ```PowerShell
-    cd ~\Downloads ;Invoke-WebRequest https://dl.influxdata.com/telegraf/releases/telegraf-1.23.4_windows_amd64.zip -UseBasicParsing -OutFile telegraf-1.23.4_windows_amd64.zip ;Expand-Archive .\telegraf-1.23.4_windows_amd64.zip -DestinationPath .\ ;mkdir 'c:\Program Files\Telegraf' ;mv .\telegraf-1.23.4\* 'C:\Program Files\Telegraf\' ;mv 'C:\Program Files\Telegraf\telegraf.conf' 'C:\Program Files\Telegraf\telegraf.conf.bak'
+    mkdir ~\Downloads\TelegrafInstall ;cd ~\Downloads\TelegrafInstall; Invoke-WebRequest https://dl.influxdata.com/telegraf/releases/telegraf-1.23.4_windows_amd64.zip -UseBasicParsing -OutFile telegraf-1.23.4_windows_amd64.zip ;Expand-Archive .\telegraf-1.23.4_windows_amd64.zip -DestinationPath .\ ;mkdir 'c:\Program Files\Telegraf' ;mv .\telegraf-1.23.4\* 'C:\Program Files\Telegraf\' ;mv 'C:\Program Files\Telegraf\telegraf.conf' 'C:\Program Files\Telegraf\telegraf.conf.bak'
     ```    
     
 </details>
@@ -415,7 +448,7 @@ To install InfluxDB on Rocky Linux, ssh to the VM and run the following commands
        sudo vi /etc/telegraf/telegraf.conf
        ```
        
-    - Windows: In the Windows VM, copy the contents of the **telegraf.conf** file from the extracted Nasuni Dashboards repository zip archive to "C:\Program Files\Telegraf\telegraf.conf" and make the edits outlined in the next set of steps. One way to do this is to run Notepad or Notepad++ as an administrator, and paste the contents of telegraf.conf. Example to open telegraf.conf for editing in Notepad using PowerShell (running PowerShell as administrator):
+    - Windows: In the Windows VM, copy the contents of the **telegraf.conf** file from the extracted Nasuni Dashboards repository zip archive to "C:\Program Files\Telegraf\telegraf.conf" and make the edits outlined in the next set of steps. One way to do this is to run Notepad or Notepad++ as an administrator and paste the contents of telegraf.conf. Example to open telegraf.conf for editing in Notepad using PowerShell (running PowerShell as administrator):
 
         ```PowerShell
         notepad.exe "C:\Program Files\Telegraf\telegraf.conf"
