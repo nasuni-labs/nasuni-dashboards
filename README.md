@@ -389,7 +389,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
     ```
       * Windows - Use PowerShell to list Influx authentication info:
     ```Powershell
-    d "c:\Program Files\InfluxDB\influxdb2-client"; .\influx.exe auth list
+    cd "c:\Program Files\InfluxDB\influxdb2-client"; .\influx.exe auth list
     ```
     The output will be similar to the following (ellipsis added for readability):
     
