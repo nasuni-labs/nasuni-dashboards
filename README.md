@@ -34,7 +34,7 @@ Nasuni Dashboards has been validated with these component versions:
     
 * Grafana: 9.1.0
 
-## VM Requirements for Single-Node Installation 
+## VM Reuirements for Single-Node Installation 
 
 * OSes: 
 
@@ -64,7 +64,7 @@ The data sources used with Nasuni Dashboards should be accessible from the VM:
 
 InfluxDB is designed to run on solid-state drives (SSDs) and memory-optimized instances. The Telegraf agent collects data for InfluxDB and does not require independent sizing.
 
-<table data-layout="default" data-local-id="8e403bb5-545e-4876-8e57-082bc184df20" class="confluenceTable"><colgroup><col style="width: 113.33px;"><col style="width: 113.33px;"><col style="width: 113.33px;"><col style="width: 113.33px;"><col style="width: 113.33px;"><col style="width: 113.33px;"></colgroup><tbody><tr><th class="confluenceTh"><p style="text-align: center;"><strong>vCPU or CPU</strong></p><p style="text-align: center;">(Cores)</p></th><th class="confluenceTh"><p style="text-align: center;"><strong>RAM</strong></p><p style="text-align: center;">(GB)</p></th><th class="confluenceTh"><p style="text-align: center;"><strong>IOPS</strong></p></th><th class="confluenceTh"><p style="text-align: center;"><strong>Writes per second</strong></p></th><th class="confluenceTh"><p style="text-align: center;"><strong>Queries per second</strong></p></th><th class="confluenceTh"><p style="text-align: center;"><strong>Unique</strong></p><p style="text-align: center;"><strong>series</strong></p></th></tr><tr><td class="confluenceTd"><p style="text-align: center;">2-4</p></td><td class="confluenceTd"><p style="text-align: center;">2-4</p></td><td class="confluenceTd"><p style="text-align: center;">500</p></td><td class="confluenceTd"><p style="text-align: center;">&lt; 5,000</p></td><td class="confluenceTd"><p style="text-align: center;">&lt; 5</p></td><td class="confluenceTd"><p style="text-align: center;">&lt; 100,000</p></td></tr><tr><td class="confluenceTd"><p style="text-align: center;">4-6</p></td><td class="confluenceTd"><p style="text-align: center;">8-32</p></td><td class="confluenceTd"><p style="text-align: center;">500-1000</p></td><td class="confluenceTd"><p style="text-align: center;">&lt; 250,000</p></td><td class="confluenceTd"><p style="text-align: center;">&lt; 25</p></td><td class="confluenceTd"><p style="text-align: center;">&lt; 1,000,000</p></td></tr><tr><td class="confluenceTd"><p style="text-align: center;">8+</p></td><td class="confluenceTd"><p style="text-align: center;">32+</p></td><td class="confluenceTd"><p style="text-align: center;">1000+</p></td><td class="confluenceTd"><p style="text-align: center;">&gt; 250,000</p></td><td class="confluenceTd"><p style="text-align: center;">&gt; 25</p></td><td class="confluenceTd"><p style="text-align: center;">&gt; 1,000,000</p></td></tr></tbody></table>
+<table data-layout="default" data-local-id="8e403bb5-545e-4876-8e57-082bc184df20" class="confluenceTable"><colgroup><col style="width: 113.33px;"><col style="width: 113.33px;"><col style="width: 113.33px;"><col style="width: 113.33px;"><col style="width: 113.33px;"><col style="width: 113.33px;"></colgroup><tbody><tr><th class="confluenceTh"><p style="text-align: center;"><strong>vCPU or CPU</strong></p><p style="text-align: center;">(Cores)</p></th><th class="confluenceTh"><p style="text-align: center;"><strong>RAM</strong></p><p style="text-align: center;">(GB)</p></th><th class="confluenceTh"><p style="text-align: center;"><strong>IOPS</strong></p></th><th class="confluenceTh"><p style="text-align: center;"><strong>Writes per second</strong></p></th><th class="confluenceTh"><p style="text-align: center;"><strong>ueries per second</strong></p></th><th class="confluenceTh"><p style="text-align: center;"><strong>Uniue</strong></p><p style="text-align: center;"><strong>series</strong></p></th></tr><tr><td class="confluenceTd"><p style="text-align: center;">2-4</p></td><td class="confluenceTd"><p style="text-align: center;">2-4</p></td><td class="confluenceTd"><p style="text-align: center;">500</p></td><td class="confluenceTd"><p style="text-align: center;">&lt; 5,000</p></td><td class="confluenceTd"><p style="text-align: center;">&lt; 5</p></td><td class="confluenceTd"><p style="text-align: center;">&lt; 100,000</p></td></tr><tr><td class="confluenceTd"><p style="text-align: center;">4-6</p></td><td class="confluenceTd"><p style="text-align: center;">8-32</p></td><td class="confluenceTd"><p style="text-align: center;">500-1000</p></td><td class="confluenceTd"><p style="text-align: center;">&lt; 250,000</p></td><td class="confluenceTd"><p style="text-align: center;">&lt; 25</p></td><td class="confluenceTd"><p style="text-align: center;">&lt; 1,000,000</p></td></tr><tr><td class="confluenceTd"><p style="text-align: center;">8+</p></td><td class="confluenceTd"><p style="text-align: center;">32+</p></td><td class="confluenceTd"><p style="text-align: center;">1000+</p></td><td class="confluenceTd"><p style="text-align: center;">&gt; 250,000</p></td><td class="confluenceTd"><p style="text-align: center;">&gt; 25</p></td><td class="confluenceTd"><p style="text-align: center;">&gt; 1,000,000</p></td></tr></tbody></table>
 
 ### Grafana
 
@@ -196,13 +196,13 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 1.  Run PowerShell as an administrator, then enter the following commands to download and install InfluxDB:
 
     ```PowerShell
-    mkdir ~\Downloads\InfluxInstall; cd ~\Downloads\InfluxInstall; Invoke-WebRequest https://dl.influxdata.com/influxdb/releases/influxdb2-2.7.1-windows-amd64.zip -UseBasicParsing -OutFile influxdb2-2.7.1-windows-amd64.zip ; Expand-Archive .\influxdb2-2.7.1-windows-amd64.zip -DestinationPath .\ ;rm influxdb2-2.7.1-windows-amd64.zip ;mkdir 'c:\Program Files\InfluxData\InfluxDB' ;mv .\influxdb2_windows_amd64\* 'c:\Program Files\InfluxData\InfluxDB\'; rmdir .\influxdb2_windows_amd64\; Invoke-WebRequest https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.7.3-windows-amd64.zip -OutFile influxdb2-client-2.7.3-windows-amd64.zip ; Expand-Archive .\influxdb2-client-2.7.3-windows-amd64.zip -DestinationPath .\;rm .\influxdb2-client-2.7.3-windows-amd64.zip; mkdir 'c:\Program Files\InfluxData\influxdb2-client' ;mv .\* 'c:\Program Files\InfluxData\influxdb2-client\'
+    mkdir ~\Downloads\InfluxInstall; cd ~\Downloads\InfluxInstall; Invoke-WebReuest https://dl.influxdata.com/influxdb/releases/influxdb2-2.7.1-windows-amd64.zip -UseBasicParsing -OutFile influxdb2-2.7.1-windows-amd64.zip ; Expand-Archive .\influxdb2-2.7.1-windows-amd64.zip -DestinationPath .\ ;rm influxdb2-2.7.1-windows-amd64.zip ;mkdir 'c:\Program Files\InfluxData\InfluxDB' ;mv .\influxdb2_windows_amd64\* 'c:\Program Files\InfluxData\InfluxDB\'; rmdir .\influxdb2_windows_amd64\; Invoke-WebReuest https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.7.3-windows-amd64.zip -OutFile influxdb2-client-2.7.3-windows-amd64.zip ; Expand-Archive .\influxdb2-client-2.7.3-windows-amd64.zip -DestinationPath .\;rm .\influxdb2-client-2.7.3-windows-amd64.zip; mkdir 'c:\Program Files\InfluxData\influxdb2-client' ;mv .\* 'c:\Program Files\InfluxData\influxdb2-client\'
     ```
     
 2. Download and configure the NSSM service manager to make InfluxDB run as a Windows Service (The final output should show "Status: Running", "Name: InfluxDB"):
    
    ```PowerShell
-   mkdir ~\Downloads\NssmInstall; cd ~\Downloads\NssmInstall; Invoke-WebRequest https://nssm.cc/release/nssm-2.24.zip -UseBasicParsing -OutFile nssm-2.24.zip ;Expand-Archive .\nssm-2.24.zip -DestinationPath .\ ;mkdir 'c:\Program Files\NSSM' ;mv .\nssm-2.24\win64\nssm.exe 'c:\Program Files\NSSM\' ;cd 'c:\Program Files\NSSM\' ;.\nssm.exe install InfluxDB "C:\Program Files\InfluxData\InfluxDB\influxd.exe" ;.\nssm.exe set InfluxDB Description "InfluxDB Time-Series Database" ;Start-Service InfluxDB ; Get-Service InfluxDB
+   mkdir ~\Downloads\NssmInstall; cd ~\Downloads\NssmInstall; Invoke-WebReuest https://nssm.cc/release/nssm-2.24.zip -UseBasicParsing -OutFile nssm-2.24.zip ;Expand-Archive .\nssm-2.24.zip -DestinationPath .\ ;mkdir 'c:\Program Files\NSSM' ;mv .\nssm-2.24\win64\nssm.exe 'c:\Program Files\NSSM\' ;cd 'c:\Program Files\NSSM\' ;.\nssm.exe install InfluxDB "C:\Program Files\InfluxData\InfluxDB\influxd.exe" ;.\nssm.exe set InfluxDB Description "InfluxDB Time-Series Database" ;Start-Service InfluxDB ; Get-Service InfluxDB
    ```
 </details>    
 
@@ -233,7 +233,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
       `User Organization Bucket`</br>
       `admin MyCompany nasuni-bucket`</br>
 
-3.  List the automatically created database token and make a note of the token since it will be required for configuring Grafana database authentication:
+3.  List the automatically created database token and make a note of the token since it will be reuired for configuring Grafana database authentication:
 
     * Rocky Linux - ssh to the VM and run the following command to list Influx authentication info:
       ```shell
@@ -285,7 +285,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 1.  Run PowerShell as an administrator, then run commands to download and install Telegraf:
     
     ```PowerShell
-    mkdir ~\Downloads\TelegrafInstall ;cd ~\Downloads\TelegrafInstall; Invoke-WebRequest https://dl.influxdata.com/telegraf/releases/telegraf-1.23.4_windows_amd64.zip -UseBasicParsing -OutFile telegraf-1.23.4_windows_amd64.zip ;Expand-Archive .\telegraf-1.23.4_windows_amd64.zip -DestinationPath .\ ;mkdir 'c:\Program Files\Telegraf' ;mv .\telegraf-1.23.4\* 'C:\Program Files\Telegraf\' ;mv 'C:\Program Files\Telegraf\telegraf.conf' 'C:\Program Files\Telegraf\telegraf.conf.bak'
+    mkdir ~\Downloads\TelegrafInstall ;cd ~\Downloads\TelegrafInstall; Invoke-WebReuest https://dl.influxdata.com/telegraf/releases/telegraf-1.23.4_windows_amd64.zip -UseBasicParsing -OutFile telegraf-1.23.4_windows_amd64.zip ;Expand-Archive .\telegraf-1.23.4_windows_amd64.zip -DestinationPath .\ ;mkdir 'c:\Program Files\Telegraf' ;mv .\telegraf-1.23.4\* 'C:\Program Files\Telegraf\' ;mv 'C:\Program Files\Telegraf\telegraf.conf' 'C:\Program Files\Telegraf\telegraf.conf.bak'
     ```    
     
 </details>
@@ -311,7 +311,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
        - organization (replace **myOrg** with the organization you specified during **influx setup**)
        - bucket (replace **bucket** with the bucket you specified during **influx setup**)
         
-3.  In the **[inputs.snmp]** section, update the **agents** value with the FQDN of all Edge Appliances to be monitored. For example (Note: The last entry does not require a trailing comma):</br>
+3.  In the **[inputs.snmp]** section, update the **agents** value with the FDN of all Edge Appliances to be monitored. For example (Note: The last entry does not require a trailing comma):</br>
     
     ```shell
        agents = [
@@ -415,7 +415,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
     systemctl status grafana-server --no-pager
     ```
     
-5.  Configure the firewall for Grafana (only required if the firewall is enabled):
+5.  Configure the firewall for Grafana (only reuired if the firewall is enabled):
     
     ```shell
     sudo firewall-cmd --permanent --zone=public --add-port=3000/tcp && sudo firewall-cmd --reload
@@ -426,10 +426,10 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 <details>
     <summary>Expand Windows Installation Instructions</summary>
     
-1.  Run PowerShell as an administrator, and run commands to download and install Grafana. Accept all the defaults (Grafana will automatically be installed as a Windows service and started) :
+1.  Run PowerShell as an administrator and run commands to download and install Grafana. Accept all the defaults (Grafana will automatically be installed as a Windows service and started) :
     
     ```PowerShell
-    cd ~\Downloads ;Invoke-WebRequest https://dl.grafana.com/oss/release/grafana-9.1.0.windows-amd64.msi -UseBasicParsing -OutFile grafana-9.1.0.windows-amd64.msi ;.\grafana-9.1.0.windows-amd64.msi
+    cd ~\Downloads ;Invoke-WebReuest https://dl.grafana.com/oss/release/grafana-9.1.0.windows-amd64.msi -UseBasicParsing -OutFile grafana-9.1.0.windows-amd64.msi ;.\grafana-9.1.0.windows-amd64.msi
     ```
     
 2.  If Windows firewall is active, open TCP port 3000 for inbound access so remote computers can access the Grafana Dashboard:
@@ -442,7 +442,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 
 ### Configure Grafana Data Source
 
-1.  Use a web browser to connect to Grafana (http://fqdn-of-vm:3000).
+1.  Use a web browser to connect to Grafana (http://fdn-of-vm:3000).
     
 2.  Log in to Grafana. The default username is **admin**, and the default password is **admin**. Grafana will prompt you to change the default password after logging in.
     
@@ -476,7 +476,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 
 4. If using the GFA Telemetry API data source, import the associated GFA dashboards. From the Grafana left navigation bar, click the Dashboards (four squares) icon, then click the **Import** link. On the Import page, click **Import** and upload the **GFAVolumes.json** file from the extracted repository zip archive, accepting the defaults and saving the configuration. Repeat for the **GFAAppliances.json** and **GFAMiscellaneous.json** files.
 
-5. Navigate to the newly-imported GFA Volumes dashboard. Here is an example of the expected output for the dashboard:
+5. Navigate to the newly imported GFA Volumes dashboard. Here is an example of the expected output for the dashboard:
 
 ![GFA Volumes Dashboard Screenshot](/images/GFAVolumesDashboardScreenshot.png)
 
@@ -533,10 +533,10 @@ Windows does not include SNMP troubleshooting tools, although several third-part
 ### Windows SNMP Troubleshooting using SNMPv3
     
 ```PowerShell
-.\SnmpGet.exe -v:3 -sn:"<snmpUsername>" -ap:SHA -aw:"<snmpPassword>" -r:"<edgeApplianceHostnameOrIP>" -o:<OidToQuery>
+.\SnmpGet.exe -v:3 -sn:"<snmpUsername>" -ap:SHA -aw:"<snmpPassword>" -r:"<edgeApplianceHostnameOrIP>" -o:<OidTouery>
 ```
     
-Populate snmpUsername, snmpPassword, edgeApplianceHostnameOrIP, and OidToQuery with the relevant values for your environment. Here's an example of the populated command:
+Populate snmpUsername, snmpPassword, edgeApplianceHostnameOrIP, and OidTouery with the relevant values for your environment. Here's an example of the populated command:
     
 ```PowerShell
 .\SnmpGet.exe -v:3 -sn:"admin" -ap:SHA -aw:"myPassword123" -r:"edge1.domain.com" -o:.1.3.6.1.4.1.42040.1.1.0
@@ -545,10 +545,10 @@ Populate snmpUsername, snmpPassword, edgeApplianceHostnameOrIP, and OidToQuery w
 ### Windows SNMP Troubleshooting using SNMPv2   
     
 ```PowerShell
-.\SnmpGet.exe -v:2 -c:"<communityName>" -r:"<edgeApplianceHostnameOrIP>" -o:<OidToQuery>
+.\SnmpGet.exe -v:2 -c:"<communityName>" -r:"<edgeApplianceHostnameOrIP>" -o:<OidTouery>
 ```
 
-Populate communityName, edgeApplianceHostnameOrIP, and OidToQuery with the relevant values for your environment. Here's an example of the populated command:  
+Populate communityName, edgeApplianceHostnameOrIP, and OidTouery with the relevant values for your environment. Here's an example of the populated command:  
 
 ```Powershell
 .\SnmpGet.exe -v:2 -c:"nasuni" -r:"edge1.domain.com" -o:1.3.6.1.4.1.42040.1.1.0    
@@ -582,7 +582,7 @@ Run the following command to test telegraf.conf (the command will report a verbo
    ```
     
 ### JSON_V2 Errors
-If Telegraf reports an error parsing JSON_V2 (used for the GFA Telemetry data source), your version of Telegraf is too old. Telegraf added JSON_V2 parsing in version 1.19. Update the validated version of Telegraf for Nasuni Dashboards to correct this issue.
+If Telegraf reports an error parsing JSON_V2 (used for the GFA Telemetry data source), your version of Telegraf is too old. Telegraf added JSON_V2 parsing in version 1.19. Update to the validated version of Telegraf for Nasuni Dashboards to correct this issue.
 
 # Maintenance Tasks
 
@@ -595,7 +595,7 @@ If Telegraf reports an error parsing JSON_V2 (used for the GFA Telemetry data so
 
 To upgrade InfluxDB on Rocky Linux, SSH to the VM and run the following commands:
 
-1.  Export historical data, replacing **database** with the database you specified during the InfluxDB 1.8 install (usually **nasuni**). Depending on how long you've been using Nasuni labs and how many appliances you have, export and import (later in the steps) could take quite a while:
+1.  Export historical data, replacing **database** and brackets with the database you specified during the InfluxDB 1.8 install (usually **nasuni**). Depending on how long you've been using Nasuni labs and how many appliances you have, export and import (later in the steps) could take quite a while:
     
     ```shell
     sudo influx_inspect export -database <database> -datadir /var/lib/influxdb/data -waldir /var/lib/influxdb/wal -out $HOME/influxExport.lp -lponly
@@ -609,7 +609,7 @@ To upgrade InfluxDB on Rocky Linux, SSH to the VM and run the following commands
     
 3. Complete the steps to [install and configure InfluxDB 2.7 on Rocky Linux](#rocky-linux-influxDB-2.7+-installation-instructions).
    
-4. Restore the historical data you exported in step 1, replacing **bucketname** with the bucket name you specified during the InfluxDB 2.7 install:
+4. Restore the historical data you exported in step 1, replacing **bucketname** and brackets with the bucket name you specified during the InfluxDB 2.7 install:
 
    ```shell
    sudo influx write --bucket <bucketname> --file $HOME/influxExport.lp
@@ -628,9 +628,9 @@ To upgrade InfluxDB on Rocky Linux, SSH to the VM and run the following commands
    - In the **[outputs.influxdb_V2]** section for Influx 2.7 (if your telegraf.conf does not include this section, copy from telegraf.conf in Nasuni Labs) remove the **#** from the beginning of the following lines to uncomment them and populate them with the following values:
        - **[outputs.influxdb_v2]** section header (uncomment only)
        - URLs (uncomment only)
-       - token (uncomment and replace **token** with the token from the **influx auth list** command you ran during setup)
-       - organization (uncomment and replace **myOrg** with the organization you specified during **influx 2.7 setup**)
-       - bucket (uncomment and replace **bucket** with the bucket you specified during **influx 2.7 setup**)
+       - token (uncomment and replace **token** and brackets with the token from the **influx auth list** command you ran during setup)
+       - organization (uncomment and replace **myOrg** and brackets with the organization you specified during **influx 2.7 setup**)
+       - bucket (uncomment and replace **bucket** and brackets with the bucket you specified during **influx 2.7 setup**)
     
   6. Reconfigure your Grafana Data source for InfluxDB 2.7 (edit the existing InfluxDB Grafana data source rather than adding a new one) using the [Configure Grafana Data Source instructions](#configure-grafana-data-source) in Nasuni Labs.
    
@@ -705,7 +705,7 @@ When decommissioning a Nasuni Edge Appliance, cleaning up the InfluxDB database 
         cd "c:\Program Files\InfluxDB\influxdb2-client"; .\influx.exe v1 shell
         ```
     
-5.  Access the database, replacing **bucket_name** with the value from your install:
+5.  Access the database, replacing **bucket_name** and brackets with the value from your install:
     
     ```shell
     use <bucket_name>
@@ -720,7 +720,7 @@ When decommissioning a Nasuni Edge Appliance, cleaning up the InfluxDB database 
     
 7.  Identify the agent\_host to delete.
     
-8.  Delete all data for the agent_host, replacing the **FQDN** with the case-sensitive FQDN:
+8.  Delete all data for the agent_host, replacing the **FQDN** and brackets with the case-sensitive FQDN:
 
     ```shell
     DELETE FROM "Nasuni" where agent_host = '<FQDN>'
@@ -732,10 +732,10 @@ When decommissioning a Nasuni Edge Appliance, cleaning up the InfluxDB database 
     select * from Nasuni
     ```
 
-13. Exit:
+10. Exit:
     
     ```shell
-    q
+    exit
     ```
     
 
