@@ -296,7 +296,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
     
 2.  In the **[outputs.influxdb_v2]** make the following changes
        - token (replace **token** and brackets with the token from the **influx auth list** command)
-       - organization (replace **myOrg** and brackets with the organization you specified during **influx setup**)
+       - organization (replace **myOrg** and brackets with the case-sensitive organization you specified during **influx setup**)
        - bucket (replace **bucket** and brackets with the bucket you specified during **influx setup**)
         
 3.  In the **[inputs.snmp]** section, update the **agents** value with the FQDN of all Edge Appliances to be monitored. For example (Note: The last entry does not require a trailing comma):</br>
