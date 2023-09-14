@@ -237,7 +237,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 
     * Rocky Linux - ssh to the VM and run the following command to list Influx authentication info:
     ```shell
-    influx auth list
+    sudo influx auth list
     ```
       * Windows - Use PowerShell to list Influx authentication info:
     ```Powershell
