@@ -581,28 +581,28 @@ To upgrade InfluxDB on Rocky Linux, SSH to the VM and run the following commands
 
 5. Update telegraf.conf to use InfluxDB 2.7:
 
-   - Open telegraf.conf for editing:
+   1. Open telegraf.conf for editing:
 
-     ```shell
-     sudo vi /etc/telegraf/telegraf.conf
-     ```
+      ```shell
+      sudo vi /etc/telegraf/telegraf.conf
+      ```
 
-   - Go to the **[outputs.influxdb]** section for Influx 1.8 and add a **#** to the beginning of each line (including the **[outputs.influxdb]** section header) to comment them out.
+   2. Go to the **[outputs.influxdb]** section for Influx 1.8 and add a **#** to the beginning of each line (including the **[outputs.influxdb]** section header) to comment them out.
 
-   - In the **[outputs.influxdb_V2]** section for Influx 2.7 (if your telegraf.conf does not include this section, copy from telegraf.conf in Nasuni Labs) and remove the **#** from the beginning of the following lines to uncomment them and populate them with the following values:
+   3. In the **[outputs.influxdb_V2]** section for Influx 2.7 (if your telegraf.conf does not include this section, copy from telegraf.conf in Nasuni Labs) and remove the **#** from the beginning of the following lines to uncomment them and populate them with the following values:
        - **[outputs.influxdb_v2]** section header (uncomment only)
        - URLs (uncomment only)
        - token (uncomment and replace **token** and brackets with the token from the **influx auth list** command you ran during setup)
        - organization (uncomment and replace **myOrg** and brackets with the organization you specified during **influx 2.7 setup**)
        - bucket (uncomment and replace **bucket** and brackets with the bucket you specified during **influx 2.7 setup**)
     
-  6. Save and close the file. For Rocky Linux editors using vi, press **Esc**, enter **x** at the prompt, and press **Enter**.
+   4. Save and close the file. For Rocky Linux editors using vi, press **Esc**, enter **x** at the prompt, and press **Enter**.
 
-  7. Restart telegraf to load the changes:
+   5. Restart telegraf to load the changes:
 
-     ```shell
-     sudo systemctl restart telegraf
-     ```
+      ```shell
+      sudo systemctl restart telegraf
+      ```
   
   8. Reconfigure your Grafana Data source for InfluxDB 2.7 (edit the existing InfluxDB Grafana data source rather than adding a new one) using the [Configure Grafana Data Source instructions](#configure-grafana-data-source) in Nasuni Labs.
    
