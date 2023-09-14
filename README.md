@@ -346,31 +346,25 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 
     - `headers (uncomment the second headers line and enter a string/name to use as a unique identifier for this connection)`
 
-7.  Save and close the file. For Rocky Linux editors using vi, press **Esc**, type **:x**, and press **Enter**.
+7.  Save and close the file. For Rocky Linux editors using vi, press **Esc**, enter **x** at the prompt, and press **Enter**.
 
 8. Make final changes to the telegraf.conf file permissions (Linux) and start Telegraf:
 
      * Rocky Linux
      
-        * Set the ownership and permissions for telegraf.conf:
+        * Set the ownership and permissions for telegraf.conf, restart Telegraf, and confirm the Telegraf service is running. Look for **Active: active (running)**:
 
-            ```shell
-            sudo chown root:root /etc/telegraf/telegraf.conf && sudo chmod 644 /etc/telegraf/telegraf.conf
-            ```
-        
-        * Restart the Telegraf service and confirm the Telegraf service is running. Look for **Active: active (running)** :
-
-            ```shell
-            sudo systemctl restart telegraf && systemctl status telegraf --no-pager
-            ```
+          ```shell
+          sudo chown root:root /etc/telegraf/telegraf.conf && sudo chmod 644 /etc/telegraf/telegraf.conf && sudo systemctl restart telegraf && systemctl status telegraf --no-pager
+          ```
             
-      * Windows
+     * Windows
        
-         *  Run PowerShell as an administrator to install Telegraf as a Windows service and start it (The final output should show "Status: Running","Name: Telegraf"):
+         * Run PowerShell as an administrator to install Telegraf as a Windows service and start it (The final output should show "Status: Running","Name: Telegraf"):
 
-         ```Powershell
-            cd "C:\Program Files\Telegraf" ;.\telegraf.exe --service install --config "C:\Program Files\Telegraf\telegraf.conf" ;Start-Service Telegraf ; Get-Service Telegraf
-         ```
+           ```Powershell
+           cd "C:\Program Files\Telegraf" ;.\telegraf.exe --service install --config "C:\Program Files\Telegraf\telegraf.conf" ;Start-Service Telegraf ; Get-Service Telegraf
+           ```
 
 ## Install and Configure Grafana
 
@@ -602,13 +596,15 @@ To upgrade InfluxDB on Rocky Linux, SSH to the VM and run the following commands
        - organization (uncomment and replace **myOrg** and brackets with the organization you specified during **influx 2.7 setup**)
        - bucket (uncomment and replace **bucket** and brackets with the bucket you specified during **influx 2.7 setup**)
     
-  6. Restart telegraf to load the changes:
+  6. Save and close the file. For Rocky Linux editors using vi, press **Esc**, enter **x** at the prompt, and press **Enter**.
+
+  7. Restart telegraf to load the changes:
 
      ```shell
      sudo systemctl restart telegraf
      ```
   
-  7. Reconfigure your Grafana Data source for InfluxDB 2.7 (edit the existing InfluxDB Grafana data source rather than adding a new one) using the [Configure Grafana Data Source instructions](#configure-grafana-data-source) in Nasuni Labs.
+  8. Reconfigure your Grafana Data source for InfluxDB 2.7 (edit the existing InfluxDB Grafana data source rather than adding a new one) using the [Configure Grafana Data Source instructions](#configure-grafana-data-source) in Nasuni Labs.
    
 </details>
 
