@@ -379,31 +379,13 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
     <summary>Expand Rocky Linux Installation Instructions</summary>
 
 
-1.  Switch to your home directory and use wget to download Grafana:
+1.  Download Grafana, install, start, enable the service, and confirm the Grafana service is running. Look for **Active: active (running)**:
     
     ```shell
-    cd ~ && wget https://dl.grafana.com/oss/release/grafana-9.1.0-1.x86_64.rpm
+    cd ~ && wget https://dl.grafana.com/oss/release/grafana-9.1.0-1.x86_64.rpm && sudo yum -y install grafana-9.1.0-1.x86_64.rpm && sudo grafana-cli plugins install grafana-clock-panel && sudo systemctl start grafana-server && sudo systemctl enable grafana-server && systemctl status grafana-server --no-pager
     ```
     
-2.  Install Grafana and plugins:
-    
-    ```shell
-    sudo yum -y install grafana-9.1.0-1.x86_64.rpm && sudo grafana-cli plugins install grafana-clock-panel
-    ```
-    
-3.  Start and enable the Grafana service:
-    
-    ```shell
-    sudo systemctl start grafana-server && sudo systemctl enable grafana-server
-    ```
-    
-4.  Confirm the Grafana service is running. Look for **Active: active (running)**:
-
-    ```shell
-    systemctl status grafana-server --no-pager
-    ```
-    
-5.  Configure the firewall for Grafana (only required if the firewall is enabled):
+2.  Configure the firewall for Grafana (only required if the firewall is enabled):
     
     ```shell
     sudo firewall-cmd --permanent --zone=public --add-port=3000/tcp && sudo firewall-cmd --reload
