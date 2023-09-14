@@ -307,9 +307,9 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
         ```   
     
 2.  In the **[outputs.influxdb_v2]** make the following changes
-       - token (replace **<token>** with the token from the **influx auth list** command)
-       - organization (replace **<myOrg>** with the organization you specified during **influx setup**)
-       - bucket (replace **<bucket>** with the bucket you specified during **influx setup**)
+       - token (replace **token** with the token from the **influx auth list** command)
+       - organization (replace **myOrg** with the organization you specified during **influx setup**)
+       - bucket (replace **bucket** with the bucket you specified during **influx setup**)
         
 3.  In the **[inputs.snmp]** section, update the **agents** value with the FQDN of all Edge Appliances to be monitored. For example (Note: The last entry does not require a trailing comma):</br>
     
@@ -628,9 +628,9 @@ To upgrade InfluxDB on Rocky Linux, SSH to the VM and run the following commands
    - In the **[outputs.influxdb_V2]** section for Influx 2.7 (if your telegraf.conf does not include this section, copy from telegraf.conf in Nasuni Labs) remove the **#** from the beginning of the following lines to uncomment them and populate them with the following values:
        - **[outputs.influxdb_v2]** section header (uncomment only)
        - URLs (uncomment only)
-       - token (uncomment and replace **<token>** with the token from the **influx auth list** command you ran during setup)
-       - organization (uncomment and replace **<myOrg>** with the organization you specified during **influx 2.7 setup**)
-       - bucket (uncomment and replace **<bucket>** with the bucket you specified during **influx 2.7 setup**)
+       - token (uncomment and replace **token** with the token from the **influx auth list** command you ran during setup)
+       - organization (uncomment and replace **myOrg** with the organization you specified during **influx 2.7 setup**)
+       - bucket (uncomment and replace **bucket** with the bucket you specified during **influx 2.7 setup**)
     
   6. Reconfigure your Grafana Data source for InfluxDB 2.7 (edit the existing InfluxDB Grafana data source rather than adding a new one) using the [Configure Grafana Data Source instructions](#configure-grafana-data-source) in Nasuni Labs.
    
@@ -705,7 +705,7 @@ When decommissioning a Nasuni Edge Appliance, cleaning up the InfluxDB database 
         cd "c:\Program Files\InfluxDB\influxdb2-client"; .\influx.exe v1 shell
         ```
     
-5.  Access the database, replacing **<bucket_name>** with the value from your install:
+5.  Access the database, replacing **bucket_name** with the value from your install:
     
     ```shell
     use <bucket_name>
@@ -720,7 +720,7 @@ When decommissioning a Nasuni Edge Appliance, cleaning up the InfluxDB database 
     
 7.  Identify the agent\_host to delete.
     
-8.  Delete all data for the agent_host, replacing the **<FQDN>** with the case-sensitive FQDN:
+8.  Delete all data for the agent_host, replacing the **FQDN** with the case-sensitive FQDN:
 
     ```shell
     DELETE FROM "Nasuni" where agent_host = '<FQDN>'
