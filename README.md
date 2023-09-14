@@ -236,13 +236,13 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 3.  List the automatically created database token and make a note of the token since it will be required for configuring Grafana database authentication:
 
     * Rocky Linux - ssh to the VM and run the following command to list Influx authentication info:
-    ```shell
-    sudo influx auth list
-    ```
-      * Windows - Use PowerShell to list Influx authentication info:
-    ```Powershell
-    cd "c:\Program Files\InfluxDB\influxdb2-client"; .\influx.exe auth list
-    ```
+      ```shell
+      sudo influx auth list
+      ```
+    * Windows - Use PowerShell to list Influx authentication info:
+      ```Powershell
+      cd "c:\Program Files\InfluxDB\influxdb2-client"; .\influx.exe auth list
+      ```
     The output will be similar to the following (ellipsis added for readability):
     
     `[~]$ influx auth list`</br>
@@ -562,7 +562,7 @@ Populate communityName, edgeApplianceHostnameOrIP, and OidToQuery with the relev
 If Telegraf reports errors in **/var/log/telegraf/telegraf.log**, the source of the problem is most likely with the formatting or contents of telegraf.conf. 
 
 #### Telegraf.conf Format Validation
-The telegraf.conf file uses the [TOML](https://toml.io/en/) file format. Omitting or adding unexpected characters to telegraf.conf can invalidate the configuration file. You can validate telegraf.conf using a TOML file validator like the [TOML Lint](https://www.toml-lint.com/) website.
+The telegraf.conf file uses the [TOML](https://toml.io/en/) format. Omitting or adding unexpected characters to telegraf.conf can invalidate the configuration file. You can validate telegraf.conf using a TOML file validator like the [TOML Lint](https://www.toml-lint.com/) website.
     
 #### Validating Telegraf.conf Contents
 Run the following command to test telegraf.conf (the command will report a verbose error if it encounters a problem):
@@ -585,6 +585,56 @@ Run the following command to test telegraf.conf (the command will report a verbo
 If Telegraf reports an error parsing JSON_V2 (used for the GFA Telemetry data source), your version of Telegraf is too old. Telegraf added JSON_V2 parsing in version 1.19. Update the validated version of Telegraf for Nasuni Dashboards to correct this issue.
 
 # Maintenance Tasks
+
+## Upgrading from InfluxDB 1.8 to 2.7
+
+#### Rocky Linux InfluxDB 1.8 to 2.7 Upgrade Instructions
+<details>
+    <summary>Expand Rocky Linux InfluxDB Upgrade Instructions</summary>
+<br/>
+
+To upgrade InfluxDB on Rocky Linux, SSH to the VM and run the following commands:
+
+1.  Export historical data, replacing **database** with the database you specified during the InfluxDB 1.8 install (usually **nasuni**). Depending on how long you've been using Nasuni labs and how many appliances you have, export and import (later in the steps) could take quite a while:
+    
+    ```shell
+    sudo influx_inspect export -database <database> -datadir /var/lib/influxdb/data -waldir /var/lib/influxdb/wal -out $HOME/influxExport.lp -lponly
+    ```
+    
+2.  Stop InfluxDB 1.8, uninstall it, and remove the associated application folders:
+
+    ```shell
+    sudo systemctl stop influxdb && sudo yum  -y remove influxdb.x86_64 && sudo rm -rf /var/lib/influxdb/ && sudo rm -rf /etc/influxdb/ && sudo rm -rf /var/log/influxdb/
+    ```    
+    
+3. Complete the steps to [install and configure InfluxDB 2.7 on Rocky Linux](#rocky-linux-influxDB-2.7+-installation-instructions).
+   
+4. Restore the historical data you exported in step 1, replacing **bucketname** with the bucket name you specified during the InfluxDB 2.7 install:
+
+   ```shell
+   sudo influx write --bucket <bucketname> --file $HOME/influxExport.lp
+   ```
+
+5. Update telegraph.conf to use InfluxDB 1.8
+
+   - Open telegraf.conf for editing:
+
+     ```shell
+     sudo vi /etc/telegraf/telegraf.conf
+     ```
+
+   - Go to the **[outputs.influxdb]** section for Influx 1.8 and add a **#** to the beginning of each line (including the **[outputs.influxdb]** section header) to comment them out.
+
+   - In the **[outputs.influxdb_V2]** section for Influx 2.7 (if your telegraf.conf does not include this section, copy from telegraf.conf in Nasuni Labs) remove the **#** from the beginning of the following lines to uncomment them and populate them with the following values:
+       - **[outputs.influxdb_v2]** section header (uncomment only)
+       - URLs (uncomment only)
+       - token (uncomment and replace **<token>** with the token from the **influx auth list** command you ran during setup)
+       - organization (uncomment and replace **<myOrg>** with the organization you specified during **influx 2.7 setup**)
+       - bucket (uncomment and replace **<bucket>** with the bucket you specified during **influx 2.7 setup**)
+    
+  6. Reconfigure your Grafana Data source for InfluxDB 2.7 (edit the existing InfluxDB Grafana data source rather than adding a new one) using the [Configure Grafana Data Source instructions](#configure-grafana-data-source) in Nasuni Labs.
+   
+</details>
 
 ## Editing Telegraf.conf
 
@@ -636,7 +686,11 @@ When decommissioning a Nasuni Edge Appliance, cleaning up the InfluxDB database 
     
 2.  In the **[inputs.snmp]** section, update the **agents** value to remove the unwanted Edge Appliance monitor and save telegraf.conf. (Note that the last entry does not need a trailing comma.)
     
-3.  Start/Restart the Telegraf service using the instructions above.
+3.  Start/Restart the Telegraf service:
+
+    ```shell
+    sudo systemctl restart telegraf
+    ```
     
 4.  Launch the influx v1 shell:
 
@@ -658,21 +712,21 @@ When decommissioning a Nasuni Edge Appliance, cleaning up the InfluxDB database 
     ```
     The database_name is **nasuni-bucket**, or the value you supplied when "Creating the InfluxDB database" above.
     
-9.  Display the series (a logical grouping of data defined by shared measurement, tag set, and field key):
+6.  Display the series (a logical grouping of data defined by shared measurement, tag set, and field key):
     
     ```shell
     select * from Nasuni
     ```
     
-10.  Identify the agent\_host to delete.
+7.  Identify the agent\_host to delete.
     
-11.  Delete all data for the agent_host, replacing the **<FQDN>** with the case-sensitive FQDN:
+8.  Delete all data for the agent_host, replacing the **<FQDN>** with the case-sensitive FQDN:
 
-        ```shell
-        DELETE FROM "Nasuni" where agent_host = '<FQDN>'
-        ```
+    ```shell
+    DELETE FROM "Nasuni" where agent_host = '<FQDN>'
+    ```
 
-12. Verify if the command was successful:
+9. Verify if the command was successful:
     
     ```shell
     select * from Nasuni
