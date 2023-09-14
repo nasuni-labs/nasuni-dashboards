@@ -34,7 +34,7 @@ Nasuni Dashboards has been validated with these component versions:
     
 * Grafana: 9.1.0
 
-## VM Reuirements for Single-Node Installation 
+## VM Requirements for Single-Node Installation 
 
 * OSes: 
 
@@ -196,13 +196,13 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 1.  Run PowerShell as an administrator, then enter the following commands to download and install InfluxDB:
 
     ```PowerShell
-    mkdir ~\Downloads\InfluxInstall; cd ~\Downloads\InfluxInstall; Invoke-WebReuest https://dl.influxdata.com/influxdb/releases/influxdb2-2.7.1-windows-amd64.zip -UseBasicParsing -OutFile influxdb2-2.7.1-windows-amd64.zip ; Expand-Archive .\influxdb2-2.7.1-windows-amd64.zip -DestinationPath .\ ;rm influxdb2-2.7.1-windows-amd64.zip ;mkdir 'c:\Program Files\InfluxData\InfluxDB' ;mv .\influxdb2_windows_amd64\* 'c:\Program Files\InfluxData\InfluxDB\'; rmdir .\influxdb2_windows_amd64\; Invoke-WebReuest https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.7.3-windows-amd64.zip -OutFile influxdb2-client-2.7.3-windows-amd64.zip ; Expand-Archive .\influxdb2-client-2.7.3-windows-amd64.zip -DestinationPath .\;rm .\influxdb2-client-2.7.3-windows-amd64.zip; mkdir 'c:\Program Files\InfluxData\influxdb2-client' ;mv .\* 'c:\Program Files\InfluxData\influxdb2-client\'
+    mkdir ~\Downloads\InfluxInstall; cd ~\Downloads\InfluxInstall; Invoke-WebRequest https://dl.influxdata.com/influxdb/releases/influxdb2-2.7.1-windows-amd64.zip -UseBasicParsing -OutFile influxdb2-2.7.1-windows-amd64.zip ; Expand-Archive .\influxdb2-2.7.1-windows-amd64.zip -DestinationPath .\ ;rm influxdb2-2.7.1-windows-amd64.zip ;mkdir 'c:\Program Files\InfluxData\InfluxDB' ;mv .\influxdb2_windows_amd64\* 'c:\Program Files\InfluxData\InfluxDB\'; rmdir .\influxdb2_windows_amd64\; Invoke-WebRequest https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.7.3-windows-amd64.zip -OutFile influxdb2-client-2.7.3-windows-amd64.zip ; Expand-Archive .\influxdb2-client-2.7.3-windows-amd64.zip -DestinationPath .\;rm .\influxdb2-client-2.7.3-windows-amd64.zip; mkdir 'c:\Program Files\InfluxData\influxdb2-client' ;mv .\* 'c:\Program Files\InfluxData\influxdb2-client\'
     ```
     
 2. Download and configure the NSSM service manager to make InfluxDB run as a Windows Service (The final output should show "Status: Running", "Name: InfluxDB"):
    
    ```PowerShell
-   mkdir ~\Downloads\NssmInstall; cd ~\Downloads\NssmInstall; Invoke-WebReuest https://nssm.cc/release/nssm-2.24.zip -UseBasicParsing -OutFile nssm-2.24.zip ;Expand-Archive .\nssm-2.24.zip -DestinationPath .\ ;mkdir 'c:\Program Files\NSSM' ;mv .\nssm-2.24\win64\nssm.exe 'c:\Program Files\NSSM\' ;cd 'c:\Program Files\NSSM\' ;.\nssm.exe install InfluxDB "C:\Program Files\InfluxData\InfluxDB\influxd.exe" ;.\nssm.exe set InfluxDB Description "InfluxDB Time-Series Database" ;Start-Service InfluxDB ; Get-Service InfluxDB
+   mkdir ~\Downloads\NssmInstall; cd ~\Downloads\NssmInstall; Invoke-WebRequest https://nssm.cc/release/nssm-2.24.zip -UseBasicParsing -OutFile nssm-2.24.zip ;Expand-Archive .\nssm-2.24.zip -DestinationPath .\ ;mkdir 'c:\Program Files\NSSM' ;mv .\nssm-2.24\win64\nssm.exe 'c:\Program Files\NSSM\' ;cd 'c:\Program Files\NSSM\' ;.\nssm.exe install InfluxDB "C:\Program Files\InfluxData\InfluxDB\influxd.exe" ;.\nssm.exe set InfluxDB Description "InfluxDB Time-Series Database" ;Start-Service InfluxDB ; Get-Service InfluxDB
    ```
 </details>    
 
@@ -233,7 +233,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
       `User Organization Bucket`</br>
       `admin MyCompany nasuni-bucket`</br>
 
-3.  List the automatically created database token and make a note of the token since it will be reuired for configuring Grafana database authentication:
+3.  List the automatically created database token and make a note of the token since it will be required for configuring Grafana database authentication:
 
     * Rocky Linux - ssh to the VM and run the following command to list Influx authentication info:
       ```shell
@@ -285,7 +285,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 1.  Run PowerShell as an administrator, then run commands to download and install Telegraf:
     
     ```PowerShell
-    mkdir ~\Downloads\TelegrafInstall ;cd ~\Downloads\TelegrafInstall; Invoke-WebReuest https://dl.influxdata.com/telegraf/releases/telegraf-1.23.4_windows_amd64.zip -UseBasicParsing -OutFile telegraf-1.23.4_windows_amd64.zip ;Expand-Archive .\telegraf-1.23.4_windows_amd64.zip -DestinationPath .\ ;mkdir 'c:\Program Files\Telegraf' ;mv .\telegraf-1.23.4\* 'C:\Program Files\Telegraf\' ;mv 'C:\Program Files\Telegraf\telegraf.conf' 'C:\Program Files\Telegraf\telegraf.conf.bak'
+    mkdir ~\Downloads\TelegrafInstall ;cd ~\Downloads\TelegrafInstall; Invoke-WebRequest https://dl.influxdata.com/telegraf/releases/telegraf-1.23.4_windows_amd64.zip -UseBasicParsing -OutFile telegraf-1.23.4_windows_amd64.zip ;Expand-Archive .\telegraf-1.23.4_windows_amd64.zip -DestinationPath .\ ;mkdir 'c:\Program Files\Telegraf' ;mv .\telegraf-1.23.4\* 'C:\Program Files\Telegraf\' ;mv 'C:\Program Files\Telegraf\telegraf.conf' 'C:\Program Files\Telegraf\telegraf.conf.bak'
     ```    
     
 </details>
@@ -311,7 +311,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
        - organization (replace **myOrg** with the organization you specified during **influx setup**)
        - bucket (replace **bucket** with the bucket you specified during **influx setup**)
         
-3.  In the **[inputs.snmp]** section, update the **agents** value with the FDN of all Edge Appliances to be monitored. For example (Note: The last entry does not require a trailing comma):</br>
+3.  In the **[inputs.snmp]** section, update the **agents** value with the FQDN of all Edge Appliances to be monitored. For example (Note: The last entry does not require a trailing comma):</br>
     
     ```shell
        agents = [
@@ -415,7 +415,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
     systemctl status grafana-server --no-pager
     ```
     
-5.  Configure the firewall for Grafana (only reuired if the firewall is enabled):
+5.  Configure the firewall for Grafana (only required if the firewall is enabled):
     
     ```shell
     sudo firewall-cmd --permanent --zone=public --add-port=3000/tcp && sudo firewall-cmd --reload
@@ -429,7 +429,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 1.  Run PowerShell as an administrator and run commands to download and install Grafana. Accept all the defaults (Grafana will automatically be installed as a Windows service and started) :
     
     ```PowerShell
-    cd ~\Downloads ;Invoke-WebReuest https://dl.grafana.com/oss/release/grafana-9.1.0.windows-amd64.msi -UseBasicParsing -OutFile grafana-9.1.0.windows-amd64.msi ;.\grafana-9.1.0.windows-amd64.msi
+    cd ~\Downloads ;Invoke-WebRequest https://dl.grafana.com/oss/release/grafana-9.1.0.windows-amd64.msi -UseBasicParsing -OutFile grafana-9.1.0.windows-amd64.msi ;.\grafana-9.1.0.windows-amd64.msi
     ```
     
 2.  If Windows firewall is active, open TCP port 3000 for inbound access so remote computers can access the Grafana Dashboard:
@@ -442,7 +442,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 
 ### Configure Grafana Data Source
 
-1.  Use a web browser to connect to Grafana (http://fdn-of-vm:3000).
+1.  Use a web browser to connect to Grafana (http://fqdn-of-vm:3000).
     
 2.  Log in to Grafana. The default username is **admin**, and the default password is **admin**. Grafana will prompt you to change the default password after logging in.
     
@@ -533,10 +533,10 @@ Windows does not include SNMP troubleshooting tools, although several third-part
 ### Windows SNMP Troubleshooting using SNMPv3
     
 ```PowerShell
-.\SnmpGet.exe -v:3 -sn:"<snmpUsername>" -ap:SHA -aw:"<snmpPassword>" -r:"<edgeApplianceHostnameOrIP>" -o:<OidTouery>
+.\SnmpGet.exe -v:3 -sn:"<snmpUsername>" -ap:SHA -aw:"<snmpPassword>" -r:"<edgeApplianceHostnameOrIP>" -o:<OidToQuery>
 ```
     
-Populate snmpUsername, snmpPassword, edgeApplianceHostnameOrIP, and OidTouery with the relevant values for your environment. Here's an example of the populated command:
+Populate snmpUsername, snmpPassword, edgeApplianceHostnameOrIP, and OidToQuery with the relevant values for your environment. Here's an example of the populated command:
     
 ```PowerShell
 .\SnmpGet.exe -v:3 -sn:"admin" -ap:SHA -aw:"myPassword123" -r:"edge1.domain.com" -o:.1.3.6.1.4.1.42040.1.1.0
@@ -545,10 +545,10 @@ Populate snmpUsername, snmpPassword, edgeApplianceHostnameOrIP, and OidTouery wi
 ### Windows SNMP Troubleshooting using SNMPv2   
     
 ```PowerShell
-.\SnmpGet.exe -v:2 -c:"<communityName>" -r:"<edgeApplianceHostnameOrIP>" -o:<OidTouery>
+.\SnmpGet.exe -v:2 -c:"<communityName>" -r:"<edgeApplianceHostnameOrIP>" -o:<OidToQuery>
 ```
 
-Populate communityName, edgeApplianceHostnameOrIP, and OidTouery with the relevant values for your environment. Here's an example of the populated command:  
+Populate communityName, edgeApplianceHostnameOrIP, and OidToQuery with the relevant values for your environment. Here's an example of the populated command:  
 
 ```Powershell
 .\SnmpGet.exe -v:2 -c:"nasuni" -r:"edge1.domain.com" -o:1.3.6.1.4.1.42040.1.1.0    
