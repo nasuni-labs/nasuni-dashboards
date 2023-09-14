@@ -1,6 +1,6 @@
 # About
 
-Nasuni Dashboards provides a framework for viewing time series data across a customer's entire Nasuni stack. Supported data sources currently include Edge Appliance SNMP data and the Global File Acceleration (GFA) Telemetry REST API.
+Nasuni Dashboards provide a framework for viewing time series data across a customer's entire Nasuni stack. Supported data sources include Edge Appliance SNMP data and the Global File Acceleration (GFA) Telemetry REST API.
 
 # Components
 
@@ -30,7 +30,7 @@ Nasuni Dashboards has been validated with these component versions:
 
 * Telegraf: 1.23.4
 
-* InfluxDB: 1.8.10 or 2.7+
+* InfluxDB: 2.7.1
     
 * Grafana: 9.1.0
 
@@ -111,7 +111,9 @@ Deploy a Rocky Linux or Windows VM that meets the requirements for Nasuni Dashbo
 
 NOTE: Be sure to update all the OS packages by running (Linux)
 
-        sudo dnf update
+```shell
+sudo yum -y update
+```
 
 ## Configure DNS
 DNS is required to use hostnames rather than IP addresses for the Telegraf SNMP agent configuration. 
@@ -141,131 +143,6 @@ From your computer (Rocky Linux) or the Windows VM (Windows Install), click the 
 
 ## Install and Configure InfluxDB
 
-Nasuni dashboards work with InfluxDB 1.8 and 2.7+. 2.7+ is slightly more complicated to install and configure but receives regular security updates.
-
-### Influx DB 1.8
-
-#### Rocky Linux InfluxDB 1.8 Installation Instructions
-<details>
-    <summary>Expand Rocky Linux Installation Instructions</summary>
-<br/>
-
-To install InfluxDB on Rocky Linux, ssh to the VM and run the following commands:
-
-1.  Update all packages (*-y* argument skips confirmation; for manual confirmation, remove it):
-    
-    ```shell
-    sudo yum -y update
-    ```
-    
-2.  Install wget (if not present):
-    
-    ```shell
-    sudo yum -y install wget
-    ```
-    
-3.  Switch to your home directory and use wget to download InfluxDB :
-
-    ```shell
-    cd ~ && wget https://dl.influxdata.com/influxdb/releases/influxdb-1.8.10.x86_64.rpm
-    ```    
-    
-4.  Install InfluxDB:
-    
-    ```shell
-    sudo yum -y localinstall influxdb-1.8.10.x86_64.rpm
-    ```
-    
-5.  Start and enable the InfluxDB service:
-    
-    ```shell
-    sudo systemctl start influxdb && sudo systemctl enable influxdb
-    ```
-    
-6.  Add firewall rules if the firewall service is running. First, check if the firewall service is running:
-
-    ```shell
-    systemctl status firewalld --no-pager
-    ```
-    
-    If the firewall service is running, the output will be similar to the following:
-    
-    `firewalld.service - firewalld - dynamic firewall daemon`</br>
-    `Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor pr`</br>
-    `Active: active (running) since Mon 2021-12-18 16:05:15 CET; 50min ago`</br>
-    `Docs: man:firewalld(1)`
-
-    If the firewall is not running, the output will be similar to the following:
-    
-    `Unit firewalld.service could not be found.`
-    
-    If the firewall service is running, configure the firewall for InfluxDB (only required if the firewall was running), then reload the firewall configuration:
-    
-    ```shell
-    sudo firewall-cmd --add-port=8086/tcp --permanent && sudo firewall-cmd --reload
-    ```
-</details>
-    
-#### Windows InfluxDB 1.8 Installation Instructions
-<details>
-    <summary>Expand Windows Installation Instructions</summary>
-    
-   <br/>
-
-To install InfluxD on Windows, connect to the Windows VM and follow these instructions:
-    
-1.  Run PowerShell as an administrator, then enter the following commands to download and install InfluxDB:
-
-    ```PowerShell
-    cd ~\Downloads ; Invoke-WebRequest https://dl.influxdata.com/influxdb/releases/influxdb-1.8.10_windows_amd64.zip -UseBasicParsing -OutFile influxdb-1.8.10_windows_amd64.zip ;Expand-Archive .\influxdb-1.8.10_windows_amd64.zip -DestinationPath .\ ;mkdir 'c:\Program Files\InfluxData\InfluxDB' ;mv .\influxdb-1.8.10-1\* 'c:\Program Files\InfluxData\InfluxDB\'
-    ```    
-    
-2. Download and configure the NSSM service manager to make InfluxDB run as a Windows Service (The final output should show "Status: Running", "Name: InfluxDB"):
-   
-   ```PowerShell
-   cd ~\Downloads ;Invoke-WebRequest https://nssm.cc/release/nssm-2.24.zip -UseBasicParsing -OutFile nssm-2.24.zip ;Expand-Archive .\nssm-2.24.zip -DestinationPath .\ ;mkdir 'c:\Program Files\NSSM' ;mv .\nssm-2.24\win64\nssm.exe 'c:\Program Files\NSSM\' ;cd 'c:\Program Files\NSSM\' ;.\nssm.exe install InfluxDB "C:\Program Files\InfluxData\InfluxDB\influxd.exe" ;.\nssm.exe set InfluxDB Description "InfluxDB Time-Series Database" ;Start-Service InfluxDB ; Get-Service InfluxDB
-   ```
-</details>    
-    
-#### Create the InfluxDB 1.8 database:
-    
-1.  Open the InfluxDB shell:
-
-    * Rocky Linux - ssh to the VM and run the following commands:
-
-        ```shell
-        influx
-        ```
-
-    * Windows - Use PowerShell to open the InfluxDB shell:
-
-        ```PowerShell
-        Start-Process "C:\Program Files\InfluxData\InfluxDB\influx.exe"
-        ```
-
-2.  Create the database for use by Grafana using the InfluxDB (Rocky Linux and Windows):
-
-    ```shell
-    create database nasuni
-    ```
-
-3.  Confirm that the database was created:
-
-    ```shell
-    show databases
-    ```
-
-4.  Confirm that **nasuni** is listed.
-
-5.  Exit the InfluxDB shell:
-
-    ```shell
-    exit
-    ```
-
-### Influx DB 2.7+
-
-
 #### Rocky Linux InfluxDB 2.7+ Installation Instructions
 <details>
     <summary>Expand Rocky Linux Installation Instructions</summary>
@@ -273,44 +150,19 @@ To install InfluxD on Windows, connect to the Windows VM and follow these instru
 
 To install InfluxDB on Rocky Linux, ssh to the VM and run the following commands:
 
-1.  Update all packages (*-y* argument skips confirmation; for manual confirmation, remove it):
+1.  Update all packages if you haven't already (*-y* argument skips confirmation; for manual confirmation, remove it):
     
     ```shell
     sudo yum -y update
     ```
     
-2.  Install wget (if not present):
-    
-    ```shell
-    sudo yum -y install wget
-    ```
-    
-3.  Register the InfluxDB Repository:
+2.  Install wget, download, install InfluxDB and client tools, and start the service:
 
     ```shell
-    cat <<EOF | sudo tee /etc/yum.repos.d/influxdata.repo
-    [influxdata]
-    name = InfluxData Repository - Stable
-    baseurl = https://repos.influxdata.com/stable/\$basearch/main
-    enabled = 1
-    gpgcheck = 1
-    gpgkey = https://repos.influxdata.com/influxdata-archive_compat.key
-    EOF
+    sudo yum -y install wget && cd ~ && wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.7.1.x86_64.rpm && wget https://dl.influxdata.com/influxdb/releases/influxdb2-client-2.7.3.x86_64.rpm && sudo yum -y localinstall influxdb2-2.7.1.x86_64.rpm influxdb2-client-2.7.3.x86_64.rpm && sudo systemctl start influxdb && sudo systemctl enable influxdb
     ```    
     
-4.  Install InfluxDB and CLI:
-    
-    ```shell
-    sudo yum -y install influxdb2 influxdb2-cli
-    ```
-    
-5.  Start and enable the InfluxDB service:
-    
-    ```shell
-    sudo systemctl start influxdb && sudo systemctl enable influxdb
-    ```
-    
-6.  Add firewall rules if the firewall service is running. First, check if the firewall service is running:
+3.  Add firewall rules if the firewall service is running. First, check if the firewall service is running:
 
     ```shell
     systemctl status firewalld --no-pager
@@ -367,10 +219,10 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
       
         `influx setup --name nasuni --host http://localhost:8086 -u admin -p Password123 -o MyCompany -b nasuni-bucket -r 0 -f`
 
-    * Windows - Use PowerShell to configure InfluxDB
+    * Windows - Use PowerShell to configure InfluxDB, substituting values for the variables in brackets
   
        ```PowerShell
-       cd "c:\Program Files\InfluxDB\influxdb2-client"; .\influx.exe setup --name nasuni --host http://localhost:8086 -u <username> -p <password> -o Nasuni -b <bucketName> -r 0 -f
+       cd "c:\Program Files\InfluxDB\influxdb2-client"; .\influx.exe setup --name nasuni --host http://localhost:8086 -u <username> -p <password> -o <orgName> -b <bucketName> -r 0 -f
        ```
        Populated Example:
       
@@ -442,7 +294,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 
 1.  Edit the telegraf.conf file:
 
-    - Rocky Linux: On your computer, open the **telegraf.conf** file from the extracted Nasuni Dashboards repository zip archive in a text editor, select all, and copy       the contents to your clipboard. Return to the VM ssh session, open vi, and paste the contents from step 2, customizing the values for the             sections below:
+    - Rocky Linux: On your computer, open the **telegraf.conf** file from the extracted Nasuni Dashboards repository zip archive in a text editor, select all, and copy the contents to your clipboard. Return to the VM ssh session, open vi, and paste the contents from step 2, customizing the values for the sections below:
 
        ```shell
        sudo vi /etc/telegraf/telegraf.conf
@@ -454,14 +306,10 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
         notepad.exe "C:\Program Files\Telegraf\telegraf.conf"
         ```   
     
-2.  If you installed influxDB 2.7+ (influxDB 1.8 installs can skip this step), perform the following steps:
-   - In the **[outputs.influxdb]** section for Influx 1.8 and add a **#** to the beginning of each line (including the **[outputs.influxdb]** section header) to comment them out. You can use the search function in vi to jump to the appropriate section of the file. Type **/** followed by the string you want to search for, and then press **Return**.
-   - In the **[outputs.influxdb_V2]** section for Influx 1.8 and remove the **#** from the beginning of the following lines to uncomment them and populate them with the following values:
-       - **[outputs.influxdb_v2]** section header (uncomment only)
-       - URLs (uncomment only)
-       - token (uncomment and replace **<token>** with the token from the **influx auth list** command)
-       - organization (uncomment and replace **<myOrg>** with the organization you specified during **influx setup**)
-       - bucket (uncomment and replace **<bucket>** with the bucket you specified during **influx setup**)
+2.  In the **[outputs.influxdb_v2]** make the following changes
+       - token (replace **<token>** with the token from the **influx auth list** command)
+       - organization (replace **<myOrg>** with the organization you specified during **influx setup**)
+       - bucket (replace **<bucket>** with the bucket you specified during **influx setup**)
         
 3.  In the **[inputs.snmp]** section, update the **agents** value with the FQDN of all Edge Appliances to be monitored. For example (Note: The last entry does not require a trailing comma):</br>
     
@@ -602,12 +450,12 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 
     - Name(1): InfluxDB (Make sure default is toggled on)
     - URL(2): http://localhost:8086
-    - Custom HTTP Headers (3): Skip if using InfluxDB 1.8. For InfluxDB 2.7, select **Add Header**. Provide your InfluxDB API token:
+    - Custom HTTP Headers (3): Click **Add Header**. Provide your InfluxDB API token:
          - Header: Enter **Authorization**
          - Value: Use the Token schema (the word **Token** followed by a space and the token value) and provide your InfluxDB API token (the same token you entered telegraf.conf). For example:</br>
            `Token y0uR5uP3rSecr3tT0k3n`
         
-    - Database (4): nasuni (Influx 1.8), your Influx bucket name (Influx 2.7+)
+    - Database (4): your Influx bucket name (**nasuni-bucket** if you follow installation examples)
     
 ![Add Data Source](/images/AddGrafanaDataSource.png)
 
@@ -621,18 +469,18 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 
 2.  The **Options** screen opens. Select the **InfluxDB** data source name, which should be **InfluxDB (default)**, and click **Import**.
 
-3.  Navigate to the newly-imported dashboard to view the performance information for your Edge Appliances. Here is an example of expected output for the dashboard:
+3.  Navigate to the newly imported dashboard to view the performance information for your Edge Appliances. Here is an example of the expected output for the dashboard:
 
 
 ![Performance Dashboard Screenshot](/images/PerformanceDashboardScreenshot.png)
 
-4. If using the GFA Telemetry API data source, import the associated GFA dashboards. From the Grafana left navigation bar, click the Dashboards (four squares) icon, then click the **Import** link. On the Import page, click **Import** and upload the **GFAVolumes.json** file from the extracted repository zip archive accepting the defaults and saving the configuration. Repeat for the **GFAAppliances.json** and **GFAMiscellaneous.json** files.
+4. If using the GFA Telemetry API data source, import the associated GFA dashboards. From the Grafana left navigation bar, click the Dashboards (four squares) icon, then click the **Import** link. On the Import page, click **Import** and upload the **GFAVolumes.json** file from the extracted repository zip archive, accepting the defaults and saving the configuration. Repeat for the **GFAAppliances.json** and **GFAMiscellaneous.json** files.
 
-5. Navigate to the newly-imported GFA Volumes dashboard. Here is an example of expected output for the dashboard:
+5. Navigate to the newly-imported GFA Volumes dashboard. Here is an example of the expected output for the dashboard:
 
 ![GFA Volumes Dashboard Screenshot](/images/GFAVolumesDashboardScreenshot.png)
 
-6. If you are using the GFA Miscellaneous dashboard, you will need to install the Gantt Chart plugin. Follow the instructions https://grafana.com/grafana/plugins/marcusolsson-gantt-panel/?tab=installation to download and install the plugin.
+6. If you use the GFA Miscellaneous dashboard, install the Gantt Chart plugin. Follow the instructions https://grafana.com/grafana/plugins/marcusolsson-gantt-panel/?tab=installation to download and install the plugin.
 
 # Troubleshooting
 
@@ -646,7 +494,7 @@ Telegraf depends on SNMP data from the Edge Appliances to work. You can confirm 
     <summary>Expand Rocky Linux Snmpwalk Instructions</summary>
 <br/>
     
-Snmpwalk can be used to test SNMP connectivity and inspect values returned for an SNMP Object Identifier (OID). Nasuni publishes a full list of [OIDs for the Nasuni Edge Appliance](http://b.link/Nasuni_SNMP_OIDs_for_NASUNI-FILER-MIB). Snmpwalk for Linux is automatically installed when installing Nasuni Dashboards, although the syntax to use it differs by SNMP version.
+Snmpwalk can test SNMP connectivity and inspect values returned for an SNMP Object Identifier (OID). Nasuni publishes a full list of [OIDs for the Nasuni Edge Appliance](http://b.link/Nasuni_SNMP_OIDs_for_NASUNI-FILER-MIB). Snmpwalk for Linux is automatically installed when installing Nasuni Dashboards, although the syntax to use it differs by SNMP version.
     
 ### Rocky Linux Snmpwalk using SNMPv3
 
@@ -680,7 +528,7 @@ snmpwalk -v 2c -c public -On edge1.domain.com .1.3.6.1.4.1.42040
     <summary>Expand Windows SNMP Troubleshooting Info</summary>
 <br/>
 
-Windows does not include SNMP troubleshooting tools, although a number of third-party tools are available. [SnmpGet](https://ezfive.com/snmpsoft-tools/snmp-get/) is an easy to use command-line SNMP utility for Windows. It can be used to verify SNMP connectivity and inspect values returned for an SNMP Object Identifier (OID). Nasuni publishes a full list of [OIDs for the Nasuni Edge Appliance](http://b.link/Nasuni_SNMP_OIDs_for_NASUNI-FILER-MIB). After downloading SnmpGet, CD to the directory where you saved the file using PowerShell and run it by using the version specific SNMP commands below.
+Windows does not include SNMP troubleshooting tools, although several third-party tools are available. [SnmpGet](https://ezfive.com/snmpsoft-tools/snmp-get/) is an easy-to-use command-line SNMP utility for Windows. It can verify SNMP connectivity and inspect values returned for an SNMP Object Identifier (OID). Nasuni publishes a full list of [OIDs for the Nasuni Edge Appliance](http://b.link/Nasuni_SNMP_OIDs_for_NASUNI-FILER-MIB). After downloading SnmpGet, CD to the directory where you saved the file using PowerShell and run it using the version-specific SNMP commands below.
     
 ### Windows SNMP Troubleshooting using SNMPv3
     
@@ -714,7 +562,7 @@ Populate communityName, edgeApplianceHostnameOrIP, and OidToQuery with the relev
 If Telegraf reports errors in **/var/log/telegraf/telegraf.log**, the source of the problem is most likely with the formatting or contents of telegraf.conf. 
 
 #### Telegraf.conf Format Validation
-The telegraf.conf file uses the [TOML](https://toml.io/en/) file format. Omitting or adding unexpected characters to telegraf.conf can invalidate the configuration file. You can validate telegraf.conf using a TOML file validator such as the [TOML Lint](https://www.toml-lint.com/) website.
+The telegraf.conf file uses the [TOML](https://toml.io/en/) file format. Omitting or adding unexpected characters to telegraf.conf can invalidate the configuration file. You can validate telegraf.conf using a TOML file validator like the [TOML Lint](https://www.toml-lint.com/) website.
     
 #### Validating Telegraf.conf Contents
 Run the following command to test telegraf.conf (the command will report a verbose error if it encounters a problem):
@@ -734,7 +582,7 @@ Run the following command to test telegraf.conf (the command will report a verbo
    ```
     
 ### JSON_V2 Errors
-If Telegraf reports an error parsing JSON_V2 (used for the GFA Telemetry data source), your version of Telegraf is too old. Telegraf added JSON_V2 parsing in version 1.19. Update to the validated version of Telegraf for Nasuni Dashboards to correct this issue.
+If Telegraf reports an error parsing JSON_V2 (used for the GFA Telemetry data source), your version of Telegraf is too old. Telegraf added JSON_V2 parsing in version 1.19. Update the validated version of Telegraf for Nasuni Dashboards to correct this issue.
 
 # Maintenance Tasks
 
@@ -774,15 +622,15 @@ To edit edit the telegraf.conf file:
   ```
    
 ## Adding Edge Appliances
-It is easy to add performance monitoring for newly-deployed Edge Appliances.
+It is easy to add performance monitoring for newly deployed Edge Appliances.
     
 1.  Edit telegraf.conf using the instructions above. In the **[inputs.snmp]** section, update the **agents** value to include the additional Edge Appliance monitor and save the changes. (Note that the last entry does not need a trailing comma.)
     
-2.  Restart the Telegraf servcie using the instructions above.
+2.  Restart the Telegraf service using the instructions above.
 
 ## Removing Stale Edge Appliances
 
-When decommissioning a Nasuni Edge Appliance, it is good to clean up the InfluxDB database to save disk space and remove stale data from Grafana.
+When decommissioning a Nasuni Edge Appliance, cleaning up the InfluxDB database to save disk space and remove stale data from Grafana is good.
 
 1.  To remove the Nasuni Edge Appliance IP or FQDN from Telegraf, edit the telegraf.conf file.
     
@@ -790,59 +638,50 @@ When decommissioning a Nasuni Edge Appliance, it is good to clean up the InfluxD
     
 3.  Start/Restart the Telegraf service using the instructions above.
     
-4.  Open the InfluxDB shell:
-    
+4.  Launch the influx v1 shell:
+
     * Rocky Linux
     
-      ```shell
-      influx
-      ```
+        ```shell
+        sudo influx v1 shell
+        ```
+    * Windows - Run the following PowerShell Command:
     
-    * Windows
+        ```PowerShell
+        cd "c:\Program Files\InfluxDB\influxdb2-client"; .\influx.exe v1 shell
+        ```
     
-      Run PowerShell as an administrator and run the following command to open the InfluxDB shell:
-    
-      ```PowerShell
-      Start-Process "C:\Program Files\InfluxData\InfluxDB\influx.exe"
-      ```
-    
-6.  Identify the correct database for Nasuni:
+5.  Access the database, replacing **<bucket_name>** with the value from your install:
     
     ```shell
-    show databases
+    use <bucket_name>
     ```
+    The database_name is **nasuni-bucket**, or the value you supplied when "Creating the InfluxDB database" above.
     
-7.  Access the database:
+9.  Display the series (a logical grouping of data defined by shared measurement, tag set, and field key):
     
     ```shell
-    use <database_name>
-    ```
-    The database_name is "nasuni", which was created in the "Creating the InfluxDB database" above.
-    
-8.  Display the series (a logical grouping of data defined by shared measurement, tag set, and field key):
-    
-    ```shell
-    show series
+    select * from Nasuni
     ```
     
-9.  Identify the agent\_host to delete.
+10.  Identify the agent\_host to delete.
     
-10.  Delete all series for the agent\_host:
+11.  Delete all data for the agent_host, replacing the **<FQDN>** with the case-sensitive FQDN:
 
         ```shell
-        drop series where "agent_host" = '<IP or FQDN>'
+        DELETE FROM "Nasuni" where agent_host = '<FQDN>'
         ```
 
-11. Verify if the command was successful:
+12. Verify if the command was successful:
     
     ```shell
-    show series
+    select * from Nasuni
     ```
 
-12. Exit:
+13. Exit:
     
     ```shell
-    exit
+    q
     ```
     
 
