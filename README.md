@@ -222,11 +222,11 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
     * Windows - Use PowerShell to configure InfluxDB, substituting values for the variables in brackets
   
        ```PowerShell
-       cd "c:\Program Files\InfluxDB\influxdb2-client"; .\influx.exe setup --name nasuni --host http://localhost:8086 -u <username> -p <password> -o <orgName> -b <bucketName> -r 0 -f
+       cd "c:\Program Files\InfluxData\influxdb2-client"; .\influx.exe setup --name nasuni --host http://localhost:8086 -u <username> -p <password> -o <orgName> -b <bucketName> -r 0 -f
        ```
        Populated Example:
       
-        `cd "c:\Program Files\InfluxDB\influxdb2-client"; .\influx.exe setup --name nasuni --host http://localhost:8086 -u admin -p Password123 -o MyCompany -b nasuni-bucket -r 0 -f`
+        `cd "c:\Program Files\InfluxData\influxdb2-client"; .\influx.exe setup --name nasuni --host http://localhost:8086 -u admin -p Password123 -o MyCompany -b nasuni-bucket -r 0 -f`
 
     The output will be similar to the following:
     
@@ -241,7 +241,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
       ```
     * Windows - Use PowerShell to list Influx authentication info:
       ```Powershell
-      cd "c:\Program Files\InfluxDB\influxdb2-client"; .\influx.exe auth list
+      cd "c:\Program Files\InfluxData\influxdb2-client"; .\influx.exe auth list
       ```
     The output will be similar to the following (ellipsis added for readability):
     
@@ -674,7 +674,7 @@ When decommissioning a Nasuni Edge Appliance, cleaning up the InfluxDB database 
     * Windows - Run the following PowerShell Command:
     
         ```PowerShell
-        cd "c:\Program Files\InfluxDB\influxdb2-client"; .\influx.exe v1 shell
+        cd "c:\Program Files\InfluxData\influxdb2-client"; .\influx.exe v1 shell
         ```
     
 5.  Access the database, replacing **bucket_name** and brackets with the value from your install:
