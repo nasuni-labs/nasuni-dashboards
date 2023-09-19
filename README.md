@@ -235,7 +235,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 
 3.  List the automatically created database token and make a note of the token since it will be required for configuring Grafana database authentication:
 
-    * Rocky Linux - ssh to the VM and run the following command to list Influx authentication info:
+    * Rocky Linux - SSH to the VM and run the following command to list Influx authentication info:
       ```shell
       sudo influx auth list
       ```
@@ -282,7 +282,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 
 1.  Edit the telegraf.conf file:
 
-    - Rocky Linux: On your computer, open the **telegraf.conf** file from the extracted Nasuni Dashboards repository zip archive in a text editor, select all, and copy the contents to your clipboard. Return to the VM ssh session, open vi, and paste the contents from step 2, customizing the values for the sections below:
+    - Rocky Linux: On your computer, open the **telegraf.conf** file from the extracted Nasuni Dashboards repository zip archive in a text editor, select all, and copy the contents to your clipboard. Return to the VM SSH session, open vi, and paste the contents from step 2, customizing the values for the sections below:
 
        ```shell
        sudo vi /etc/telegraf/telegraf.conf
@@ -552,6 +552,8 @@ If Telegraf reports an error parsing JSON_V2 (used for the GFA Telemetry data so
 
 ## Upgrading from InfluxDB 1.8 to 2.7
 
+When it launched, Nasuni Dashboards only supported InfluxDB 1.8 and now supports InfluxDB 2.7. You can use these instructions to update from InfluxDB 1.8 to 2.7 while retaining performance data.
+
 #### Rocky Linux InfluxDB 1.8 to 2.7 Upgrade Instructions
 <details>
     <summary>Expand Rocky Linux InfluxDB Upgrade Instructions</summary>
@@ -559,7 +561,7 @@ If Telegraf reports an error parsing JSON_V2 (used for the GFA Telemetry data so
 
 To upgrade InfluxDB on Rocky Linux, SSH to the VM and run the following commands:
 
-1.  Export historical data, replacing **database** and brackets with the database you specified during the InfluxDB 1.8 install (usually **nasuni**). Depending on how long you've been using Nasuni labs and how many appliances you have, export and import (later in the steps) could take quite a while:
+1.  Export historical data, replacing **database** and brackets with the database you specified during the InfluxDB 1.8 install (usually **nasuni**). Confirm the export has been completed. Look for **writing out wal file data for nasuni\autogen...complete.** Depending on how long you've been using Nasuni Labs and how many appliances you have, export and import (later in the steps) could take quite a while.
     
     ```shell
     sudo influx_inspect export -database <database> -datadir /var/lib/influxdb/data -waldir /var/lib/influxdb/wal -out $HOME/influxExport.lp -lponly
@@ -578,39 +580,67 @@ To upgrade InfluxDB on Rocky Linux, SSH to the VM and run the following commands
    ```shell
    sudo influx write --bucket <bucketname> --file $HOME/influxExport.lp
    ```
-
-5. Update telegraf.conf to use InfluxDB 2.7:
-
-   1. Open telegraf.conf for editing:
-
-      ```shell
-      sudo vi /etc/telegraf/telegraf.conf
-      ```
-
-   2. Go to the **[outputs.influxdb]** section for Influx 1.8 and add a **#** to the beginning of each line (including the **[outputs.influxdb]** section header) to comment them out.
-
-   3. In the **[outputs.influxdb_V2]** section for Influx 2.7 (if your telegraf.conf does not include this section, copy from telegraf.conf in Nasuni Labs) and remove the **#** from the beginning of the following lines to uncomment them and populate them with the following values:
-       - **[outputs.influxdb_v2]** section header (uncomment only)
-       - URLs (uncomment only)
-       - token (uncomment and replace **token** and brackets with the token from the **influx auth list** command you ran during setup)
-       - organization (uncomment and replace **myOrg** and brackets with the organization you specified during **influx 2.7 setup**)
-       - bucket (uncomment and replace **bucket** and brackets with the bucket you specified during **influx 2.7 setup**)
-    
-   4. Save and close the file. For Rocky Linux editors using vi, press **Esc**, enter **x** at the prompt, and press **Enter**.
-
-   5. Restart telegraf to load the changes:
-
-      ```shell
-      sudo systemctl restart telegraf
-      ```
-  
-  8. Reconfigure your Grafana Data source for InfluxDB 2.7 (edit the existing InfluxDB Grafana data source rather than adding a new one) using the [Configure Grafana Data Source instructions](#configure-grafana-data-source) in Nasuni Labs.
    
 </details>
 
-## Editing Telegraf.conf
+#### Windows InfluxDB 1.8 to 2.7 Upgrade Instructions
+<details>
+    <summary>Expand Windows InfluxDB Upgrade Instructions</summary>
+<br/>
 
-To edit edit the telegraf.conf file:
+To upgrade InfluxDB on Windows, RDP into the VM, run PowerShell as an administrator, and run the following commands:
+
+1.  Export historical data, replacing **database** and brackets with the database you specified during the InfluxDB 1.8 install (usually **nasuni**). Confirm the export has been completed. Look for **writing out wal file data for nasuni\autogen...complete.** Depending on how long you've been using Nasuni Labs and how many appliances you have, export and import (later in the steps) could take quite a while.
+    
+    ```PowerShell
+    cd 'C:\Program Files\InfluxData\InfluxDB'; .\influx_inspect.exe export -database <database> -datadir C:\Windows\System32\config\systemprofile\.influxdb\data -waldir C:\Windows\System32\config\systemprofile\.influxdb\wal -out $HOME\influxExport.lp -lponly
+    ```
+    
+2.  Stop InfluxDB 1.8, uninstall it, and remove the associated application folders:
+
+    ```PowerShell
+    cd $HOME; Stop-Service InfluxDB; Remove-Item -Path 'C:\Program Files\InfluxData' -Recurse -Force; Remove-Item -Path 'C:\Windows\System32\config\systemprofile\.influxdb' -Recurse -Force
+    ```    
+    
+3. Complete the steps to [install and configure InfluxDB 2.7 on Windows](#windows-influxDB-2.7+-installation-instructions). Skip the last step to install InfluxDB as a service since the 1.8 service configuration remains valid for 2.7.
+
+4. Start the InfluxDB service
+
+   ```PowerShell
+   Start-Service InfluxDB
+   ```
+   
+5. Restore the historical data you exported in step 1, replacing **bucketname** and brackets with the bucket name you specified during the InfluxDB 2.7 install:
+
+   ```PowerShell
+   cd "c:\Program Files\InfluxData\influxdb2-client"; .\influx.exe write --bucket <bucketname> --file $HOME\influxExport.lp
+   ```
+
+</details>
+
+#### Telegraf and Grafana Changes
+
+Update telegraf.conf to use InfluxDB 2.7:
+
+1. Open telegraf.conf for editing using the [Editing Telegraf Configuration](#editing-telegraf-configuration) instructions and go to the **[outputs.influxdb]** section for Influx 1.8 and add a **#** to the beginning of each line (including the **[outputs.influxdb]** section header) to comment them out.
+
+3. In the **[outputs.influxdb_V2]** section for Influx 2.7 (if your telegraf.conf does not include this section, copy from telegraf.conf in Nasuni Labs) and remove the **#** from the beginning of the following lines to uncomment them and populate them with the following values:
+
+   - **[outputs.influxdb_v2]** section header (uncomment only)
+   - URLs (uncomment only)
+   - token (uncomment and replace **token** and brackets with the token from the **influx auth list** command you ran during setup)
+   - organization (uncomment and replace **myOrg** and brackets with the organization you specified during **influx 2.7 setup**)
+   - bucket (uncomment and replace **bucket** and brackets with the bucket you specified during **influx 2.7 setup**)
+    
+4. Save and close the file.
+
+5. [Restart Telegraf](#restart-the-telegraf-service) to load the changes.
+  
+6. Reconfigure your Grafana Data source to use InfluxDB 2.7 (edit the existing InfluxDB Grafana data source rather than adding a new one) using the [Configure Grafana Data Source instructions](#configure-grafana-data-source) in Nasuni Labs. InfluxDB 2.7 requires a new Authorization header for Grafana, and the database name should now reference the InfluxDB bucket name.
+
+## Editing Telegraf Configuration
+
+To edit the telegraf.conf file:
     
 * Rocky Linux
     
