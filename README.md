@@ -103,6 +103,102 @@ To use the GFA Telemetry API:
 *   You must have a volume under GFA management (Active or Observation mode)
 
 *   You must create a [Global File Accelerator API key on the Nasuni dashboard](https://account.nasuni.com/account/gfa/). Note: If the link is not accessible, you may not be licensed for GFA. Contact your Nasuni Account Manager for assistance.
+
+## Nasuni Access Anywhere Monitoring API (Optional)
+Nasuni Access Anywhere can be extended to provide a rich metrics API that can provide a dashboard of system and application metrics.
+
+<details>
+    <summary>Expand Nasuni Access Anywhere Monitoring API Configuration Instructions</summary>
+<br/>
+
+### Configuring Nasuni Access Anywhere Monitoring API (Naamon)
+The monitoring API will be installed from the CLI via the standard package deployments (yum/rpm). Steps:
+
+1. SSH to the NAA VM and run the following commands:
+
+   ```shell
+   sudo yum -y install naamon
+   ```
+2. Update the firewall to allow the default port for Naamon:
+
+   * Add the following line into /etc/sysconfig/iptables before the "-j REJECT" line and save the changes:
+     ```shell
+     -A RH-Firewall-1-INPUT -p tcp -m state --state NEW -m tcp --dport 8010 -j ACCEPT
+     ```
+
+   * Restart the firewall and docker
+     ```shell
+     sudo systemctl restart iptables docker
+     ```
+### Naamon Configuration File Changes
+Naamon leverages the following configuration file: **/etc/naa/naamon.hcl**.
+There is one required change that is required for this setup, and other optional changes as well.
+
+1. AllowList IP Addresses (required)
+   - The default config file has just localhost in the allow list:
+
+     ```shell
+        	 allowlist {
+        	    ip = [
+        	        "127.0.0.1"
+        	        ]
+    	     }
+     ```
+
+   - Add your TIG server or any other servers/networks that should be allowed to access the APIs using the following example for reference:
+
+        ```shell
+            	allowlist {
+            	    ip = [
+            	        "127.0.0.1",
+                        "172.20.25.0/24",
+            	        "172.20.1.128"
+            	        ]
+    	       }
+        ```
+2. HTTPS (Optional)
+
+   The default configuration has all API metrics data transferred in plain text (HTTP). To ensure encryption for all API data in transit, update the SSL setting, replacing **false** with **true** like this example:
+   ```shell
+	      ssl "true" {
+	          certfile = "/etc/ssl/fullchain.pem"
+	          keyfile = "/etc/ssl/privkey.pem"
+	      }
+   ```
+   Edit **certfile** and **keyfile** to point to your relevant SSL files.
+
+   **Note**: When renewing or updating certs, you must restart the Naamon service for the new certificates to be available. 
+
+4. Database Replication (Optional)
+   - The default Naamon configuration does not check for database replication status. If your system is using a replicated  database, and you want to monitor the status of database replication via Naamon, update the configuration file like this:
+     
+     ```shell
+	     dbrepl "true" {
+	         username = "replicationcheckuser"
+	         password = "replicationcheckerpasswordhere"
+	     }
+     ```
+     
+   - The user in the configuration must be created in the database and have permission to check the replication status. Here is an example command that will setup the user in the database with the correct permissions:
+     
+     ```shell
+     sudo mysql -e "CREATE USER 'replicationcheckuser'@'localhost' IDENTIFIED BY 'ReplicationCheckerPasswordHere';"
+	 sudo mysql -e "GRANT REPLICATION SLAVE ON *.* TO 'replicationcheckuser'@'localhost';"
+     ```
+### Starting the Naamon service
+The Naamon application is installed as a systemd service. 
+
+* To start the service and enable it, run the following command after updating the configuration:
+
+  ```shell
+  sudo systemctl enable --now naamon
+  ```
+* Check the Naamon service status:
+
+  ```shell
+  systemctl status naamon
+  ```
+</details>  
     
 # Install and Configure Nasuni Dashboards
 
@@ -338,17 +434,24 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 
     - `country = "<CountryCode>"`
         
-6.  To use the optional Global File Acceleration (GFA) Telemetry API data source, make the following changes to the **[inputs.http]** section (located directly above the **[inputs.snmp]** section):
+6.  To use the optional Global File Acceleration (GFA) Telemetry API data source, change the **GFA Telemetry HTTP API Input Plugin [[inputs.http]]** section:
 
-    - `urls (uncomment this line)`
+    - `[[inputs.http]] (uncomment this line)`
 
     - `headers (uncomment the first headers line and enter the <GFA API Key> from the NOC Dashboard)`
 
     - `headers (uncomment the second headers line and enter a string/name to use as a unique identifier for this connection)`
 
-7.  Save and close the file. For Rocky Linux editors using vi, press **Esc**, enter **x** at the prompt, and press **Enter**.
+7.  To use the optional Nasuni Access Anywhere (NAA) API data source, change the **NAA HTTP API Input Plugin [[inputs.http]]** section:
 
-8. Make final changes to the telegraf.conf file permissions (Linux) and start Telegraf:
+    - uncomment all lines in this section, including **[[inputs.http]]**
+
+    - urls: enter the hostname(s) of your NAA servers, replacing **NaaHostName** and brackets. If monitoring multiple NAA servers, use commas to separate each hostname entry.
+
+
+8.  Save and close the file. For Rocky Linux editors using vi, press **Esc**, enter **x** at the prompt, and press **Enter**.
+
+9. Make final changes to the telegraf.conf file permissions (Linux) and start Telegraf:
 
      * Rocky Linux
      
@@ -440,7 +543,9 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 
 4. If using the GFA Telemetry API data source, import the associated GFA dashboards. From the Grafana left navigation bar, click the Dashboards (four squares) icon, then click the **Import** link. On the Import page, click **Import** and upload the **GFAVolumes.json** file from the extracted repository zip archive, accepting the defaults and saving the configuration. Repeat for the **GFAAppliances.json** and **GFAMiscellaneous.json** files.
 
-5. Navigate to the newly imported GFA Volumes dashboard. Here is an example of the expected output for the dashboard:
+5. If using the NAA API data source, import the NAA dashboard. From the Grafana left navigation bar, click the Dashboards (four squares) icon, then click the **Import** link. On the Import page, click **Import** and upload the **NasuniAccessAnywhere.json** file from the extracted repository zip archive, accepting the defaults and saving the configuration.
+
+6. Navigate to the newly imported GFA Volumes dashboard. Here is an example of the expected output for the dashboard:
 
 ![GFA Volumes Dashboard Screenshot](/images/GFAVolumesDashboardScreenshot.png)
 
@@ -624,7 +729,7 @@ Update telegraf.conf to use InfluxDB 2.7:
 
 1. Open telegraf.conf for editing using the [Editing Telegraf Configuration](#editing-telegraf-configuration) instructions and go to the **[outputs.influxdb]** section for Influx 1.8 and add a **#** to the beginning of each line (including the **[outputs.influxdb]** section header) to comment them out.
 
-3. In the **[outputs.influxdb_V2]** section for Influx 2.7 (if your telegraf.conf does not include this section, copy from telegraf.conf in Nasuni Labs) and remove the **#** from the beginning of the following lines to uncomment them and populate them with the following values:
+2. In the **[outputs.influxdb_V2]** section for Influx 2.7 (if your telegraf.conf does not include this section, copy from telegraf.conf in Nasuni Labs) and remove the **#** from the beginning of the following lines to uncomment them and populate them with the following values:
 
    - **[outputs.influxdb_v2]** section header (uncomment only)
    - URLs (uncomment only)
@@ -632,11 +737,11 @@ Update telegraf.conf to use InfluxDB 2.7:
    - organization (uncomment and replace **myOrg** and brackets with the organization you specified during **influx 2.7 setup**)
    - bucket (uncomment and replace **bucket** and brackets with the bucket you specified during **influx 2.7 setup**)
     
-4. Save and close the file.
+3. Save and close the file.
 
-5. [Restart Telegraf](#restart-the-telegraf-service) to load the changes.
+4. [Restart Telegraf](#restart-the-telegraf-service) to load the changes.
   
-6. Reconfigure your Grafana Data source to use InfluxDB 2.7 (edit the existing InfluxDB Grafana data source rather than adding a new one) using the [Configure Grafana Data Source instructions](#configure-grafana-data-source) in Nasuni Labs. InfluxDB 2.7 requires a new Authorization header for Grafana, and the database name should now reference the InfluxDB bucket name.
+5. Reconfigure your Grafana Data source to use InfluxDB 2.7 (edit the existing InfluxDB Grafana data source rather than adding a new one) using the [Configure Grafana Data Source instructions](#configure-grafana-data-source) in Nasuni Labs. InfluxDB 2.7 requires a new Authorization header for Grafana, and the database name should now reference the InfluxDB bucket name.
 
 ## Editing Telegraf Configuration
 
