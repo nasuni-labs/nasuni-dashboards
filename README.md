@@ -17,7 +17,7 @@ Nasuni Dashboards provide a framework for viewing time series data across a cust
 
 *   This package stack has only been validated with the component versions documented in the README file.
     
-*   Nasuni Support is limited to Nasuni APIs and Protocols (SMB, NFS, SNMP, GFA Telemetry). Nasuni API and Protocol bugs should be reported to Nasuni Customer Support.
+*   Nasuni Support is limited to Nasuni APIs and Protocols (SMB, NFS, SNMP, GFA Telemetry, Nasuni Access Anywhere Monitoring API). Nasuni API and Protocol bugs should be reported to Nasuni Customer Support.
     
 *   GitHub project bugs, questions, and feature requests should be submitted as “Issues” in GitHub under its repositories.
 
