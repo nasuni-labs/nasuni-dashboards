@@ -436,17 +436,17 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
         
 6.  To use the optional Global File Acceleration (GFA) Telemetry API data source, change the **GFA Telemetry HTTP API Input Plugin [[inputs.http]]** section:
 
-    - `[[inputs.http]] (uncomment this line)`
+    - `[[inputs.http]]` (uncomment this line)
 
-    - `headers (uncomment the first headers line and enter the <GFA API Key> from the NOC Dashboard)`
+    - `headers` (uncomment the first headers line and enter the <GFA API Key> from the NOC Dashboard)
 
-    - `headers (uncomment the second headers line and enter a string/name to use as a unique identifier for this connection)`
+    - `headers` (uncomment the second headers line and enter a string/name to use as a unique identifier for this connection)
 
 7.  To use the optional Nasuni Access Anywhere (NAA) API data source, change the **NAA HTTP API Input Plugin [[inputs.http]]** section:
 
-    - uncomment all lines in this section, including **[[inputs.http]]**
+    - uncomment all lines in this section, including the `[[inputs.http]]` section header
 
-    - urls: enter the hostname(s) of your NAA servers, replacing **NaaHostName** and brackets. If monitoring multiple NAA servers, use commas to separate each hostname entry.
+    - `urls` enter the hostname(s) of your NAA servers, replacing **NaaHostName** and brackets. If monitoring multiple NAA servers, use commas to separate each hostname entry.
 
 
 8.  Save and close the file. For Rocky Linux editors using vi, press **Esc**, enter **x** at the prompt, and press **Enter**.
