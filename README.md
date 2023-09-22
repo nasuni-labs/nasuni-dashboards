@@ -1,6 +1,6 @@
 # About
 
-Nasuni Dashboards provide a framework for viewing time series data across a customer's entire Nasuni stack. Supported data sources include Edge Appliance SNMP data and the Global File Acceleration (GFA) Telemetry REST API.
+Nasuni Dashboards provide a framework for viewing time series data across a customer's entire Nasuni stack. Supported data sources include Edge Appliance SNMP data, Global File Acceleration (GFA) Telemetry REST API, and the Nasuni Access Anywhere (NAA) monitoring API.
 
 # Components
 
