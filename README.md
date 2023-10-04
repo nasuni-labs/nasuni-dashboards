@@ -442,6 +442,8 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
         
 6.  To use the optional Global File Acceleration (GFA) Telemetry API data source, change the **GFA Telemetry HTTP API Input Plugin [[inputs.http]]** section:
 
+    - `urls` (uncomment this line--the URL value does not need to change)
+
     - `headers` (uncomment the first headers line and enter the GFA API Key from the NOC Dashboard)
 
     - `headers` (uncomment the second headers line and enter a string/name to use as a unique identifier for this connection)
