@@ -306,20 +306,26 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
     
 1.  Open the InfluxDB shell:
 
-    * Rocky Linux - ssh to the VM and run the following command, substituting values for the variables in brackets:
+    * Rocky Linux - ssh to the VM and run the following command, substituting values for the variables in brackets (do not include the brackets):
 
         ```shell
         influx setup --name <databaseName> --host http://localhost:8086 -u <username> -p <password> -o <orgName> -b <bucketName> -r 0 -f
         ```
+        
+        Note: Telegraf and Grafana InfluxDB authentication do not use the username or password defined here (both use an automatically generated token)
+
         Populated Example:
       
         `influx setup --name nasuni --host http://localhost:8086 -u admin -p Password123 -o MyCompany -b nasuni-bucket -r 0 -f`
 
-    * Windows - Use PowerShell to configure InfluxDB, substituting values for the variables in brackets
+    * Windows - Use PowerShell to configure InfluxDB, substituting values for the variables in brackets (do not include the brackets):
   
        ```PowerShell
        cd "c:\Program Files\InfluxData\influxdb2-client"; .\influx.exe setup --name nasuni --host http://localhost:8086 -u <username> -p <password> -o <orgName> -b <bucketName> -r 0 -f
        ```
+
+       Note: Telegraf and Grafana InfluxDB authentication do not use the username or password defined here (both use an automatically generated token)
+      
        Populated Example:
       
         `cd "c:\Program Files\InfluxData\influxdb2-client"; .\influx.exe setup --name nasuni --host http://localhost:8086 -u admin -p Password123 -o MyCompany -b nasuni-bucket -r 0 -f`
@@ -393,7 +399,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 2.  In the **[outputs.influxdb_v2]** make the following changes
        - token (replace **token** and brackets with the token from the **influx auth list** command)
        - organization (replace **myOrg** and brackets with the case-sensitive organization you specified during **influx setup**)
-       - bucket (replace **bucket** and brackets with the bucket you specified during **influx setup**)
+       - bucket (replace **bucket** and brackets with the bucket you specified during **influx setup**. Bucket name is case-sensitive.)
         
 3.  In the **[inputs.snmp]** section, update the **agents** value with the FQDN of all Edge Appliances to be monitored. For example (Note: The last entry does not require a trailing comma):</br>
     
@@ -408,9 +414,9 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 4.  In the **[inputs.snmp]** section, update protocol-specific values based on the protocol configured for your Edge Appliances and NMC: 
     - SNMPv3
 
-        - `sec_name = "<username>"` (match the **Username** supplied in the Nasuni SNMP UI)
+        - `sec_name = "<username>"` (replace **username** and brackets with the **Username** set in the Nasuni SNMP UI)
 
-        - `auth_password = "<password>"` (match the **Password** supplied in the Nasuni SNMP UI)
+        - `auth_password = "<password>"` (replace **password** and brackets with the **Password** set in the Nasuni SNMP UI)
     
     - SNMPv2: The included telegraf.conf assumes SNMPv3, so some values must be changed from the defaults and commented/uncommented (comment lines begin with **#**) to use SNMPv2:
 
@@ -436,9 +442,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
         
 6.  To use the optional Global File Acceleration (GFA) Telemetry API data source, change the **GFA Telemetry HTTP API Input Plugin [[inputs.http]]** section:
 
-    - `[[inputs.http]]` (uncomment this line)
-
-    - `headers` (uncomment the first headers line and enter the <GFA API Key> from the NOC Dashboard)
+    - `headers` (uncomment the first headers line and enter the GFA API Key from the NOC Dashboard)
 
     - `headers` (uncomment the second headers line and enter a string/name to use as a unique identifier for this connection)
 
@@ -516,13 +520,13 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 3.  Under the Configuration (gear) icon, add InfluxDB as a data source using the details from your install:
 
     - Name(1): InfluxDB (Make sure default is toggled on)
-    - URL(2): http://localhost:8086
+    - URL(2): http://localhost:8086 (if all components are installed on the same computer, use **localhost** as the value otherwise, replace localhost with the FQDN of the InfuxDB server)
     - Custom HTTP Headers (3): Click **Add Header**. Provide your InfluxDB API token:
          - Header: Enter **Authorization**
          - Value: Use the Token schema (the word **Token** followed by a space and the token value) and provide your InfluxDB API token (the same token you entered telegraf.conf). For example:</br>
            `Token y0uR5uP3rSecr3tT0k3n`
         
-    - Database (4): your Influx bucket name (**nasuni-bucket** if you follow installation examples)
+    - Database (4): your InfluxDB bucket name (**nasuni-bucket** if you follow installation examples). Bucket name is case-sensitive.
     
 ![Add Data Source](/images/AddGrafanaDataSource.png)
 
