@@ -508,7 +508,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 2.  If Windows firewall is active, open TCP port 3000 for inbound access so remote computers can access the Grafana Dashboard:
 
     ```PowerShell
-    New-NetFirewallRule -DisplayName “Allow Grafana Port 3000” -Direction Inbound -LocalPort 3000 -Protocol TCP -Action Allow
+    New-NetFirewallRule -DisplayName 'Allow Grafana Port 3000' -Direction Inbound -LocalPort 3000 -Protocol TCP -Action Allow
     ```
     
 </details>
