@@ -28,17 +28,17 @@ Nasuni Dashboards provide a framework for viewing time series data across a cust
 
 Nasuni Dashboards has been validated with these component versions: 
 
-* Telegraf: 1.23.4
+* Telegraf: 1.28.2
 
 * InfluxDB: 2.7.1
     
-* Grafana: 9.1.0
+* Grafana: 10.1.5
 
 ## VM Requirements for Single-Node Installation 
 
 * OSes: 
 
-  - Rocky Linux 8.6 or 9.0 minimal, sourced from cloud marketplace offerings or Rocky Linux ISO
+  - Rocky Linux 8.6, 9.0, or 9.2 minimal, sourced from cloud marketplace offerings or Rocky Linux ISO
 
   - Windows Server 2019 or 2022 64-bit (x86)
 
@@ -235,7 +235,7 @@ Two common scenarios for DNS configuration:
 *   Static IP: Ensure that the specified DNS servers are authoritative for Edge Appliance DNS.
 
 ## Download Nasuni Dashboards Zip
-From your computer (Rocky Linux) or the Windows VM (Windows Install), click the green **Code** button within the Nasuni Labs nasuni-dashboards repository and select the **Download ZIP** option to download a local copy of the repository and extract the contents.
+From your computer (Rocky Linux) or the Windows VM (Windows Install), click the green **Code** button within the Nasuni Labs nasuni-dashboards repository. Select the **Download ZIP** option to download a local copy of the repository and extract the contents.
 
 ## Install and Configure InfluxDB
 
@@ -363,7 +363,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 1.  Download Telegraf, install it, and backup the default configuration file:
     
     ```shell
-    cd ~ && wget https://dl.influxdata.com/telegraf/releases/telegraf-1.23.4-1.x86_64.rpm && sudo yum -y localinstall telegraf-1.23.4-1.x86_64.rpm && sudo yum -y install net-snmp net-snmp-utils && sudo mv /etc/telegraf/telegraf.conf /etc/telegraf/telegraf.conf.bak
+    cd ~ && wget https://dl.influxdata.com/telegraf/releases/telegraf-1.28.2-1.x86_64.rpm && sudo yum -y localinstall telegraf-1.28.2-1.x86_64.rpm && sudo yum -y install net-snmp net-snmp-utils && sudo mv /etc/telegraf/telegraf.conf /etc/telegraf/telegraf.conf.bak
     ```
     
 </details>
@@ -375,7 +375,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 1.  Run PowerShell as an administrator, then run commands to download and install Telegraf:
     
     ```PowerShell
-    mkdir ~\Downloads\TelegrafInstall ;cd ~\Downloads\TelegrafInstall; Invoke-WebRequest https://dl.influxdata.com/telegraf/releases/telegraf-1.23.4_windows_amd64.zip -UseBasicParsing -OutFile telegraf-1.23.4_windows_amd64.zip ;Expand-Archive .\telegraf-1.23.4_windows_amd64.zip -DestinationPath .\ ;mkdir 'c:\Program Files\Telegraf' ;mv .\telegraf-1.23.4\* 'C:\Program Files\Telegraf\' ;mv 'C:\Program Files\Telegraf\telegraf.conf' 'C:\Program Files\Telegraf\telegraf.conf.bak'
+    mkdir ~\Downloads\TelegrafInstall ;cd ~\Downloads\TelegrafInstall; Invoke-WebRequest https://dl.influxdata.com/telegraf/releases/telegraf-1.28.2_windows_amd64.zip -UseBasicParsing -OutFile telegraf-1.28.2_windows_amd64.zip ;Expand-Archive .\telegraf-1.28.2_windows_amd64.zip -DestinationPath .\ ;mkdir 'c:\Program Files\Telegraf' ;mv .\telegraf-1.28.2\* 'C:\Program Files\Telegraf\' ;mv 'C:\Program Files\Telegraf\telegraf.conf' 'C:\Program Files\Telegraf\telegraf.conf.bak'
     ```    
     
 </details>
@@ -485,7 +485,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 1.  Download Grafana, install, start, enable the service, and confirm the Grafana service is running. Look for **Active: active (running)**:
     
     ```shell
-    cd ~ && wget https://dl.grafana.com/oss/release/grafana-9.1.0-1.x86_64.rpm && sudo yum -y install grafana-9.1.0-1.x86_64.rpm && sudo grafana-cli plugins install grafana-clock-panel && sudo systemctl start grafana-server && sudo systemctl enable grafana-server && systemctl status grafana-server --no-pager
+    cd ~ && wget https://dl.grafana.com/oss/release/grafana-10.1.5-1.x86_64.rpm && sudo yum -y install grafana-10.1.5-1.x86_64.rpm && sudo grafana-cli plugins install grafana-clock-panel && sudo systemctl start grafana-server && sudo systemctl enable grafana-server && systemctl status grafana-server --no-pager
     ```
     
 2.  Configure the firewall for Grafana (only required if the firewall is enabled):
@@ -502,7 +502,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 1.  Run PowerShell as an administrator and run commands to download and install Grafana. Accept all the defaults (Grafana will automatically be installed as a Windows service and started) :
     
     ```PowerShell
-    cd ~\Downloads ;Invoke-WebRequest https://dl.grafana.com/oss/release/grafana-9.1.0.windows-amd64.msi -UseBasicParsing -OutFile grafana-9.1.0.windows-amd64.msi ;.\grafana-9.1.0.windows-amd64.msi
+    cd ~\Downloads ;Invoke-WebRequest https://dl.grafana.com/oss/release/grafana-10.1.5.windows-amd64.msi -UseBasicParsing -OutFile grafana-10.1.5.windows-amd64.msi ;.\grafana-10.1.5.windows-amd64.msi
     ```
     
 2.  If Windows firewall is active, open TCP port 3000 for inbound access so remote computers can access the Grafana Dashboard:
@@ -519,7 +519,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
     
 2.  Log in to Grafana. The default username is **admin**, and the default password is **admin**. Grafana will prompt you to change the default password after logging in.
     
-3.  Under the Configuration (gear) icon, add InfluxDB as a data source using the details from your install:
+3.  Under the Connections (two overlapping circles) icon, add InfluxDB as a data source using the details from your install:
 
     - Name(1): InfluxDB (Make sure default is toggled on)
     - URL(2): http://localhost:8086 (if all components are installed on the same computer, use **localhost** as the value otherwise, replace localhost with the FQDN of the InfuxDB server)
