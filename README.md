@@ -335,7 +335,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
       `User Organization Bucket`</br>
       `admin MyCompany nasuni-bucket`</br>
 
-3.  List the automatically created database token and make a note of the token since it will be required for configuring Grafana database authentication:
+3.  List the automatically created database token (approximately 89 characters long, ending in ==) and record it since the token will be required for configuring Grafana database authentication:
 
     * Rocky Linux - SSH to the VM and run the following command to list Influx authentication info:
       ```shell
@@ -345,7 +345,7 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
       ```Powershell
       cd "c:\Program Files\InfluxData\influxdb2-client"; .\influx.exe auth list
       ```
-    The output will be similar to the following (ellipsis added for readability):
+    The output will be similar to the following (ellipsis added for readability--the token is approximately 89 characters long, ending in ==):
     
     `[~]$ influx auth list`</br>
     `ID Description Token User Name	User ID Permissions`</br>
