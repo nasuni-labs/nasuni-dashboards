@@ -114,10 +114,11 @@ Nasuni Access Anywhere can be extended to provide a rich metrics API that can pr
 ### Configuring Nasuni Access Anywhere Monitoring API (Naamon)
 The monitoring API will be installed from the CLI via the standard package deployments (yum/rpm). Steps:
 
-1. SSH to the NAA VM and run the following commands:
+1. SSH to the NAA VM and run the following commands (all the commands should be run as root, so do a "sudo su" first):
 
    ```shell
-   sudo yum -y install naamon
+   sudo su
+   yum -y install naamon
    ```
 2. Update the firewall to allow the default port for Naamon:
 
@@ -128,7 +129,7 @@ The monitoring API will be installed from the CLI via the standard package deplo
 
    * Restart the firewall and docker
      ```shell
-     sudo systemctl restart iptables docker
+    systemctl restart iptables docker
      ```
 ### Naamon Configuration File Changes
 Naamon leverages the following configuration file: **/etc/naa/naamon.hcl**.
