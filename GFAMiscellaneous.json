@@ -9,7 +9,7 @@
       "pluginName": "InfluxDB"
     }
   ],
-  "__elements": [],
+  "__elements": {},
   "__requires": [
     {
       "type": "panel",
@@ -21,7 +21,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "8.4.1"
+      "version": "10.1.5"
     },
     {
       "type": "datasource",
@@ -52,7 +52,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -71,11 +74,14 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1653310463740,
   "links": [],
   "liveNow": false,
   "panels": [
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
       "description": "Check-in indicator for all appliances in 15 minute intervals, values are OK (under 5 minutes), >5 minutes and >1 hour",
       "fieldConfig": {
         "defaults": {
@@ -85,6 +91,12 @@
           },
           "custom": {
             "fillOpacity": 50,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
             "lineWidth": 1,
             "spanNulls": false
           },
@@ -149,7 +161,8 @@
         "alignValue": "left",
         "legend": {
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "mergeValues": false,
         "rowHeight": 0.57,
@@ -219,6 +232,10 @@
       "type": "state-timeline"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
       "description": "Volume activity indicator for all appliances in 15 minute intervals, values are OK (under 5 minutes), >5 minutes and >1 hour",
       "fieldConfig": {
         "defaults": {
@@ -228,6 +245,12 @@
           },
           "custom": {
             "fillOpacity": 50,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
             "lineWidth": 1,
             "spanNulls": false
           },
@@ -292,7 +315,8 @@
         "alignValue": "left",
         "legend": {
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "mergeValues": false,
         "rowHeight": 0.57,
@@ -368,6 +392,10 @@
       "type": "state-timeline"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
       "description": "Average age of unprotected data for all appliances sharing the selected volume",
       "fieldConfig": {
         "defaults": {
@@ -375,6 +403,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -386,6 +416,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "smooth",
             "lineWidth": 1,
             "pointSize": 5,
@@ -431,7 +462,8 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "multi",
@@ -504,6 +536,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
       "description": "Total file system (audit) events for all appliances for the selected volume ",
       "fieldConfig": {
         "defaults": {
@@ -511,6 +547,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -522,6 +560,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "smooth",
             "lineWidth": 1,
             "pointSize": 5,
@@ -567,7 +606,8 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "multi",
@@ -640,6 +680,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
       "description": "Percentage of time the volume lock was held across all appliances for the selcted volume",
       "fieldConfig": {
         "defaults": {
@@ -691,7 +735,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -735,6 +779,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
       "description": "Amount of time each appliance held the volume lock",
       "fieldConfig": {
         "defaults": {
@@ -765,6 +813,8 @@
       "id": 15,
       "options": {
         "displayMode": "gradient",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
@@ -774,9 +824,10 @@
           "values": false
         },
         "showUnfilled": true,
-        "text": {}
+        "text": {},
+        "valueMode": "color"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "alias": "$tag_filer_title",
@@ -828,89 +879,36 @@
       "type": "bargauge"
     },
     {
-      "description": "Volume lock usage (time held) for all appliances during the selected time interval ",
-      "gridPos": {
-        "h": 18,
-        "w": 24,
-        "x": 0,
-        "y": 97
+      "datasource": {
+        "type": "influxdb",
+        "uid": "f3ba327a-9a31-4a57-8ee0-af374c18c7c0"
       },
-      "id": 80,
-      "options": {
-        "colors": [
-          {
-            "color": "#1F60C4",
-            "text": ""
-          }
-        ],
-        "endField": "End",
-        "showYAxis": true,
-        "sortBy": "startTime",
-        "sortOrder": "asc",
-        "startField": "Start"
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "${DS_INFLUXDB}"
-          },
-          "query": "SELECT \"filer_title\" as \"Text\", time AS \"End\", \"lock_duration\"  FROM \"gfa_data\" WHERE (\"volume_title\" =~ /^$volume$/) AND $timeFilter AND (\"lock_state\" = 'RELEASED')",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "table"
-        }
-      ],
-      "title": "Lock usage by appliance",
-      "transformations": [
-        {
-          "id": "calculateField",
-          "options": {
-            "binary": {
-              "left": "lock_duration",
-              "operator": "*",
-              "reducer": "sum",
-              "right": "1000"
-            },
-            "mode": "binary",
-            "reduce": {
-              "reducer": "sum"
-            }
-          }
-        },
-        {
-          "id": "calculateField",
-          "options": {
-            "alias": "Start",
-            "binary": {
-              "left": "End",
-              "operator": "-",
-              "reducer": "sum",
-              "right": "lock_duration * 1000"
-            },
-            "mode": "binary",
-            "reduce": {
-              "reducer": "sum"
-            }
-          }
-        }
-      ],
-      "type": "marcusolsson-gantt-panel"
-    },
-    {
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 115
+        "y": 97
       },
       "id": 6,
       "panels": [],
       "repeat": "appliance",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "f3ba327a-9a31-4a57-8ee0-af374c18c7c0"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "$appliance",
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
       "description": "Percentage of time the volume lock was held for an individual appliance during the selected time interval ",
       "fieldConfig": {
         "defaults": {
@@ -937,7 +935,7 @@
         "h": 5,
         "w": 4,
         "x": 0,
-        "y": 116
+        "y": 98
       },
       "id": 7,
       "options": {
@@ -954,7 +952,7 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.4.1",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
@@ -997,6 +995,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
       "description": "Volume lock usage (time held) for an individual appliance during the selected time interval ",
       "fieldConfig": {
         "defaults": {
@@ -1005,6 +1007,12 @@
           },
           "custom": {
             "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
             "lineWidth": 0,
             "spanNulls": false
           },
@@ -1041,14 +1049,15 @@
         "h": 5,
         "w": 20,
         "x": 4,
-        "y": 116
+        "y": 98
       },
       "id": 8,
       "options": {
         "alignValue": "left",
         "legend": {
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "mergeValues": true,
         "rowHeight": 0.9,
@@ -1103,13 +1112,17 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 35,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {},
+        "datasource": {
+          "type": "influxdb",
+          "uid": "${DS_INFLUXDB}"
+        },
         "definition": "SELECT distinct(volume_title) FROM (\nSELECT * \nFROM \"gfa_data\" \nWHERE $timeFilter \n)",
         "hide": 0,
         "includeAll": false,
@@ -1122,11 +1135,14 @@
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
-        "type": "query",
-        "datasource": "${DS_INFLUXDB}"
+        "type": "query"
       },
       {
         "current": {},
+        "datasource": {
+          "type": "influxdb",
+          "uid": "${DS_INFLUXDB}"
+        },
         "definition": "SELECT distinct(filer_title) FROM (\nSELECT * \nFROM \"gfa_data\" \nWHERE $timeFilter  AND (\"volume_title\" =~ /^$volume$/)\n)",
         "hide": 0,
         "includeAll": true,
@@ -1139,8 +1155,7 @@
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
-        "type": "query",
-        "datasource": "${DS_INFLUXDB}"
+        "type": "query"
       }
     ]
   },
@@ -1152,6 +1167,6 @@
   "timezone": "",
   "title": "GFA :: Miscellaneous",
   "uid": "XQyncEL7k",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
