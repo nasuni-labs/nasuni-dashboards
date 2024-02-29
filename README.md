@@ -556,8 +556,6 @@ To install InfluxDB on Windows, connect to the Windows VM and follow these instr
 
 ![GFA Volumes Dashboard Screenshot](/images/GFAVolumesDashboardScreenshot.png)
 
-6. If you use the GFA Miscellaneous dashboard, install the Gantt Chart plugin. Follow the instructions https://grafana.com/grafana/plugins/marcusolsson-gantt-panel/?tab=installation to download and install the plugin.
-
 # Troubleshooting
 
 ## Data Unavailable in Performance Dashboard
