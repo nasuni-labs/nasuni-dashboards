@@ -1190,7 +1190,7 @@
       "type": "stat"
     },
     {
-      "description": "Number of connected SMB sessions.",
+      "description": "Number of connected SMB clients.",
       "fieldConfig": {
         "defaults": {
           "color": {
