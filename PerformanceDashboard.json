@@ -1069,7 +1069,7 @@
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Cache Growth",
+      "title": "Cache Utilization",
       "tooltip": {
         "shared": true,
         "sort": 0,
