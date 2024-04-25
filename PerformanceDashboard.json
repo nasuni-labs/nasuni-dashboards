@@ -659,7 +659,7 @@
         }
       ],
       "timeRegions": [],
-      "title": "CPU Load Average",
+      "title": "Load Average",
       "tooltip": {
         "shared": true,
         "sort": 0,
