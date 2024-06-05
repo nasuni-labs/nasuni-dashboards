@@ -804,7 +804,7 @@ When decommissioning a Nasuni Edge Appliance, you can optionally clean up the In
     sudo systemctl restart telegraf
     ```
     
-4.  Use the [influx delete command](https://docs.influxdata.com/influxdb/v2/write-data/delete-data/#delete-data-using-the-influx-cli) to delete data for the specified hostname, replacing the bucket, token, start and stop times, and agent_host entries that match your environment.  
+4.  Use the [Influx delete command](https://docs.influxdata.com/influxdb/v2/write-data/delete-data/#delete-data-using-the-influx-cli) to delete data for the specified hostname, replacing the bucket, token, start and stop times, and agent_host entries that match your environment. The Influx delete command requires influx 2.7.
 
     * Rocky Linux Example
     
