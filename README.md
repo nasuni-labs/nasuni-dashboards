@@ -792,11 +792,11 @@ It is easy to add performance monitoring for newly deployed Edge Appliances.
 
 ## Removing Stale Edge Appliances
 
-When decommissioning a Nasuni Edge Appliance, cleaning up the InfluxDB database to save disk space and remove stale data from Grafana is good.
+When decommissioning a Nasuni Edge Appliance, you can optionally clean up the InfluxDB database to save disk space and remove stale data.
 
 1.  To remove the Nasuni Edge Appliance IP or FQDN from Telegraf, edit the telegraf.conf file.
     
-2.  In the **[inputs.snmp]** section, update the **agents** value to remove the unwanted Edge Appliance monitor and save telegraf.conf. (Note that the last entry does not need a trailing comma.)
+2.  In the **[inputs.snmp]** section, update the **agents** value to remove the unwanted Edge Appliance hostname and save telegraf.conf. (Note that the last entry does not need a trailing comma.)
     
 3.  Start/Restart the Telegraf service:
 
@@ -804,51 +804,22 @@ When decommissioning a Nasuni Edge Appliance, cleaning up the InfluxDB database 
     sudo systemctl restart telegraf
     ```
     
-4.  Launch the influx v1 shell:
+4.  Use the [influx delete command](https://docs.influxdata.com/influxdb/v2/write-data/delete-data/#delete-data-using-the-influx-cli) to delete data for the specified hostname, replacing the bucket, token, start and stop times, and agent_host entries that match your environment.  
 
-    * Rocky Linux
+    * Rocky Linux Example
     
         ```shell
-        sudo influx v1 shell
+        influx delete --bucket "nasuni-bucket" --token "insertToken" --start 2024-03-04T22:20:20.000Z --stop 2024-06-05T22:20:20.000Z --predicate '_measurement="Nasuni" AND agent_host="demoedge3.nasunidemo.local"'
         ```
-    * Windows - Run the following PowerShell Command:
+    * Windows Example - Run the following PowerShell Command:
     
         ```PowerShell
-        cd "c:\Program Files\InfluxData\influxdb2-client"; .\influx.exe v1 shell
+        cd "c:\Program Files\InfluxData\influxdb2-client"; .\influx.exe delete --bucket "nasuni-bucket" --token "insertToken" --start 2024-03-04T22:20:20.000Z --stop 2024-06-05T22:20:20.000Z --predicate '_measurement="Nasuni" AND agent_host="demoedge3.nasunidemo.local"
         ```
-    
-5.  Access the database, replacing **bucket_name** and brackets with the value from your install:
-    
-    ```shell
-    use <bucket_name>
-    ```
-    The bucket_name is **nasuni-bucket**, or the value you supplied when "Creating the InfluxDB database" above.
-    
-6.  Display the series (a logical grouping of data defined by shared measurement, tag set, and field key):
-    
-    ```shell
-    select * from Nasuni
-    ```
-    
-7.  Identify the agent\_host to delete.
-    
-8.  Delete all data for the agent_host, replacing the **FQDN** and brackets with the case-sensitive FQDN:
 
-    ```shell
-    DELETE FROM "Nasuni" where agent_host = '<FQDN>'
-    ```
-
-9. Verify if the command was successful:
+5. Use Grafana to verify that the NEA has been removed.
     
-    ```shell
-    select * from Nasuni
-    ```
 
-10. Exit:
-    
-    ```shell
-    exit
-    ```
     
 
 
