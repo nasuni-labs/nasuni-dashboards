@@ -1,0 +1,36 @@
+version: '3'
+services:
+  telegraf:
+    image: telegraf:1.8
+    links:
+      - influxdb
+    volumes:
+      - /opt/tig/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+  influxdb:
+    image: influxdb:1.8
+    volumes:
+      # Mount for influxdb data directory and configuration
+      - /opt/tig/influx/data:/var/lib/influxdb:rw
+    ports:
+      - "8086:8086"
+  loki:
+    image: grafana/loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - /opt/tig/loki:/mnt/loki:rw
+    command: -config.file=/mnt/loki/loki-config.yaml
+  grafana:
+    image: grafana/grafana
+    links:
+      - influxdb
+    ports:
+      - "3000:3000"
+    volumes:
+      - /opt/tig/grafana/data:/var/lib/grafana:rw
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_NAME=NAA Devops
+networks:
+  default:
+    name: tig
