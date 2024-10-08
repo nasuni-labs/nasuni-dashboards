@@ -772,7 +772,7 @@ To edit the telegraf.conf file:
  * Rocky Linux
     
    ```shell
-   systemctl restart telegraf
+   sudo systemctl restart telegraf
    ```
     
 * Windows
