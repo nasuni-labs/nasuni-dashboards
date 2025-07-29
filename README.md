@@ -2,6 +2,13 @@
 
 Nasuni Dashboards provide a framework for viewing time series data across a customer's entire Nasuni stack. Supported data sources include Edge Appliance SNMP data, Global File Acceleration (GFA) Telemetry REST API, and the Nasuni Access Anywhere (NAA) monitoring API.
 
+
+> 💡 **Tip**  
+> Want a faster path to the value of Nasuni Dashboards? Ops IQ is a new product from Nasuni that builds on that success — now fully integrated into the Nasuni Portal with nothing to install. Ops IQ delivers real-time operational intelligence and infrastructure awareness, giving IT teams an interactive view of system health and performance across all Edges and volumes.  
+> [Learn more →](https://docs.nasuni.com/docs/ops-iq-1)
+
+
+
 # Components
 
 *   Telegraf is an agent for collecting, processing, aggregating, and writing metrics.
