@@ -45,7 +45,7 @@ Nasuni Dashboards has been validated with these component versions:
 
 * OSes: 
 
-  - Rocky Linux 8.6, 9.0, or 9.2 minimal, sourced from cloud marketplace offerings or Rocky Linux ISO
+  - Rocky Linux 8.6, 9.0, 9.2, or 9.6 minimal, sourced from cloud marketplace offerings or Rocky Linux ISO
 
   - Windows Server 2019 or 2022 64-bit (x86)
 
