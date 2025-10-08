@@ -109,7 +109,7 @@ To use the GFA Telemetry API:
 
 *   You must have a volume under GFA management (Active or Observation mode)
 
-*   You must create a Global File Accelerator API key using [Nasuni Portal](https://portal.nasuni.com/). Note: If the link is not accessible, you may not be licensed for GFA. Contact your Nasuni Account Manager for assistance.
+*   You must create a Global File Accelerator API key using [Nasuni Portal](https://portal.nasuni.com/). \
 
 ## Nasuni Access Anywhere Monitoring API (Optional)
 Nasuni Access Anywhere can be extended to provide a rich metrics API that can provide a dashboard of system and application metrics.
